@@ -25,4 +25,6 @@
 
     <!-- Tax -->
     <string name="tax_Document">Documento</string>
+
+    <string name="harcode_login">Login Harcode</string>
 </resources>
