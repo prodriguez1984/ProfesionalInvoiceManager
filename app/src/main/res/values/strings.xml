@@ -13,4 +13,16 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="apiKey">AIzaSyBw4BhLtnJazi9mWSppDMPrN_yXo6UyyCM</string>
+    <string name="title_activity_industry">Industry</string>
+
+    <!-- Industry -->
+    <string name="industry_name">Actividad</string>
+    <string name="industry_adress">Dirección</string>
+    <string name="industry_mail">Mail</string>
+    <string name="industry_telephone">Teléfono</string>
+    <string name="industry_cellphone">Celular</string>
+
+    <!-- Tax -->
+    <string name="tax_Document">Documento</string>
 </resources>
