@@ -1,33 +1,97 @@
 package com.ort.profesionalinvoicemanager.model.base;
 
-import java.util.Date;
+import android.content.ContentValues;
 
-public class PersistentObject {
-    private Long oid;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
+
+public abstract class PersistentObject {
+    private static String KEY_OID="OID";
+    private static String KEY_CREATION_TIMESTAMP="CREATION_TIMESTAMP";
+    private static String KEY_MODIFICATION_TIMESTAMP="MODIFICATION_TIMESTAMP";
+    private String oid;
     private Date creationTimestamp;
     private Date modificationTimestamp;
 
-    public Long getOid() {
+    public PersistentObject() {
+        oid=UUID.randomUUID().toString();
+    }
+
+    public abstract String getTableName();
+    public abstract ArrayList<PersistentField> getFieldsForTableCreation();
+
+
+    protected abstract ContentValues toParticularContentValues(ContentValues values);
+
+    public ContentValues toContentValues(){
+        ContentValues values=new ContentValues();
+        values.put(KEY_OID,oid);
+        if (creationTimestamp==null){
+            creationTimestamp=new Date();
+        }
+        values.put(KEY_CREATION_TIMESTAMP,creationTimestamp.toString());
+        if (modificationTimestamp!=null) {
+            values.put(KEY_MODIFICATION_TIMESTAMP, modificationTimestamp.toString());
+        }
+        return toParticularContentValues(values);
+    }
+
+    public String getCreationScript() {
+        StringBuffer query=new StringBuffer();
+        query.append("CREATE TABLE ");
+        query.append(getTableName());
+        query.append(" (OID  TEXT, CREATION_TIMESTAMP TEXT, MODIFICATION_TIMESTAMP TEXT, ");
+        for (PersistentField field:getFieldsForTableCreation()){
+            query.append(getFieldStringForCreation(field.getFieldName(),field.getType(),field.isManadatory));
+        }
+        query.append(" UNIQUE (OID))");
+
+        return query.toString();
+    }
+
+    private String getFieldStringForCreation(String fieldName,SQLiteDateType type,boolean mandatory){
+        StringBuffer query=new StringBuffer();
+        query.append(" ");
+            query.append(fieldName);
+            query.append(" ");
+            query.append(type);
+            if(mandatory){
+                query.append(" NOT NULL");
+            }
+        query.append(", ");
+        return query.toString();
+    }
+
+    public String getOid() {
         return oid;
     }
 
-    public void setOid(Long oid) {
+    public void setOid(String oid) {
         this.oid = oid;
     }
 
-    public Date getCreationTimestamp() {
-        return creationTimestamp;
-    }
+    public class PersistentField {
+        private String fieldName;
+        private SQLiteDateType type;
+        private boolean isManadatory;
 
-    public void setCreationTimestamp(Date creationTimestamp) {
-        this.creationTimestamp = creationTimestamp;
-    }
+        public PersistentField(String fieldName, SQLiteDateType type, boolean isManadatory) {
+            this.fieldName = fieldName;
+            this.type = type;
+            this.isManadatory = isManadatory;
+        }
 
-    public Date getModificationTimestamp() {
-        return modificationTimestamp;
-    }
+        public String getFieldName() {
+            return fieldName;
+        }
 
-    public void setModificationTimestamp(Date modificationTimestamp) {
-        this.modificationTimestamp = modificationTimestamp;
+        public SQLiteDateType getType() {
+            return type;
+        }
+
+        public boolean isManadatory() {
+            return isManadatory;
+        }
     }
 }

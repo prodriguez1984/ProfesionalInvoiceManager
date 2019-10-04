@@ -1,9 +1,48 @@
 package com.ort.profesionalinvoicemanager.model.tax;
 
-public class DocumentType {
+import android.content.ContentValues;
+
+import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
+
+import java.util.ArrayList;
+
+public class DocumentType extends PersistentObject {
+    private final String KEY_CODE="CODE";
+    private final String KEY_DESCRIPTION="DESCRIPTION";
+
     private Integer code;
-    private String type;
     private String description;
+
+    public DocumentType(){
+        super();
+    }
+
+    public DocumentType(Integer code, String description) {
+        this();
+        this.code = code;
+        this.description = description;
+    }
+
+    @Override
+    public String getTableName() {
+        return "DOCUMENT_TYPE";
+    }
+
+    @Override
+    public ArrayList<PersistentField> getFieldsForTableCreation() {
+        ArrayList<PersistentField> fields=new ArrayList<>();
+        fields.add (new PersistentField(KEY_CODE, SQLiteDateType.TEXT,true));
+        fields.add (new PersistentField(KEY_DESCRIPTION, SQLiteDateType.TEXT,true));
+        return fields;
+    }
+
+    @Override
+    protected ContentValues toParticularContentValues(ContentValues values) {
+        values.put(KEY_CODE,getCode());
+        values.put(KEY_DESCRIPTION,getDescription());
+        return values;
+    }
 
     public Integer getCode() {
         return code;
@@ -11,14 +50,6 @@ public class DocumentType {
 
     public void setCode(Integer code) {
         this.code = code;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getDescription() {

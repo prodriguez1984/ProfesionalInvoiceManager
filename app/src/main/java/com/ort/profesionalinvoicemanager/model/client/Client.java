@@ -1,8 +1,13 @@
 package com.ort.profesionalinvoicemanager.model.client;
 
+import android.content.ContentValues;
+
+import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
 import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
-public class Client {
+import java.util.ArrayList;
+
+public class Client extends PersistentObject {
     private TaxInformation taxInformation;
     private String name;
     private String lastName;
@@ -38,5 +43,20 @@ public class Client {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String getTableName() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<PersistentField> getFieldsForTableCreation() {
+        return null;
+    }
+
+    @Override
+    protected ContentValues toParticularContentValues(ContentValues values) {
+        return null;
     }
 }

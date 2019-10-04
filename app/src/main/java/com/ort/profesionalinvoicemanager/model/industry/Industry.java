@@ -1,12 +1,23 @@
 package com.ort.profesionalinvoicemanager.model.industry;
 
+import android.content.ContentValues;
+
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
-import com.ort.profesionalinvoicemanager.model.tax.MonotributoCategory;
+import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Industry extends PersistentObject {
+    private final String KEY_NAME = "NAME";
+    private final String KEY_ADDRESS = "ADDRESS";
+    private final String KEY_MAIL = "MAIL";
+    private final String KEY_TELEPHONE = "TELEPHONE";
+    private final String KEY_CELLPHONE = "CELLPHONE";
+    private final String KEY_ACTIVITY_START = "ACTIVITY_START";
+    private final String KEY_TAX_INFORMATION = "TAX_INFORMATION";
+
     private String name;
     private String address;
     private String mail;
@@ -15,56 +26,88 @@ public class Industry extends PersistentObject {
     private Date activityStart;
     private TaxInformation taxInformation;
 
-    public String getName() {
-        return name;
+
+    @Override
+    public String getTableName() {
+        return "INDUSTRY";
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public ArrayList<PersistentField> getFieldsForTableCreation() {
+        ArrayList<PersistentField> fields = new ArrayList<>();
+        fields.add(new PersistentField(KEY_NAME, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_ADDRESS, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_MAIL, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_TELEPHONE, SQLiteDateType.TEXT, false));
+        fields.add(new PersistentField(KEY_CELLPHONE, SQLiteDateType.TEXT, false));
+        fields.add(new PersistentField(KEY_ACTIVITY_START, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_TAX_INFORMATION, SQLiteDateType.TEXT, true));
+        return fields;
+    }
+
+    @Override
+    protected ContentValues toParticularContentValues(ContentValues values) {
+        values.put(KEY_NAME, getName());
+        values.put(KEY_ADDRESS, getAddress());
+        values.put(KEY_MAIL, getMail());
+        values.put(KEY_TELEPHONE, getTelephone());
+        values.put(KEY_CELLPHONE, getCellphone());
+        values.put(KEY_ACTIVITY_START, getActivityStart().toString());
+        values.put(KEY_TAX_INFORMATION, getTaxInformation().getOid());
+
+        return values;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getMail() {
         return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
     public String getCellphone() {
         return cellphone;
-    }
-
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
     }
 
     public Date getActivityStart() {
         return activityStart;
     }
 
-    public void setActivityStart(Date activityStart) {
-        this.activityStart = activityStart;
-    }
-
     public TaxInformation getTaxInformation() {
         return taxInformation;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
+
+    public void setActivityStart(Date activityStart) {
+        this.activityStart = activityStart;
     }
 
     public void setTaxInformation(TaxInformation taxInformation) {
