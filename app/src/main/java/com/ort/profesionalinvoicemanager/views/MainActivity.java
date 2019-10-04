@@ -1,5 +1,6 @@
 package com.ort.profesionalinvoicemanager.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
 
         TextView mail=navigationView.getHeaderView(0).findViewById(R.id.lblMail);
         mail.setText(this.getIntent().getExtras().getString("mail"));
+
+        Button btnPrueba = findViewById(R.id.btnPrueba);
+        btnPrueba.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),Industry.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
