@@ -8,7 +8,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_Industry">Actividad/Industria</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
@@ -35,6 +35,14 @@
     <!-- Tax -->
     <string name="tax_Document">Documento</string>
 
+    <!--Client-->
+    <string name="client_name">Nombre</string>
+    <string name="client_Lastname">Apellido</string>
+    <string name="client_Adress">Dirección</string>
+
     <string name="harcode_login">Login Harcode</string>
     <string name="title_activity_sign_up">SignUp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
