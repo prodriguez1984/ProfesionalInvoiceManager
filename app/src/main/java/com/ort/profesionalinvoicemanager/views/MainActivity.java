@@ -6,8 +6,12 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -68,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        btnPrueba.setVisibility(View.INVISIBLE);
+
+        navigationView.setNavigationItemSelectedListener(new ListenerMenu());
+
+
+
     }
 
     @Override
@@ -82,5 +92,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private class ListenerMenu implements NavigationView.OnNavigationItemSelectedListener{
+        @Override
+        public boolean onNavigationItemSelected(MenuItem item) {
+            if( item.getItemId() == R.id.nav_industry ){
+                Fragment industryFragment = new Industry();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction unFragmentTransaction = fragmentManager.beginTransaction();
+                unFragmentTransaction.replace(R.id.nav_host_fragment,industryFragment);
+                unFragmentTransaction.commit();
+            }
+            return true;
+        }
     }
 }
