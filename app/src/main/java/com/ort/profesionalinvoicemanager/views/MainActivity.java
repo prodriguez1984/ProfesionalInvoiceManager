@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
     public static final String GOOGLE_ACCOUNT = "google_account";
 

@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name_title">Profesional Invoice Manager</string>
     <string name="app_name">ProfesionalInvoiceManager</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -16,6 +17,14 @@
     <string name="apiKey">AIzaSyBw4BhLtnJazi9mWSppDMPrN_yXo6UyyCM</string>
     <string name="title_activity_industry">Industry</string>
 
+    <!-- Login -->
+    <string name="login_username">Username</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_signUp">Registrarse</string>
+
+    <!-- Sign Up -->
+    <string name="signUp_password">Contraseña</string>
+    <string name="signUp_repeatPassword">Repetir Contraseña</string>
     <!-- Industry -->
     <string name="industry_name">Actividad</string>
     <string name="industry_adress">Dirección</string>
@@ -27,4 +36,5 @@
     <string name="tax_Document">Documento</string>
 
     <string name="harcode_login">Login Harcode</string>
+    <string name="title_activity_sign_up">SignUp</string>
 </resources>

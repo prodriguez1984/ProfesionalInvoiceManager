@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
-    android:background="@color/primary">
+    android:background="@color/primary"
+    tools:context=".SignUp">
+
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView"
-        android:layout_width="340dp"
+        android:layout_width="335dp"
         android:layout_height="60dp"
         android:layout_marginTop="80dp"
         android:autoText="true"
@@ -18,9 +20,11 @@
         android:textFontWeight="200"
         android:textSize="50dp"
         app:autoSizeTextType="uniform"
+        app:layout_anchorGravity="end|center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/border_box"
         app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textview.MaterialTextView>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -47,41 +51,39 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/loginPassword"
+        android:id="@+id/signUpPassword"
         android:layout_width="340dp"
         android:layout_height="44dp"
         android:layout_marginBottom="248dp"
-        android:hint="@string/login_password"
+        android:hint="@string/signUp_password"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_in_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/signUpRepeatPassword"
+        android:layout_width="340dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="184dp"
+        android:hint="@string/signUp_repeatPassword"
         app:layout_constraintBottom_toBottomOf="@+id/sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnHardcodeLogin"
-        android:layout_width="159dp"
-        android:layout_height="49dp"
-        android:background="@color/secondary_text"
-        android:text="@string/harcode_login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.647" />
-
-    <Button
         android:id="@+id/btnSignUp"
         android:layout_width="158dp"
         android:layout_height="56dp"
-        android:background="@color/secondary_text"
+        android:background="#00BCD4"
         android:text="@string/login_signUp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.756" />
+        app:layout_constraintVertical_bias="0.776" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
