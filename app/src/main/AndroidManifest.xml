@@ -11,6 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SignUp"
+            android:label="@string/title_activity_sign_up"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Industry"
             android:label="@string/title_activity_industry"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -31,6 +35,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/apiKey" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
