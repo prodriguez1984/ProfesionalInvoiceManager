@@ -9,10 +9,13 @@ import com.google.android.material.snackbar.Snackbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -28,9 +31,10 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private DrawerLayout drawer;
     public static final String GOOGLE_ACCOUNT = "google_account";
 
     @Override
@@ -47,38 +51,35 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        //le paso this, haciendo alución a la interfaz OnNavigationItemSelectedListener
+        navigationView.setNavigationItemSelectedListener(this);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.nav_industry, R.id.nav_client, R.id.nav_slideshow,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        TextView user=(TextView) navigationView.getHeaderView(0).findViewById(R.id.lblName);
+        TextView user = (TextView) navigationView.getHeaderView(0).findViewById(R.id.lblName);
         user.setText(this.getIntent().getExtras().getString("user"));
 
-        TextView mail=navigationView.getHeaderView(0).findViewById(R.id.lblMail);
+        TextView mail = navigationView.getHeaderView(0).findViewById(R.id.lblMail);
         mail.setText(this.getIntent().getExtras().getString("mail"));
 
         Button btnPrueba = findViewById(R.id.btnPrueba);
         btnPrueba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Industry.class);
+                Intent i = new Intent(getApplicationContext(), Industry.class);
                 startActivity(i);
             }
         });
         btnPrueba.setVisibility(View.INVISIBLE);
-
-        navigationView.setNavigationItemSelectedListener(new ListenerMenu());
-
-
-
     }
 
     @Override
@@ -95,17 +96,29 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private class ListenerMenu implements NavigationView.OnNavigationItemSelectedListener{
-        @Override
-        public boolean onNavigationItemSelected(MenuItem item) {
-            if( item.getItemId() == R.id.nav_industry ){
-                Fragment industryFragment = new Industry();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction unFragmentTransaction = fragmentManager.beginTransaction();
-                unFragmentTransaction.replace(R.id.nav_host_fragment,industryFragment);
-                unFragmentTransaction.commit();
-            }
-            return true;
-        }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_industry:
+                Fragment industryFragment = new Industry();
+                getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.nav_host_fragment, industryFragment)
+                                                .commit();
+                break;
+            case R.id.nav_client:
+                Fragment clientFragment = new Client();
+                getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.nav_host_fragment, clientFragment)
+                                                .commit();
+                break;
+        }
+        return true;
+    }
+
 }
