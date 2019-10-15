@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -18,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.ort.profesionalinvoicemanager.model.ViewModels.LoginViewModel;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteManager;
 
 public class Login extends AppCompatActivity {
@@ -25,10 +28,11 @@ public class Login extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
     private SignInButton googleSignInButton;
     private Button btnSignUp;
-
+    ViewModel loginViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         SQLiteManager d = new SQLiteManager(getApplicationContext());
         final SQLiteDatabase db = d.getReadableDatabase();
         setContentView(R.layout.activity_login);
