@@ -10,12 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -75,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         btnPrueba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Industry.class);
+                Intent i = new Intent(getApplicationContext(), IndustryFragment.class);
                 startActivity(i);
             }
         });
@@ -106,13 +102,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_industry:
-                Fragment industryFragment = new Industry();
+                Fragment industryFragment = new IndustryFragment();
                 getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.nav_host_fragment, industryFragment)
                                                 .commit();
                 break;
             case R.id.nav_client:
-                Fragment clientFragment = new Client();
+                Fragment clientFragment = new ClientFragment();
                 getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.nav_host_fragment, clientFragment)
                                                 .commit();

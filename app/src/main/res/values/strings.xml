@@ -25,7 +25,7 @@
     <!-- Sign Up -->
     <string name="signUp_password">Contraseña</string>
     <string name="signUp_repeatPassword">Repetir Contraseña</string>
-    <!-- Industry -->
+    <!-- IndustryFragment -->
     <string name="industry_name">Actividad</string>
     <string name="industry_adress">Dirección</string>
     <string name="industry_mail">Mail</string>
@@ -35,7 +35,7 @@
     <!-- Tax -->
     <string name="tax_Document">Documento</string>
 
-    <!--Client-->
+    <!--ClientFragment-->
     <string name="client_name">Nombre</string>
     <string name="client_Lastname">Apellido</string>
     <string name="client_Adress">Dirección</string>
