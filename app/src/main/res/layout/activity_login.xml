@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
+    tools:context=".LoginActivity"
     android:background="@color/primary">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView"
         android:layout_width="340dp"
         android:layout_height="60dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:autoText="true"
         android:fontFamily="@font/pathway_gothic_one"
         android:text="@string/app_name_title"
@@ -59,12 +59,14 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnHardcodeLogin"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="159dp"
         android:layout_height="49dp"
-        android:background="@color/secondary_text"
+        android:backgroundTint="@color/secondary_text"
         android:text="@string/harcode_login"
+        app:backgroundTint="#00640F0F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.455"
@@ -72,11 +74,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.647" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignUp"
         android:layout_width="158dp"
         android:layout_height="56dp"
-        android:background="@color/secondary_text"
+        android:backgroundTint="@color/secondary_text"
         android:text="@string/login_signUp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +91,7 @@
         android:id="@+id/sign_in_button"
         android:layout_width="144dp"
         android:layout_height="42dp"
+        android:background="@color/secondary_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"

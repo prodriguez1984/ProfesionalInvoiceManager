@@ -10,7 +10,7 @@
     </style>
 
     <style name="Widget.MyApp.MyButton" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">?attr/colorOnBackground</item>
+        <item name="colorAccent">@android:color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
