@@ -1,4 +1,4 @@
-package com.ort.profesionalinvoicemanager.model;
+package com.ort.profesionalinvoicemanager.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -29,7 +29,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public LiveData<String> getUsername() {
-        return userName.getValue();
+        return userName;
     }
     public LiveData<String> getPassword() {
         return password;

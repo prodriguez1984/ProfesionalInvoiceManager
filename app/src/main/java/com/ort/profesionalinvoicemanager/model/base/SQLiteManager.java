@@ -53,7 +53,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     }
 
-    public void createinitialData(SQLiteDatabase db) {
+    private void createinitialData(SQLiteDatabase db) {
         ArrayList<PersistentObject> mockObjects=new ArrayList<>();
 
         mockObjects.add(new IvaCategory(new Integer(1),"IVA Responsable Inscripto"));

@@ -20,10 +20,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.ort.profesionalinvoicemanager.model.ViewModels.LoginViewModel;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteManager;
+import com.ort.profesionalinvoicemanager.viewmodel.LoginViewModel;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "AndroidClarified";
     private GoogleSignInClient googleSignInClient;
     private SignInButton googleSignInButton;
