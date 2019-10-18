@@ -2,12 +2,12 @@ package com.ort.profesionalinvoicemanager.model.tax;
 
 import android.content.ContentValues;
 
-import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.base.PersistentObjectWithLogicalDeletion;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 
 import java.util.ArrayList;
 
-public class TaxInformation extends PersistentObject {
+public class TaxInformation extends PersistentObjectWithLogicalDeletion {
     private final String KEY_IIBB ="IIBB";
     private final String KEY_DOCUMENT_NUMBER ="DOCUMENT_NUMBER";
     private final String KEY_DOCUMENT_TYPE ="DOCUMENT_TYPE";

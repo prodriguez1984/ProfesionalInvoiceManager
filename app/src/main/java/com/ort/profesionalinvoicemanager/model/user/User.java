@@ -2,18 +2,19 @@ package com.ort.profesionalinvoicemanager.model.user;
 
 import android.content.ContentValues;
 
-import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.base.PersistentObjectWithLogicalDeletion;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import com.ort.profesionalinvoicemanager.model.industry.Industry;
 
 import java.util.ArrayList;
 
-public class User extends PersistentObject {
+public class User extends PersistentObjectWithLogicalDeletion {
 
-    private final String KEY_USER ="USER_NAME";
-    private final String KEY_PASS ="PASSWORD";
-    private final String KEY_MAIL ="MAIL";
-    private final String KEY_INDUSTRY ="INDUSTRY_OID";
+    public static final String TABLE="USER";
+    public static final String KEY_USER ="USER_NAME";
+    public static final String KEY_PASS ="PASSWORD";
+    public static final String KEY_MAIL ="MAIL";
+    public static final String KEY_INDUSTRY ="INDUSTRY_OID";
 
     private String userName;
     private String password;
@@ -26,7 +27,7 @@ public class User extends PersistentObject {
 
     @Override
     public String getTableName() {
-        return "USER";
+        return TABLE;
     }
 
     @Override

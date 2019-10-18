@@ -2,14 +2,14 @@ package com.ort.profesionalinvoicemanager.model.industry;
 
 import android.content.ContentValues;
 
-import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.base.PersistentObjectWithLogicalDeletion;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Industry extends PersistentObject {
+public class Industry extends PersistentObjectWithLogicalDeletion {
     private final String KEY_NAME = "NAME";
     private final String KEY_ADDRESS = "ADDRESS";
     private final String KEY_MAIL = "MAIL";

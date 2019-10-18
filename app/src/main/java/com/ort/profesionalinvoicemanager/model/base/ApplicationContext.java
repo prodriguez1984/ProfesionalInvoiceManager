@@ -23,4 +23,7 @@ public class ApplicationContext {
         db=new SQLiteManager(context);
     }
 
+    public SQLiteManager getDb() {
+        return db;
+    }
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public abstract class PersistentObject {
-    private static String KEY_OID="OID";
+    public static String KEY_OID="OID";
     private static String KEY_CREATION_TIMESTAMP="CREATION_TIMESTAMP";
     private static String KEY_MODIFICATION_TIMESTAMP="MODIFICATION_TIMESTAMP";
     private String oid;
@@ -25,6 +25,11 @@ public abstract class PersistentObject {
     protected abstract ContentValues toParticularContentValues(ContentValues values);
 
     public ContentValues toContentValues(){
+        ContentValues values=initializeContentValues();
+        return toParticularContentValues(values);
+    }
+
+    protected ContentValues initializeContentValues(){
         ContentValues values=new ContentValues();
         values.put(KEY_OID,oid);
         if (creationTimestamp==null){
@@ -34,14 +39,11 @@ public abstract class PersistentObject {
         if (modificationTimestamp!=null) {
             values.put(KEY_MODIFICATION_TIMESTAMP, modificationTimestamp.toString());
         }
-        return toParticularContentValues(values);
+        return values;
     }
 
     public String getCreationScript() {
-        StringBuffer query=new StringBuffer();
-        query.append("CREATE TABLE ");
-        query.append(getTableName());
-        query.append(" (OID  TEXT, CREATION_TIMESTAMP TEXT, MODIFICATION_TIMESTAMP TEXT, ");
+        StringBuffer query=initializeCreationQuery();
         for (PersistentField field:getFieldsForTableCreation()){
             query.append(getFieldStringForCreation(field.getFieldName(),field.getType(),field.isManadatory));
         }
@@ -50,7 +52,15 @@ public abstract class PersistentObject {
         return query.toString();
     }
 
-    private String getFieldStringForCreation(String fieldName,SQLiteDateType type,boolean mandatory){
+    protected StringBuffer initializeCreationQuery(){
+        StringBuffer query=new StringBuffer();
+        query.append("CREATE TABLE ");
+        query.append(getTableName());
+        query.append(" (OID  TEXT, CREATION_TIMESTAMP TEXT, MODIFICATION_TIMESTAMP TEXT, ");
+        return query;
+    }
+
+    protected String getFieldStringForCreation(String fieldName,SQLiteDateType type,boolean mandatory){
         StringBuffer query=new StringBuffer();
         query.append(" ");
             query.append(fieldName);
@@ -61,6 +71,10 @@ public abstract class PersistentObject {
             }
         query.append(", ");
         return query.toString();
+    }
+
+    protected boolean physicalDelete(){
+        return true;
     }
 
     public String getOid() {
@@ -93,5 +107,9 @@ public abstract class PersistentObject {
         public boolean isManadatory() {
             return isManadatory;
         }
+    }
+
+    protected void updateObject(){
+        modificationTimestamp=new Date();
     }
 }
