@@ -1,3 +1,4 @@
+        if (alreadyloggedAccount != null) {
 package com.ort.profesionalinvoicemanager.views;
 
 import android.app.Activity;
