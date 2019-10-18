@@ -17,8 +17,8 @@
     <string name="apiKey">AIzaSyBw4BhLtnJazi9mWSppDMPrN_yXo6UyyCM</string>
     <string name="title_activity_industry">Industry</string>
 
-    <!-- Login -->
-    <string name="login_username">Username</string>
+    <!-- LoginActivity -->
+    <string name="login_username">Usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_signUp">Registrarse</string>
 

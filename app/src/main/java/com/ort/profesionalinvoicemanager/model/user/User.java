@@ -24,6 +24,12 @@ public class User extends PersistentObject {
         super();
     }
 
+    public User(String userName, String password){
+        this();
+        this.userName = userName;
+        this.password = password;
+    }
+
     @Override
     public String getTableName() {
         return "USER";

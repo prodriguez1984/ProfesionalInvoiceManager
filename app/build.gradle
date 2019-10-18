@@ -21,6 +21,9 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -32,11 +35,17 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+
     implementation 'com.google.android.gms:play-services-plus:16.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha10'
+
+    def life_versions = "2.0.0"
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$life_versions"
+    //annotationProcessor "androidx.lifecycle:compiler:$life_versions"
 }
