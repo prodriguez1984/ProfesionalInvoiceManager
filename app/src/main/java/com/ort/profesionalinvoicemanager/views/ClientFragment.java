@@ -1,6 +1,5 @@
 package com.ort.profesionalinvoicemanager.views;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,12 +13,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Client.OnFragmentInteractionListener} interface
+ * {@link ClientFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Client#newInstance} factory method to
+ * Use the {@link ClientFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Client extends Fragment {
+public class ClientFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +30,7 @@ public class Client extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Client() {
+    public ClientFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +40,11 @@ public class Client extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Client.
+     * @return A new instance of fragment ClientFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Client newInstance(String param1, String param2) {
-        Client fragment = new Client();
+    public static ClientFragment newInstance(String param1, String param2) {
+        ClientFragment fragment = new ClientFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

@@ -25,6 +25,12 @@ public class User extends PersistentObjectWithLogicalDeletion {
         super();
     }
 
+    public User(String userName, String password){
+        this();
+        this.userName = userName;
+        this.password = password;
+    }
+
     @Override
     public String getTableName() {
         return TABLE;

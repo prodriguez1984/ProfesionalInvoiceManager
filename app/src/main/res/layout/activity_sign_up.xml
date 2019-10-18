@@ -8,7 +8,7 @@
     tools:context=".SignUpActivity">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView"
+        android:id="@+id/idTxtViewTitleSignUp"
         android:layout_width="335dp"
         android:layout_height="60dp"
         android:layout_marginTop="80dp"
@@ -26,59 +26,67 @@
         app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textview.MaterialTextView>
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/idImgSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/loginUsername"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/idTxtViewTitleSignUp"
         app:srcCompat="@mipmap/icono_facturacion_round">
 
     </androidx.appcompat.widget.AppCompatImageView>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/loginUsername"
-        android:layout_width="340dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="320dp"
-        android:hint="@string/login_username"
-        app:layout_constraintBottom_toBottomOf="@+id/sign_in_button"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiloUsernameSignUp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/idImgSignUp"
+        app:layout_constraintVertical_bias="0.109">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/signUpPassword"
-        android:layout_width="340dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="248dp"
-        android:hint="@string/signUp_password"
-        app:layout_constraintBottom_toBottomOf="@+id/sign_in_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUsernameSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_username" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/signUpRepeatPassword"
-        android:layout_width="340dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="184dp"
-        android:hint="@string/signUp_repeatPassword"
-        app:layout_constraintBottom_toBottomOf="@+id/sign_in_button"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiloPasswordSignUp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tiloUsernameSignUp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPasswordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:hint="@string/login_password" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSignUp"
+        android:id="@+id/idBtnSignUp"
         android:layout_width="158dp"
         android:layout_height="56dp"
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:background="@color/common_google_signin_btn_text_dark_default"
         android:text="@string/login_signUp"
+        android:backgroundTint="@color/secondary_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.458"
@@ -87,7 +95,7 @@
         app:layout_constraintVertical_bias="0.776" />
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+        android:id="@+id/sign_in_buttonLogin"
         android:layout_width="144dp"
         android:layout_height="42dp"
         app:layout_constraintBottom_toBottomOf="parent"
