@@ -1,6 +1,9 @@
 package com.ort.profesionalinvoicemanager.DAO;
 
+import android.database.Cursor;
+
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
+import com.ort.profesionalinvoicemanager.model.user.User;
 
 public class UserDAO extends AbstractDao {
 
