@@ -55,7 +55,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     private void createinitialData(SQLiteDatabase db) {
         ArrayList<PersistentObject> mockObjects=new ArrayList<>();
-
+        mockObjects.add(new User("Pablo Rodriguez","123456","pablorodri1984@gmail.com"));
         mockObjects.add(new IvaCategory(new Integer(1),"IVA Responsable Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(2),"IVA Responsable no Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(3),"IVA no Responsable"));

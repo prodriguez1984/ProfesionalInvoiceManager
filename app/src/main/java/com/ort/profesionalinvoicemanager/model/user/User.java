@@ -25,10 +25,11 @@ public class User extends PersistentObjectWithLogicalDeletion {
         super();
     }
 
-    public User(String userName, String password){
+    public User(String userName, String password, String mail) {
         this();
         this.userName = userName;
         this.password = password;
+        this.mail = mail;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class User extends PersistentObjectWithLogicalDeletion {
         fields.add (new PersistentField(KEY_USER, SQLiteDateType.TEXT,true));
         fields.add (new PersistentField(KEY_PASS, SQLiteDateType.TEXT,true));
         fields.add (new PersistentField(KEY_MAIL, SQLiteDateType.TEXT,true));
-        fields.add (new PersistentField(KEY_INDUSTRY, SQLiteDateType.TEXT,true));
+        fields.add (new PersistentField(KEY_INDUSTRY, SQLiteDateType.TEXT,false));
         return fields;
     }
 
@@ -51,7 +52,7 @@ public class User extends PersistentObjectWithLogicalDeletion {
         values.put(KEY_USER,getUserName());
         values.put(KEY_PASS,getPassword());
         values.put(KEY_MAIL,getMail());
-        values.put(KEY_INDUSTRY,getIndustry().getOid());
+       // values.put(KEY_INDUSTRY,getIndustry().getOid());
         return values;
     }
 
