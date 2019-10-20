@@ -6,8 +6,20 @@ import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.user.User;
 
 public class UserDAO extends AbstractDao {
+    private static UserDAO instance;
 
-    public void saveUser(User u)throws Exception {
+    private UserDAO() {
+        super();
+    }
+
+    public static UserDAO getInstance() {
+        if (instance == null) {
+            instance = new UserDAO();
+        }
+        return instance;
+    }
+
+    public void saveUser(User u) throws Exception {
         super.clearObjects();
         super.addObjectToManipulate(u);
         super.addObjectToManipulate(u.getIndustry());
@@ -16,13 +28,7 @@ public class UserDAO extends AbstractDao {
     }
 
     public User getUserByName(String name) {
-        Cursor c = executeQuery(User.TABLE,
-                null,
-                User.KEY_USER + " = ?",
-                new String[]{name},
-                null,
-                null,
-                null);
+        Cursor c = executeSqlQuery("Select * from USER where USER_NAME = ? and ACTIVE=1", new String[]{name});
         if (c.getCount() == 0) {
             return null;
         }
@@ -35,25 +41,16 @@ public class UserDAO extends AbstractDao {
     }
 
     public User getUserByMail(String mail) {
-        Cursor c = executeQuery(User.TABLE,
-                null,
-                User.KEY_MAIL + " = ?",
-                new String[]{mail},
-                null,
-                null,
-                null);
+        Cursor c = executeSqlQuery("Select * from USER where MAIL = ? and ACTIVE=1", new String[]{mail});
         if (c.getCount() == 0) {
             return null;
         }
+        c.moveToFirst();
         User u = new User();
-        u.setOid(c.getString(c.getColumnIndex(User.KEY_USER)));
+        u.setOid(c.getString(c.getColumnIndex(User.KEY_OID)));
         u.setMail(c.getString(c.getColumnIndex(User.KEY_MAIL)));
         u.setPassword(c.getString(c.getColumnIndex(User.KEY_PASS)));
         u.setUserName(c.getString(c.getColumnIndex(User.KEY_USER)));
         return u;
     }
-
-
-
-
 }

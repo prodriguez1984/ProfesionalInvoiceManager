@@ -1,9 +1,7 @@
-        if (alreadyloggedAccount != null) {
 package com.ort.profesionalinvoicemanager.views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,10 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -29,10 +24,9 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
+import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.model.user.User;
 import com.ort.profesionalinvoicemanager.viewmodel.LoginViewModel;
-import com.ort.profesionalinvoicemanager.model.base.SQLiteManager;
-import com.ort.profesionalinvoicemanager.viewmodel.ResultData;
 import com.ort.profesionalinvoicemanager.views.databinding.ActivityLoginBinding;
 
 import java.util.Objects;
@@ -58,15 +52,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
+        ApplicationContext.getInstance().init(getApplicationContext());
         setContentView(R.layout.activity_login);
-        getUser();
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         configView();
-        SQLiteManager d = new SQLiteManager(getApplicationContext());
-        final SQLiteDatabase db = d.getReadableDatabase();
+
     }
 
     public boolean validateFields(String userName, String password) {
@@ -78,10 +71,10 @@ public class LoginActivity extends AppCompatActivity {
         } else if (!isEmailValid(userName)) {
             tiloUsername.setError("No es un email válido");
             error = true;
-        } else if (!userName.equals(getUser().getUserName())) {
+        } /*else if (!userName.equals(getUser().getUserName())) {
             tiloUsername.setError("El usuario es incorrecto");
             error = true;
-        }
+        }*/
 
         if (TextUtils.isEmpty(Objects.requireNonNull(password))) {
             tiloPassword.setError("El password no debe estar vacío");
@@ -89,10 +82,10 @@ public class LoginActivity extends AppCompatActivity {
         } else if (password.length() < 6) {
             tiloPassword.setError("El password debe tener 6 caracteres");
             error = true;
-        } else if (!getUser().getPassword().equals((password))) {
+        }/* else if (!getUser().getPassword().equals((password))) {
             tiloPassword.setError("El password es incorrecto");
             error = true;
-        }
+        }*/
         return  error;
     }
 
@@ -108,8 +101,8 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(i);
+              /*  Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(i);*/
             }
         });
         googleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -123,16 +116,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
-            String userName = String.valueOf(etUserName.getText());
-            String password = String.valueOf(etPasssword.getText());
             @Override
             public void onClick(View v) {
+                String userName = etUserName.getText().toString();
+                String password = etPasssword.getText().toString();
                 if (validateFields(userName,password)){
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    i.putExtra("user", "Pablo Rodriguez");
-                    i.putExtra("mail", "pablorodri1984@gmail.com");
-                    startActivity(i);
+                    User u = UserDAO.getInstance().getUserByMail(userName);
+                    if (u!=null && password.equals(u.getPassword())) {
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        i.putExtra("user", u.getUserName());
+                        i.putExtra("mail", u.getMail());
+                        startActivity(i);
+                    }else{
+                        showLoginError();
+                    }
                 }
 
                 //ResultData resultUsername = loginViewModel.setResult(etUserName.getText().toString());
@@ -144,11 +143,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean isEmailValid(String username) {
         return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-    }
-
-    public User getUser() {
-        userDAO = new UserDAO();
-        return userDAO.mockGet();
     }
 
     @Override
@@ -189,5 +183,9 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Log.d(TAG, "Not logged in");
         }
+    }
+    private void showLoginError() {
+        Toast.makeText(this.getApplicationContext(),
+                "Error al validar credenciales", Toast.LENGTH_SHORT).show();
     }
 }

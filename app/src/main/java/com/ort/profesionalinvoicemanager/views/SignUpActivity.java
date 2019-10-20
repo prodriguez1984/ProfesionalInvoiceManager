@@ -1,30 +1,23 @@
-    @Override
+
 package com.ort.profesionalinvoicemanager.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputLayout;
-import com.ort.profesionalinvoicemanager.DAO.UserDAO;
-import com.ort.profesionalinvoicemanager.model.user.User;
-import com.ort.profesionalinvoicemanager.viewmodel.LoginViewModel;
-import com.ort.profesionalinvoicemanager.views.databinding.ActivityLoginBinding;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.material.textfield.TextInputLayout;
+import com.ort.profesionalinvoicemanager.model.user.User;
+import com.ort.profesionalinvoicemanager.viewmodel.LoginViewModel;
 
 import java.util.Objects;
 
@@ -38,7 +31,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText etPasssword;
     private TextInputLayout tiloUsername;
     private TextInputLayout tiloPassword;
-    private UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void configView() {
-        userDAO = new UserDAO();
         btnSignUp = (Button) findViewById(R.id.idBtnSignUp);
         etUserName = (EditText) findViewById(R.id.etUsernameSignUp);
         etPasssword = (EditText) findViewById(R.id.etPasswordSignUp);
@@ -74,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String userName = String.valueOf(etUserName.getText());
                 String password = String.valueOf(etPasssword.getText());
                 if (validateFields(userName, password)){
-                    User user = new User(userName,password);
+                    User user = new User("",userName,password);
                     //userDAO(user);
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     i.putExtra("user", "Pablo Rodriguez");
