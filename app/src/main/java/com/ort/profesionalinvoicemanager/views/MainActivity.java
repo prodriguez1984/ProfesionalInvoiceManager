@@ -1,31 +1,24 @@
 package com.ort.profesionalinvoicemanager.views;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
-import android.widget.Button;
-import android.widget.TextView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -67,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView mail = navigationView.getHeaderView(0).findViewById(R.id.lblMail);
         mail.setText(this.getIntent().getExtras().getString("mail"));
 
-        Button btnPrueba = findViewById(R.id.btnPrueba);
+      /*  Button btnPrueba = findViewById(R.id.btnPrueba);
         btnPrueba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
             }
         });
-        btnPrueba.setVisibility(View.INVISIBLE);
+        btnPrueba.setVisibility(View.INVISIBLE);*/
     }
 
     @Override

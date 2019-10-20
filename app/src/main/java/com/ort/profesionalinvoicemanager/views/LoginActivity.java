@@ -9,11 +9,9 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -26,8 +24,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.model.user.User;
-import com.ort.profesionalinvoicemanager.viewmodel.LoginViewModel;
-import com.ort.profesionalinvoicemanager.views.databinding.ActivityLoginBinding;
 
 import java.util.Objects;
 
@@ -35,18 +31,12 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "AndroidClarified";
     private GoogleSignInClient googleSignInClient;
     private SignInButton googleSignInButton;
-    private Button btnSignUp;
     private GoogleSignInOptions gso;
-    private LoginViewModel loginViewModel;
     private Button btnLogin;
     private EditText etUserName;
     private EditText etPasssword;
-    private TextView tvResultUsername;
-    private TextView tvResultPassword;
-    private ActivityLoginBinding binding;
     private TextInputLayout tiloUsername;
     private TextInputLayout tiloPassword;
-    private UserDAO userDAO;
 
 
     @Override
@@ -54,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);//Prueba de cometario
         ApplicationContext.getInstance().init(getApplicationContext());
         setContentView(R.layout.activity_login);
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -91,20 +80,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void configView() {
         btnLogin = findViewById(R.id.btnHardcodeLogin);
-        btnSignUp = (Button) findViewById(R.id.btnSignUpLogin);
         etUserName = (EditText) findViewById(R.id.etUsernameLogin);
         etPasssword = (EditText) findViewById(R.id.etPasswordLogin);
 
         tiloUsername = (TextInputLayout) findViewById(R.id.tiloUsernameLogin);
         tiloPassword = (TextInputLayout) findViewById(R.id.tiloPasswordLogin);
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              /*  Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(i);*/
-            }
-        });
         googleSignInClient = GoogleSignIn.getClient(this, gso);
         googleSignInButton = findViewById(R.id.sign_in_buttonLogin);
         googleSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userName = etUserName.getText().toString();
                 String password = etPasssword.getText().toString();
-                if (validateFields(userName,password)){
+                if (!validateFields(userName,password)){
                     User u = UserDAO.getInstance().getUserByMail(userName);
                     if (u!=null && password.equals(u.getPassword())) {
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);

@@ -11,10 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SignUpActivity"
-            android:label="@string/title_activity_sign_up"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".IndustryFragment"
             android:label="@string/title_activity_industry"
             android:theme="@style/AppTheme.NoActionBar" />
