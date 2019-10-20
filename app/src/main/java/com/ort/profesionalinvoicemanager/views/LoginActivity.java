@@ -1,5 +1,7 @@
-        if (alreadyloggedAccount != null) {
 package com.ort.profesionalinvoicemanager.views;
+
+//if (alreadyloggedAccount != null) {
+//package com.ort.profesionalinvoicemanager.views;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,10 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -32,7 +31,8 @@ import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.user.User;
 import com.ort.profesionalinvoicemanager.viewmodel.LoginViewModel;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteManager;
-import com.ort.profesionalinvoicemanager.viewmodel.ResultData;
+import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
+import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 import com.ort.profesionalinvoicemanager.views.databinding.ActivityLoginBinding;
 
 import java.util.Objects;
@@ -53,13 +53,12 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tiloUsername;
     private TextInputLayout tiloPassword;
     private UserDAO userDAO;
-
+    private static  final int LENGTH_PASSWORD = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
         setContentView(R.layout.activity_login);
-        getUser();
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -71,26 +70,26 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validateFields(String userName, String password) {
         Boolean error = false;
-
-        if (TextUtils.isEmpty(Objects.requireNonNull(userName))) {
-            tiloUsername.setError("El usuario no debe estar vacío");
+        User user = getUserByMail(userName);
+        if (ValidateHelper.validateEmptyString(userName)) {
+            tiloUsername.setError(StringConstant.USER_NOT_EMPTY);
             error = true;
-        } else if (!isEmailValid(userName)) {
-            tiloUsername.setError("No es un email válido");
+        } else if (!ValidateHelper.isEmailValid(userName)) {
+            tiloUsername.setError(StringConstant.INVALID_EMAIL);
             error = true;
-        } else if (!userName.equals(getUser().getUserName())) {
-            tiloUsername.setError("El usuario es incorrecto");
+        } else if (!userName.equals(user.getUserName())) {
+            tiloUsername.setError(StringConstant.INVALID_USER);
             error = true;
         }
 
-        if (TextUtils.isEmpty(Objects.requireNonNull(password))) {
-            tiloPassword.setError("El password no debe estar vacío");
+        if (ValidateHelper.validateEmptyString(password)) {
+            tiloPassword.setError(StringConstant.PASSWORD_NOT_EMPTY);
             error = true;
-        } else if (password.length() < 6) {
-            tiloPassword.setError("El password debe tener 6 caracteres");
+    } else if (ValidateHelper.passwordLength(password, LENGTH_PASSWORD)) {
+            tiloPassword.setError(StringConstant.LENGTH_PASSWORD);
             error = true;
-        } else if (!getUser().getPassword().equals((password))) {
-            tiloPassword.setError("El password es incorrecto");
+        } else if (!user.getPassword().equals((password))) {
+            tiloPassword.setError(StringConstant.INVALID_PASSWORD);
             error = true;
         }
         return  error;
@@ -142,13 +141,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public boolean isEmailValid(String username) {
-        return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-    }
 
-    public User getUser() {
+
+    public User getUserByMail(String eMail) {
         userDAO = new UserDAO();
-        return userDAO.mockGet();
+        return userDAO.getUserByMail(eMail);
     }
 
     @Override

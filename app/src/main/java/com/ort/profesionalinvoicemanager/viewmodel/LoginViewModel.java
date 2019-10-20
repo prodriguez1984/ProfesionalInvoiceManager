@@ -1,4 +1,3 @@
-    }
 package com.ort.profesionalinvoicemanager.viewmodel;
 
 import android.text.TextUtils;
@@ -9,8 +8,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.user.User;
+    import com.ort.profesionalinvoicemanager.viewmodel.ResultData;
 
-import java.util.Objects;
+    import java.util.Objects;
 
 public class LoginViewModel extends ViewModel {
     public static final String ERROR_EMPTY_USERNAME = "Error el usuario no puede estar vacío";
@@ -30,14 +30,14 @@ public class LoginViewModel extends ViewModel {
         result = new MutableLiveData<>();
     }
 
-    public MutableLiveData<User> getUser() {
-
-        if (userMutableLiveData == null) {
-            userMutableLiveData = new MutableLiveData<>();
-        }
-        userMutableLiveData.setValue(geMockUser());
-        return userMutableLiveData;
-    }
+//    public MutableLiveData<User> getUserByMail() {
+//
+//        if (userMutableLiveData == null) {
+//            userMutableLiveData = new MutableLiveData<>();
+//        }
+//        userMutableLiveData.setValue(geMockUser());
+//        return userMutableLiveData;
+//    }
 
     public ResultData setResult(String userName) {
         ResultData resultData = new ResultData();
@@ -57,8 +57,8 @@ public class LoginViewModel extends ViewModel {
         return password;
     }
 
-    private User geMockUser(){
-        return userDAO.mockGet();
-    }
+//    private User geMockUser(){
+//        return userDAO.mockGet();
+//    }
 
 }
