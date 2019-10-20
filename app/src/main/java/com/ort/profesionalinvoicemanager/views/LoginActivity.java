@@ -106,9 +106,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (!validateFields(userName,password)){
                     User u = UserDAO.getInstance().getUserByMail(userName);
                     if (u!=null && password.equals(u.getPassword())) {
+                        ApplicationContext.getInstance().setLoggedUser(u);
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        i.putExtra("user", u.getUserName());
-                        i.putExtra("mail", u.getMail());
                         startActivity(i);
                     }else{
                         showLoginError();
