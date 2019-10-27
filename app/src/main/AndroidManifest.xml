@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ort.profesionalinvoicemanager.views">
 
-    <!-- To access Google+ APIs: -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icono_facturacion"
@@ -10,6 +9,13 @@
         android:roundIcon="@mipmap/icono_facturacion_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TaxActivity"></activity>
+        <activity
+            android:name=".IndustryActivity"
+            android:label="@string/title_activity_industry"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".IndustryFragment"
             android:label="@string/title_activity_industry"
@@ -19,6 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

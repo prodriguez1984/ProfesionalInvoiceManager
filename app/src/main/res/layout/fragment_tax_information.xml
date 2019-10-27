@@ -10,6 +10,7 @@
 
 
     <Spinner
+        style="@style/spinner_style"
         android:id="@+id/taxDocType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/taxDoc"
+            android:id="@+id/etTaxDoc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tax_Document" />
@@ -41,12 +42,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/taxMonoCat"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerTaxMonoCat"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilo_tax_Document" />
 
     <Spinner
-        android:id="@+id/taxMonoCat"
+        android:id="@+id/spinnerTaxMonoCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

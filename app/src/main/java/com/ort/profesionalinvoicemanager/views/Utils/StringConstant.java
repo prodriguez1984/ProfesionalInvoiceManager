@@ -7,6 +7,7 @@ public final class StringConstant {
     public static  final String INVALID_USER = "Usuario inválido";
     public static final String LENGTH_PASSWORD = "El password no posee la cantidad de caracteres";
     public static final String INVALID_PASSWORD = "Password incorrecto";
+    public static final String USER_EXIST = "Usuario ya existente";
 
     private StringConstant(){
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class IndustryFragment extends Fragment {
-
+    private TaxInformationFragment taxInformation;
     /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class IndustryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
-
+        taxInformation = TaxInformationFragment.newInstance();
         return inflater.inflate(R.layout.content_industry, container, false);
     }
 }
