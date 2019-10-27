@@ -23,8 +23,8 @@ public class DocTypeDAO extends AbstractDao {
     }
 
 
-    public List<DocumentType> getAll() {
-        List<DocumentType> lstDocs = new ArrayList<>();
+    public ArrayList<DocumentType> getAll() {
+        ArrayList<DocumentType> lstDocs = new ArrayList<>();
         Cursor c = executeSqlQuery("Select * from DOCUMENT_TYPE ", null);
         if (c.getCount() == 0) {
             return null;

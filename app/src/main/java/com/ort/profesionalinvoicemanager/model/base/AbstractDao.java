@@ -4,7 +4,15 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.w3c.dom.ls.LSException;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractDao {
 
@@ -127,6 +135,46 @@ public abstract class AbstractDao {
         );
         return c;
     }
+
+//    public ArrayList<?> SelectAll(String table, String whereClause) {
+//        if (whereClause == null) {
+//            whereClause = "";
+//        }
+//        String query = "select * from " + table + " " + whereClause;
+//        Cursor cursor = executeSqlQuery(query, null);
+//        ArrayList list = new ArrayList();
+//        try {
+//            if (cursor.moveToFirst()) {
+//                while (!cursor.isAfterLast()) {
+//                    PersistentObject
+//                    cursor.moveToNext();
+//                }
+//            }
+//            cursor.close();
+//            return list;
+//        } catch (Exception ex) {
+//            return null;
+//        }
+//    }
+
+    public abstract  <T> ArrayList<T>  getAll();
+
+    public <T> ArrayList<T> SelectAll(Class<T> tClass, String table, String whereClause){
+        String query = "select * from " + table + " " + whereClause;
+        Cursor cursor = executeSqlQuery(query, null);
+        ArrayList<T> list = new ArrayList<>();
+        Field[] fields = tClass.getFields();
+        try {
+            Constructor<T> constructor = tClass.getConstructor(tClass);
+            list.add(constructor.newInstance(  ));
+
+        }catch(Exception ex){
+            return list;
+        }
+        return  list;
+    }
+
+
 
     public Cursor executeSqlQuery(String query, String[] selectionArgs) {
         SQLiteDatabase db = ApplicationContext.getInstance().getDb().getReadableDatabase();

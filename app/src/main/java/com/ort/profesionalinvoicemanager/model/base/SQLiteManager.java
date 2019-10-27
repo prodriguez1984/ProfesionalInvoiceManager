@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.industry.Industry;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
@@ -29,6 +30,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         persistenClasses.add(TaxInformation.class.getName());
         persistenClasses.add(Industry.class.getName());
         persistenClasses.add(User.class.getName());
+        persistenClasses.add(Client.class.getName());
     }
 
     @Override

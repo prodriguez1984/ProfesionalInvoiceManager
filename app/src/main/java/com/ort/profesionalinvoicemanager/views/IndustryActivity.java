@@ -60,6 +60,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
     private void initSpinner() {
         try {
+//            lstDocumentTypes = DocTypeDAO.getInstance().SelectAll(DocumentType.class, "DOCUMENT_TYPE","" );
             lstDocumentTypes =  DocTypeDAO.getInstance().getAll();
         }catch(Exception e){
             Log.d( "",e.getMessage());
