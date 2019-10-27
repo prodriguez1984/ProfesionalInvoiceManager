@@ -7,32 +7,25 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.user.User;
-import com.ort.profesionalinvoicemanager.viewmodel.LoginViewModel;
-import com.ort.profesionalinvoicemanager.views.databinding.ActivityLoginBinding;
+import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
+import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.util.Objects;
+import android.widget.Toast;
 
 public class SignUpActivity extends AppCompatActivity {
+    private static final int LENGTH_PASSWORD = 6;
     private GoogleSignInClient googleSignInClient;
     private SignInButton googleSignInButton;
     private Button btnSignUp;
     private GoogleSignInOptions gso;
-    private LoginViewModel loginViewModel;
     private EditText etUserName;
     private EditText etPasssword;
     private TextInputLayout tiloUsername;
@@ -49,7 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void configView() {
-        userDAO = new UserDAO();
         btnSignUp = (Button) findViewById(R.id.idBtnSignUp);
         etUserName = (EditText) findViewById(R.id.etUsernameSignUp);
         etPasssword = (EditText) findViewById(R.id.etPasswordSignUp);
@@ -70,45 +62,62 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userName = String.valueOf(etUserName.getText());
+                String eMail = String.valueOf(etUserName.getText());
                 String password = String.valueOf(etPasssword.getText());
-                if (validateFields(userName, password)){
-                    User user = new User(userName,password);
-                    //userDAO(user);
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    i.putExtra("user", "Pablo Rodriguez");
-                    i.putExtra("mail", "pablorodri1984@gmail.com");
-                    startActivity(i);
-                };
-                //ResultData resultUsername = loginViewModel.setResult(etUserName.getText().toString());
-            }
+                if (validateFields(eMail, password)){
+                    if (userExist(eMail)){
+                        showSignUpError();
+                    }else{
+                        Intent i = new Intent(getApplicationContext(), IndustryActivity.class);
+                        i.putExtra("email", eMail);
+                        startActivity(i);
+                    }
 
+                };
+            }
 
         });
     }
 
+    public boolean userExist(String eMail) {
+        boolean ok = true;
+        User user = UserDAO.getInstance().getUserByMail(eMail);
+
+        return user != null;
+    }
+
+
     public boolean validateFields(String userName, String password) {
         Boolean error = false;
+//        User user = getUserByMail(userName);
+        if (ValidateHelper.validateEmptyString(userName)) {
+            tiloUsername.setError(StringConstant.USER_NOT_EMPTY);
+            error = true;
+        } else if (!ValidateHelper.isEmailValid(userName)) {
+            tiloUsername.setError(StringConstant.INVALID_EMAIL);
+            error = true;
+        } /*else if (!userName.equals(getUser().getUserName())) {
+            tiloUsername.setError("El usuario es incorrecto");
+            error = true;
+        }*/
 
-        if (TextUtils.isEmpty(Objects.requireNonNull(userName))) {
-            tiloUsername.setError("El usuario no debe estar vacío");
+        if (ValidateHelper.validateEmptyString(password)) {
+            tiloPassword.setError(StringConstant.PASSWORD_NOT_EMPTY);
             error = true;
-        } else if (!isEmailValid(userName)) {
-            tiloUsername.setError("No es un email válido");
+        } else if (ValidateHelper.passwordLength(password, LENGTH_PASSWORD)) {
+            tiloPassword.setError(StringConstant.LENGTH_PASSWORD);
             error = true;
-        }
+        }/* else if (!getUser().getPassword().equals((password))) {
+            tiloPassword.setError("El password es incorrecto");
+            error = true;
+        }*/
+        return  error;
+    }
 
-        if (TextUtils.isEmpty(Objects.requireNonNull(password))) {
-            tiloPassword.setError("El password no debe estar vacío");
-            error = true;
-        } else if (password.length() < 6) {
-            tiloPassword.setError("El password debe tener 6 caracteres");
-            error = true;
-        }
-        return error;
+    private void showSignUpError() {
+        Toast.makeText(this.getApplicationContext(),
+                StringConstant.USER_EXIST, Toast.LENGTH_SHORT).show();
     }
-    public boolean isEmailValid(String username) {
-        return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-    }
+
 
 }

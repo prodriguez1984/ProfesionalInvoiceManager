@@ -8,8 +8,8 @@ import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import java.util.ArrayList;
 
 public class DocumentType extends PersistentObject {
-    private final String KEY_CODE="CODE";
-    private final String KEY_DESCRIPTION="DESCRIPTION";
+    public static final String KEY_CODE="CODE";
+    public static final String KEY_DESCRIPTION="DESCRIPTION";
 
     private Integer code;
     private String description;

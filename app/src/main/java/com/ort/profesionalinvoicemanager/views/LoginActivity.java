@@ -27,11 +27,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.model.user.User;
+import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
+import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "AndroidClarified";
+    private static final int LENGTH_PASSWORD = 6;
     private GoogleSignInClient googleSignInClient;
     private SignInButton googleSignInButton;
     private GoogleSignInOptions gso;
@@ -40,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPasssword;
     private TextInputLayout tiloUsername;
     private TextInputLayout tiloPassword;
+    private Button btnToSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,13 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         configView();
-
+        Intent intent = new Intent(getApplicationContext(),IndustryActivity.class);
+        startActivity(intent);
     }
 
     public boolean validateFields(String userName, String password) {
         Boolean error = false;
-        User user = getUserByMail(userName);
+//        User user = getUserByMail(userName);
         if (ValidateHelper.validateEmptyString(userName)) {
             tiloUsername.setError(StringConstant.USER_NOT_EMPTY);
             error = true;
@@ -82,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void configView() {
         btnLogin = findViewById(R.id.btnHardcodeLogin);
+        btnToSignUp = findViewById(R.id.btnToSignUp);
         etUserName = (EditText) findViewById(R.id.etUsernameLogin);
         etPasssword = (EditText) findViewById(R.id.etPasswordLogin);
 
@@ -99,6 +105,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnToSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

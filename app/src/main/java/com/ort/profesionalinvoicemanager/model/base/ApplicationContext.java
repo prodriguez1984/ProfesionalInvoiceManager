@@ -23,8 +23,8 @@ public class ApplicationContext {
     }
 
     public void init(Context context){
-        db=new SQLiteManager(context);
-        loggedUser=null;
+        db = new SQLiteManager(context);
+        loggedUser = null;
     }
 
     public SQLiteManager getDb() {
