@@ -8,6 +8,9 @@ public final class StringConstant {
     public static final String LENGTH_PASSWORD = "El password no posee la cantidad de caracteres";
     public static final String INVALID_PASSWORD = "Password incorrecto";
     public static final String USER_EXIST = "Usuario ya existente";
+    public static final String DEFAULT_DOCTYPE_SPINNER = "Seleccione Categoría";
+    public static final String DEFAULT_MONOCAT_SPINNER = "Seleccione Monotributo";
+    public static final String DEFAULT_IVACAT_SPINNER = "Seleccione IVA";
 
     private StringConstant(){
 

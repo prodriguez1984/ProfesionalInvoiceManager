@@ -24,8 +24,8 @@ public class TaxActivity extends AppCompatActivity {
     }
 
     private void configView() {
-        taxDocType = (Spinner) findViewById(R.id.taxDocType);
-        taxIVACat = (Spinner) findViewById(R.id.taxIVACat);
+        taxDocType = (Spinner) findViewById(R.id.spinnerTaxDocType);
+        taxIVACat = (Spinner) findViewById(R.id.spinnerTaxIVACat);
         spinnerTaxMonoCat = (Spinner) findViewById(R.id.spinnerTaxMonoCat);
 
         List<String> spinnerTaxArray =  new ArrayList<String>();

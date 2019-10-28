@@ -11,8 +11,8 @@ public class DocumentType extends PersistentObject {
     public static final String KEY_CODE="CODE";
     public static final String KEY_DESCRIPTION="DESCRIPTION";
 
-    public Integer code;
-    public String description;
+    private Integer code;
+    private String description;
 
     public DocumentType(){
         super();

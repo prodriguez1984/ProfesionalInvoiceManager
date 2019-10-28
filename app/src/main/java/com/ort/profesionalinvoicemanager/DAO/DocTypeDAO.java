@@ -23,8 +23,8 @@ public class DocTypeDAO extends AbstractDao {
     }
 
 
-    public List<DocumentType> getAll() {
-        List<DocumentType> lstDocs = new ArrayList<>();
+    public ArrayList<DocumentType> getAll() {
+        ArrayList<DocumentType> lstDocs = new ArrayList<>();
         Cursor c = executeSqlQuery("Select * from DOCUMENT_TYPE ", null);
         if (c.getCount() == 0) {
             return null;
@@ -32,7 +32,7 @@ public class DocTypeDAO extends AbstractDao {
         if (c.moveToFirst()) {
             while (!c.isAfterLast()) {
                 DocumentType documentType = new DocumentType();
-                documentType.setOid(c.getString(c.getColumnIndex(DocumentType.KEY_CODE)));
+                documentType.setOid(c.getString(c.getColumnIndex(DocumentType.KEY_OID)));
                 documentType.setDescription(c.getString(c.getColumnIndex(DocumentType.KEY_DESCRIPTION)));
                 lstDocs.add(documentType);
                 c.moveToNext();

@@ -9,11 +9,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MonotributoCategory extends PersistentObject {
-    private final String KEY_CATEGORY ="CATEGORY";
-    private final String KEY_MINIMUN_EMPLOYEES ="MINIMUN_EMPLOYEES";
-    private final String KEY_GROSS_AMOUNT ="GROSS_AMOUNT";
-    private final String KEY_MAX_AFFECTED_SUP ="USER_NAME";
-    private final String KEY_MAX_ELECTRICITY_CONSUMTION ="MAX_ELECTRICITY_CONSUMTION";
+    public static final String KEY_CATEGORY ="CATEGORY";
+    public static final String KEY_MINIMUN_EMPLOYEES ="MINIMUN_EMPLOYEES";
+    public static final String KEY_GROSS_AMOUNT ="GROSS_AMOUNT";
+    public static final String KEY_MAX_AFFECTED_SUP ="USER_NAME";
+    public static final String KEY_MAX_ELECTRICITY_CONSUMTION ="MAX_ELECTRICITY_CONSUMTION";
 
     private String category;
     private BigDecimal grossAmount;

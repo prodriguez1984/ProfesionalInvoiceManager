@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.View;
@@ -17,10 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ort.profesionalinvoicemanager.DAO.DocTypeDAO;
+import com.ort.profesionalinvoicemanager.DAO.IvaCategoryDAO;
+import com.ort.profesionalinvoicemanager.DAO.MonotributoCategoryDAO;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
+import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
+import com.ort.profesionalinvoicemanager.model.tax.MonotributoCategory;
+import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class IndustryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -32,9 +34,18 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private EditText etCellPhoneCreateIndustry;
     private EditText etdatestartCreateIndustry;
     private TextView tvIndustryWelcome;
+
+    private Spinner spinnerTaxMonoCat;
+    private List<MonotributoCategory> lstTaxMonoCat;
+    private String idMonoCat, descMonoCat;
+
     private Spinner spinnerDocType;
     private String idDoc, descDoc;
     private List<DocumentType> lstDocumentTypes;
+
+    private Spinner spinnerIvaCategory;
+    private String idIva, descIva;
+    private List<IvaCategory> lstIvaCategory;
 
     //Spinner tipo dni
 
@@ -61,28 +72,44 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private void initSpinner() {
         try {
             lstDocumentTypes =  DocTypeDAO.getInstance().getAll();
+            lstTaxMonoCat = MonotributoCategoryDAO.getInstance().getAll();
+            lstIvaCategory = IvaCategoryDAO.getInstance().getAll();
+
         }catch(Exception e){
             Log.d( "",e.getMessage());
         }
 
-        //================Datos cargados desde SQLite=====================//
-        //Instancio la variable helper a PaisesDataBaseHelper.getInstance()
-        //Sirve para poder usar los métodos y propiedades SQLite creados anteriormente
-
         //Implemento el setOnItemSelectedListener: para realizar acciones cuando se seleccionen los ítems
         spinnerDocType.setOnItemSelectedListener(this);
+        spinnerTaxMonoCat.setOnItemSelectedListener(this);
         //Convierto la variable List<> en un ArrayList<>()
         List<String> listaDocs = new ArrayList<>();
+        List<String> listaCats = new ArrayList<>();
+        List<String> listaIva = new ArrayList<>();
         //Almaceno el tamaño de la lista getAllPaises()
 
         //Agrego los nombres de los países obtenidos y lo almaceno en  `listaPaisesSql`
+        listaDocs.add(StringConstant.DEFAULT_DOCTYPE_SPINNER);
         for(int i = 0; i < lstDocumentTypes.size(); i++){
             listaDocs.add(lstDocumentTypes.get(i).getDescription());
         }
+        listaCats.add(StringConstant.DEFAULT_MONOCAT_SPINNER);
+        for(int i = 0; i < lstTaxMonoCat.size(); i++){
+            listaCats.add(lstTaxMonoCat.get(i).getCategory());
+        }
+        listaIva.add(StringConstant.DEFAULT_IVACAT_SPINNER);
+        for(int i = 0; i < lstIvaCategory.size(); i++){
+            listaIva.add(lstIvaCategory.get(i).getDescription());
+        }
         //Implemento el adapter con el contexto, layout, listaPaisesSql
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaDocs);
+        ArrayAdapter<String> adapterDocType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaDocs);
+        ArrayAdapter<String> adapterMonoCat = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCats);
+        ArrayAdapter<String> adapterIvaCat = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaIva);
+
         //Cargo el spinner con los datos
-        spinnerDocType.setAdapter(adapter);
+        spinnerDocType.setAdapter(adapterDocType);
+        spinnerTaxMonoCat.setAdapter(adapterMonoCat);
+        spinnerIvaCategory.setAdapter(adapterIvaCat);
     }
 
     private void configView() {
@@ -94,22 +121,59 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         etPhoneCreateIndustry = (EditText) findViewById(R.id.etPhoneCreateIndustry);
         etCellPhoneCreateIndustry = (EditText) findViewById(R.id.etCellPhoneCreateIndustry);
         etdatestartCreateIndustry = (EditText) findViewById(R.id.etdatestartCreateIndustry);
-        spinnerDocType = (Spinner) findViewById(R.id.taxDocType);;
+
+        spinnerDocType = (Spinner) findViewById(R.id.spinnerTaxDocType);
+        spinnerTaxMonoCat =  (Spinner) findViewById(R.id.spinnerTaxMonoCat);
+        spinnerIvaCategory =  (Spinner) findViewById(R.id.spinnerTaxIVACat);
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        switch (adapterView.getId()) {
-            case R.id.taxDocType:
-                //Almaceno el id del país seleccionado
-                idDoc = lstDocumentTypes.get(position).getOid();
-                //Almaceno el nombre del país seleccionado
-                descDoc = lstDocumentTypes.get(position).getDescription();
+        if(position > 0){
+            //Doc type
+            switch (adapterView.getId()) {
+                case R.id.spinnerTaxDocType:
+                    //Almaceno el id del país seleccionado
+                    idDoc = lstDocumentTypes.get(position).getOid();
+                    //Almaceno el nombre del país seleccionado
+                    descDoc = lstDocumentTypes.get(position).getDescription();
 
-                Toast.makeText(this, "Id doc: " + idDoc + " - Desc doc: " + descDoc, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Id doc: " + idDoc + " - Desc doc: " + descDoc, Toast.LENGTH_SHORT).show();
 
-                break;
+                    break;
+            }
+            //Category
+            switch (adapterView.getId()) {
+                case R.id.spinnerTaxMonoCat:
+                    //Almaceno el id del país seleccionado
+                    idMonoCat = lstTaxMonoCat.get(position).getOid();
+                    //Almaceno el nombre del país seleccionado
+                    descMonoCat = lstTaxMonoCat.get(position).getCategory();
+
+                    Toast.makeText(this, "Id doc: " + idMonoCat + " - Desc doc: " + descMonoCat, Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+            //Iva
+            switch (adapterView.getId()) {
+                case R.id.spinnerTaxIVACat:
+                    //Almaceno el id del país seleccionado
+                    idIva = lstIvaCategory.get(position).getOid();
+                    //Almaceno el nombre del país seleccionado
+                    descIva = lstIvaCategory.get(position).getDescription();
+
+                    Toast.makeText(this, "Id iva: " + idIva + " - Desc iva: " + descIva, Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+            // get spinner value
+        }else{
+            Toast.makeText(this,"Seleccione un valor", Toast.LENGTH_SHORT).show();
+
         }
+
+
     }
 
     @Override

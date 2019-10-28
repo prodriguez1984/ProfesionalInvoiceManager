@@ -1,19 +1,15 @@
 package com.ort.profesionalinvoicemanager.views;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,7 +69,7 @@ public class TaxInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tax_information, container, false);
-        Spinner spinnerDocType = (Spinner) view.findViewById(R.id.taxDocType);;
+        Spinner spinnerDocType = (Spinner) view.findViewById(R.id.spinnerTaxDocType);;
         //================Datos cargados desde Array=====================//
         //Hago referencia al spinner con el id `sp_frutas`
         //Implemento el setOnItemSelectedListener: para realizar acciones cuando se seleccionen los ítems
