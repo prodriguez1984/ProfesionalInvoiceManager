@@ -24,13 +24,15 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         persistenClasses=new ArrayList<>();
-        persistenClasses.add(DocumentType.class.getName());
-        persistenClasses.add(IvaCategory.class.getName());
-        persistenClasses.add(MonotributoCategory.class.getName());
-        persistenClasses.add(TaxInformation.class.getName());
-        persistenClasses.add(Industry.class.getName());
-        persistenClasses.add(User.class.getName());
         persistenClasses.add(Client.class.getName());
+//        persistenClasses.add(DocumentType.class.getName());
+//        persistenClasses.add(IvaCategory.class.getName());
+//        persistenClasses.add(MonotributoCategory.class.getName());
+//        persistenClasses.add(TaxInformation.class.getName());
+//        persistenClasses.add(Industry.class.getName());
+//        persistenClasses.add(User.class.getName());
+
+
     }
 
     @Override

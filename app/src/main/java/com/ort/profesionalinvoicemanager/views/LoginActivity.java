@@ -5,6 +5,7 @@ package com.ort.profesionalinvoicemanager.views;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
         ApplicationContext.getInstance().init(getApplicationContext());
+        ApplicationContext.getInstance().getDb().onCreate(ApplicationContext.getInstance().getDb().getWritableDatabase());
         setContentView(R.layout.activity_login);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
