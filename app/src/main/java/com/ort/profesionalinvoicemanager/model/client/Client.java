@@ -3,11 +3,18 @@ package com.ort.profesionalinvoicemanager.model.client;
 import android.content.ContentValues;
 
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
 import java.util.ArrayList;
 
 public class Client extends PersistentObject {
+    public static final String KEY_NAME ="NAME";
+    public static final String KEY_LASTNAME ="LASTANAME";
+    public static final String KEY_ADDRESS ="ADDRESS";
+    public static final String FKEY_TAX_INFORMATION ="TAXINFORMATION";
+
+
     private TaxInformation taxInformation;
     private String name;
     private String lastName;
@@ -47,16 +54,25 @@ public class Client extends PersistentObject {
 
     @Override
     public String getTableName() {
-        return null;
+        return "CLIENT";
     }
 
     @Override
     public ArrayList<PersistentField> getFieldsForTableCreation() {
-        return null;
+        ArrayList<PersistentField> fields=new ArrayList<>();
+        fields.add (new PersistentField(KEY_NAME, SQLiteDateType.TEXT,true));
+        fields.add (new PersistentField(KEY_LASTNAME, SQLiteDateType.TEXT,true));
+        fields.add (new PersistentField(KEY_ADDRESS, SQLiteDateType.TEXT,true));
+        fields.add (new PersistentField(FKEY_TAX_INFORMATION, SQLiteDateType.TEXT,true));
+        return fields;
     }
 
     @Override
     protected ContentValues toParticularContentValues(ContentValues values) {
-        return null;
+        values.put(KEY_NAME,getName());
+        values.put(KEY_LASTNAME,getLastName());
+        values.put(KEY_ADDRESS,getAddress());
+        values.put(FKEY_TAX_INFORMATION,getTaxInformation().getOid());
+        return values;
     }
 }
