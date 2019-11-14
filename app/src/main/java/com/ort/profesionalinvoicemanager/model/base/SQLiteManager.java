@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.industry.Industry;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
@@ -29,11 +30,13 @@ public class SQLiteManager extends SQLiteOpenHelper {
         persistenClasses.add(TaxInformation.class.getName());
         persistenClasses.add(Industry.class.getName());
         persistenClasses.add(User.class.getName());
+        persistenClasses.add(Client.class.getName());
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try {
+            sqLiteDatabase = ApplicationContext.getInstance().getDb().getWritableDatabase();
             for (String classes:persistenClasses) {
                 PersistentObject object = (PersistentObject) Class.forName(classes).newInstance();
                 sqLiteDatabase.execSQL(object.getCreationScript());
@@ -55,7 +58,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     private void createinitialData(SQLiteDatabase db) {
         ArrayList<PersistentObject> mockObjects=new ArrayList<>();
-        mockObjects.add(new User("Pablo Rodriguez","123456","pablorodri1984@gmail.com"));
+        //mockObjects.add(new User("Pablo Rodriguez","123456","pablorodri1984@gmail.com"));
         mockObjects.add(new IvaCategory(new Integer(1),"IVA Responsable Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(2),"IVA Responsable no Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(3),"IVA no Responsable"));
@@ -119,7 +122,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         mockObjects.add(new DocumentType(new Integer(99),"Sin identificar/venta global diaria"));
         mockObjects.add(new DocumentType(new Integer(30),"Certificado de Migración"));
         mockObjects.add(new DocumentType(new Integer(88),"Usado por Anses para Padrón"));
-
+        mockObjects.add(new Client("Juan Carlos", "Gil", "Calle Sin Numeración 1422"));
         for(PersistentObject p:mockObjects) {
             db.insert(p.getTableName(), null, p.toContentValues());
         }

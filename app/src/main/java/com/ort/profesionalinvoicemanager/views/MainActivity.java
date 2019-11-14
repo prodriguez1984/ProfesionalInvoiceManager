@@ -1,9 +1,11 @@
 package com.ort.profesionalinvoicemanager.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
+import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_industry, R.id.nav_client, R.id.nav_slideshow,
+                R.id.nav_industry, R.id.nav_client, R.id.nav_clientList,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
@@ -56,12 +59,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         TextView user = (TextView) navigationView.getHeaderView(0).findViewById(R.id.lblName);
-        user.setText(ApplicationContext.getInstance().getLoggedUser().getUserName());
+        //user.setText(ApplicationContext.getInstance().getLoggedUser().getUserName());
 
         TextView mail = navigationView.getHeaderView(0).findViewById(R.id.lblMail);
-        mail.setText(ApplicationContext.getInstance().getLoggedUser().getMail());
+        //mail.setText(ApplicationContext.getInstance().getLoggedUser().getMail());
 
-      /*  Button btnPrueba = findViewById(R.id.btnPrueba);
+      Button btnPrueba = findViewById(R.id.btnPrueba);
         btnPrueba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
             }
         });
-        btnPrueba.setVisibility(View.INVISIBLE);*/
+        btnPrueba.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -106,6 +109,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.nav_host_fragment, clientFragment)
                                                 .commit();
+                break;
+            case R.id.nav_clientList:
+                Fragment clientListFragment = new ClientListFragment();
+                getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.nav_host_fragment, clientListFragment)
+                                            .commit();
                 break;
         }
         return true;
