@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.getMenu().getItem(0).setChecked(true);
+
         TextView user = (TextView) navigationView.getHeaderView(0).findViewById(R.id.lblName);
         //user.setText(ApplicationContext.getInstance().getLoggedUser().getUserName());
 

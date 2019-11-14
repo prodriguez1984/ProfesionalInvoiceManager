@@ -10,9 +10,10 @@
 
 
     <Spinner
-        android:id="@+id/taxDocType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTaxDocType"
+        style="@style/spinner_style"
+        android:layout_width="81dp"
+        android:layout_height="46dp"
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,30 +26,33 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/taxDocType"
+        app:layout_constraintStart_toEndOf="@+id/spinnerTaxDocType"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/taxDoc"
+            android:id="@+id/etTaxDoc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tax_Document" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
-        android:id="@+id/taxIVACat"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTaxIVACat"
+        style="@style/spinner_style"
+        android:layout_width="194dp"
+        android:layout_height="37dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/taxMonoCat"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerTaxMonoCat"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilo_tax_Document" />
 
     <Spinner
-        android:id="@+id/taxMonoCat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTaxMonoCat"
+        style="@style/spinner_style"
+        android:layout_width="181dp"
+        android:layout_height="35dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"

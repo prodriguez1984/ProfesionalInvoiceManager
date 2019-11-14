@@ -1,7 +1,11 @@
 package com.ort.profesionalinvoicemanager.views;
 
+//if (alreadyloggedAccount != null) {
+//package com.ort.profesionalinvoicemanager.views;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,11 +28,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.model.user.User;
+import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
+import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "AndroidClarified";
+    private static final int LENGTH_PASSWORD = 6;
     private GoogleSignInClient googleSignInClient;
     private SignInButton googleSignInButton;
     private GoogleSignInOptions gso;
@@ -37,39 +44,41 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPasssword;
     private TextInputLayout tiloUsername;
     private TextInputLayout tiloPassword;
-
+    private Button btnToSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
         ApplicationContext.getInstance().init(getApplicationContext());
+        ApplicationContext.getInstance().getDb().onCreate(ApplicationContext.getInstance().getDb().getWritableDatabase());
         setContentView(R.layout.activity_login);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         configView();
-
+        Intent intent = new Intent(getApplicationContext(),IndustryActivity.class);
+        startActivity(intent);
     }
 
     public boolean validateFields(String userName, String password) {
         Boolean error = false;
-
-        if (TextUtils.isEmpty(Objects.requireNonNull(userName))) {
-            tiloUsername.setError("El usuario no debe estar vacío");
+//        User user = getUserByMail(userName);
+        if (ValidateHelper.validateEmptyString(userName)) {
+            tiloUsername.setError(StringConstant.USER_NOT_EMPTY);
             error = true;
-        } else if (!isEmailValid(userName)) {
-            tiloUsername.setError("No es un email válido");
+        } else if (!ValidateHelper.isEmailValid(userName)) {
+            tiloUsername.setError(StringConstant.INVALID_EMAIL);
             error = true;
         } /*else if (!userName.equals(getUser().getUserName())) {
             tiloUsername.setError("El usuario es incorrecto");
             error = true;
         }*/
 
-        if (TextUtils.isEmpty(Objects.requireNonNull(password))) {
-            tiloPassword.setError("El password no debe estar vacío");
+        if (ValidateHelper.validateEmptyString(password)) {
+            tiloPassword.setError(StringConstant.PASSWORD_NOT_EMPTY);
             error = true;
-        } else if (password.length() < 6) {
-            tiloPassword.setError("El password debe tener 6 caracteres");
+    } else if (ValidateHelper.passwordLength(password, LENGTH_PASSWORD)) {
+            tiloPassword.setError(StringConstant.LENGTH_PASSWORD);
             error = true;
         }/* else if (!getUser().getPassword().equals((password))) {
             tiloPassword.setError("El password es incorrecto");
@@ -80,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void configView() {
         btnLogin = findViewById(R.id.btnHardcodeLogin);
+        btnToSignUp = findViewById(R.id.btnToSignUp);
         etUserName = (EditText) findViewById(R.id.etUsernameLogin);
         etPasssword = (EditText) findViewById(R.id.etPasswordLogin);
 
@@ -97,6 +107,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnToSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,9 +138,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public boolean isEmailValid(String username) {
-        return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

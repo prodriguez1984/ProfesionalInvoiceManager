@@ -5,6 +5,8 @@ import android.database.Cursor;
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.user.User;
 
+import java.util.ArrayList;
+
 public class UserDAO extends AbstractDao {
     private static UserDAO instance;
 
@@ -52,5 +54,10 @@ public class UserDAO extends AbstractDao {
         u.setPassword(c.getString(c.getColumnIndex(User.KEY_PASS)));
         u.setUserName(c.getString(c.getColumnIndex(User.KEY_USER)));
         return u;
+    }
+
+    @Override
+    public <T> ArrayList<T> getAll() {
+        return null;
     }
 }

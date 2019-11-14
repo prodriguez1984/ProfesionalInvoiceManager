@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--    <data>-->
-<!--        <variable-->
-<!--            name="LoginViewModel"-->
-<!--            type="com.ort.profesionalinvoicemanager.viewmodel.LoginViewModel" />-->
-<!--    </data>-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,6 +23,20 @@
             app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tiloPasswordLogin" />
+
+        <Button
+            android:id="@+id/btnToSignUp"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="159dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/secondary_text"
+            android:text="@string/signUpTextButton"
+            app:backgroundTint="#00640F0F"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnHardcodeLogin" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/idImgLogin"
@@ -51,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.471"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnHardcodeLogin"
+            app:layout_constraintTop_toBottomOf="@+id/btnToSignUp"
             app:layout_constraintVertical_bias="0.277">
 
         </com.google.android.gms.common.SignInButton>
