@@ -34,7 +34,6 @@ public class ClientDAO extends AbstractDao {
             return null;
         }
         ArrayList<Client> clientList = new ArrayList<>();
-        c.moveToFirst();
         while(c.moveToNext()){
             clientList.add(getClientFromCursor(c));
         }

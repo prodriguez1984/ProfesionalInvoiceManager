@@ -80,7 +80,7 @@ public class ClientListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_client_list, container, false);
         //        // 1. get a reference to recyclerView
-        RecyclerView recyclerView = rootView.findViewById(R.id.my_recycler_view);
+        recyclerView = rootView.findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -94,7 +94,7 @@ public class ClientListFragment extends Fragment {
         ArrayList<Client> clientList = ClientDAO.getInstance().getClientList();
         mAdapter = new ClientListAdapter(clientList);
         recyclerView.setAdapter(mAdapter);
-        return inflater.inflate(R.layout.fragment_client_list, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

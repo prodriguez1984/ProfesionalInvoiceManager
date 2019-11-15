@@ -9,6 +9,7 @@ import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 import java.util.ArrayList;
 
 public class Client extends PersistentObject {
+
     private TaxInformation taxInformation;
     private String name;
     private String lastName;
