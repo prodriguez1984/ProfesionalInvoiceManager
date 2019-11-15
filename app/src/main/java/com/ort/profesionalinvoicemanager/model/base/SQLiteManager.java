@@ -36,7 +36,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try {
-            sqLiteDatabase = ApplicationContext.getInstance().getDb().getWritableDatabase();
             for (String classes:persistenClasses) {
                 PersistentObject object = (PersistentObject) Class.forName(classes).newInstance();
                 sqLiteDatabase.execSQL(object.getCreationScript());

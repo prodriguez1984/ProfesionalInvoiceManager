@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
         ApplicationContext.getInstance().init(getApplicationContext());
-        ApplicationContext.getInstance().getDb().onCreate(ApplicationContext.getInstance().getDb().getWritableDatabase());
+        //ApplicationContext.getInstance().getDb().onCreate(ApplicationContext.getInstance().getDb().getWritableDatabase());
         setContentView(R.layout.activity_login);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

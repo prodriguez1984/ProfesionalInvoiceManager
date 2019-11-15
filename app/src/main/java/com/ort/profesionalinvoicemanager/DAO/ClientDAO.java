@@ -50,4 +50,8 @@ public class ClientDAO extends AbstractDao {
         return client;
     }
 
+    @Override
+    public <T> ArrayList<T> getAll() {
+        return null;
+    }
 }
