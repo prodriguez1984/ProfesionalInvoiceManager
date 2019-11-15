@@ -43,7 +43,7 @@ public class UserDAO extends AbstractDao {
     }
 
     public User getUserByMail(String mail) {
-        Cursor c = executeSqlQuery("Select * from USER where MAIL = ? and ACTIVE=1", new String[]{mail});
+        Cursor c = executeSqlQuery("Select * from "+User.TABLE+" where MAIL = ? and ACTIVE=1", new String[]{mail});
         if (c.getCount() == 0) {
             return null;
         }
