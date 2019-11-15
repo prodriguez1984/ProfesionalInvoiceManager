@@ -25,12 +25,12 @@ public class SQLiteManager extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         persistenClasses=new ArrayList<>();
         persistenClasses.add(Client.class.getName());
-//        persistenClasses.add(DocumentType.class.getName());
-//        persistenClasses.add(IvaCategory.class.getName());
-//        persistenClasses.add(MonotributoCategory.class.getName());
-//        persistenClasses.add(TaxInformation.class.getName());
-//        persistenClasses.add(Industry.class.getName());
-//        persistenClasses.add(User.class.getName());
+        persistenClasses.add(DocumentType.class.getName());
+        persistenClasses.add(IvaCategory.class.getName());
+        persistenClasses.add(MonotributoCategory.class.getName());
+        persistenClasses.add(TaxInformation.class.getName());
+        persistenClasses.add(Industry.class.getName());
+        persistenClasses.add(User.class.getName());
 
 
     }
@@ -59,7 +59,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     private void createinitialData(SQLiteDatabase db) {
         ArrayList<PersistentObject> mockObjects=new ArrayList<>();
-//        mockObjects.add(new User("Pablo Rodriguez","123456","pablorodri1984@gmail.com"));
+       mockObjects.add(new User("Pablo Rodriguez","123456","pablorodri1984@gmail.com"));
         mockObjects.add(new IvaCategory(new Integer(1),"IVA Responsable Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(2),"IVA Responsable no Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(3),"IVA no Responsable"));
