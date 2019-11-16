@@ -1,34 +1,28 @@
-package com.ort.profesionalinvoicemanager.views.ui.ClientList;
+package com.ort.profesionalinvoicemanager.views.ui.products;
 
-import android.app.Activity;
-import android.database.Cursor;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ort.profesionalinvoicemanager.DAO.ClientDAO;
-import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.views.R;
-
-import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ClientListFragment.OnFragmentInteractionListener} interface
+ * {@link ProductFragmentList.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ClientListFragment#newInstance} factory method to
+ * Use the {@link ProductFragmentList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClientListFragment extends Fragment {
+public class ProductFragmentList extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,7 +38,7 @@ public class ClientListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ClientListFragment() {
+    public ProductFragmentList() {
         // Required empty public constructor
     }
 
@@ -54,11 +48,11 @@ public class ClientListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ClientListFragment.
+     * @return A new instance of fragment ProductFragmentList.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClientListFragment newInstance(String param1, String param2) {
-        ClientListFragment fragment = new ClientListFragment();
+    public static ProductFragmentList newInstance(String param1, String param2) {
+        ProductFragmentList fragment = new ProductFragmentList();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,23 +72,8 @@ public class ClientListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_client_list, container, false);
-        //        // 1. get a reference to recyclerView
-        recyclerView = rootView.findViewById(R.id.my_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-        ArrayList<Client> clientList = ClientDAO.getInstance().getAll();
-        mAdapter = new ClientListAdapter(clientList);
-        recyclerView.setAdapter(mAdapter);
-        return rootView;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_product_fragment_list, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,7 +83,7 @@ public class ClientListFragment extends Fragment {
         }
     }
 
-   /* @Override
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -119,7 +98,7 @@ public class ClientListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }*/
+    }
 
     /**
      * This interface must be implemented by activities that contain this
