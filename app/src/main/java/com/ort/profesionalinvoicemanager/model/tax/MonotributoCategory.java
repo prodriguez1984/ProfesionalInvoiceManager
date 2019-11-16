@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MonotributoCategory extends PersistentObject {
+
+    public static final String TABLE="MONOTRIBUTO_CATEGORY";
     public static final String KEY_CATEGORY ="CATEGORY";
     public static final String KEY_MINIMUN_EMPLOYEES ="MINIMUN_EMPLOYEES";
     public static final String KEY_GROSS_AMOUNT ="GROSS_AMOUNT";
@@ -35,7 +37,7 @@ public class MonotributoCategory extends PersistentObject {
 
     @Override
     public String getTableName() {
-        return "MONOTRIBUTO_CATEGORY";
+        return "";
     }
 
     @Override

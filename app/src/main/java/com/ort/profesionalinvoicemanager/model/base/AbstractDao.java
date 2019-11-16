@@ -4,27 +4,31 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ort.profesionalinvoicemanager.model.client.Client;
+
 import org.w3c.dom.ls.LSException;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractDao {
 
     private ArrayList<PersistentObject> objectToManipulate;
 
-    protected void clearObjects(){
-        objectToManipulate=new ArrayList<>();
+    protected void clearObjects() {
+        objectToManipulate = new ArrayList<>();
     }
 
-    protected void addObjectToManipulate(PersistentObject object){
-        if (objectToManipulate==null){
-            objectToManipulate=new ArrayList<>();
+    protected void addObjectToManipulate(PersistentObject object) {
+        if (objectToManipulate == null) {
+            objectToManipulate = new ArrayList<>();
         }
         objectToManipulate.add(object);
     }
@@ -79,12 +83,12 @@ public abstract class AbstractDao {
         }
     }
 
-    protected void update() throws Exception{
+    protected void update() throws Exception {
         SQLiteDatabase sqLiteDatabase = ApplicationContext.getInstance().getDb().getWritableDatabase();
         sqLiteDatabase.beginTransaction();//abre transaccion
         try {
             validateSaveOrUpdateList(true);
-            PersistentObject obj=objectToManipulate.get(0);
+            PersistentObject obj = objectToManipulate.get(0);
             String whereClause = obj.KEY_OID + " = ?";
             String[] whereArgs = {obj.getOid()};
             obj.updateObject();
@@ -101,14 +105,14 @@ public abstract class AbstractDao {
         }
     }
 
-    private void validateSaveOrUpdateList(boolean update) throws Exception{
-        if (objectToManipulate==null){
+    private void validateSaveOrUpdateList(boolean update) throws Exception {
+        if (objectToManipulate == null) {
             throw new Exception("No hay nada que actualizar, lista en null");
-        }else{
-            if (objectToManipulate.isEmpty()){
+        } else {
+            if (objectToManipulate.isEmpty()) {
                 throw new Exception("No hay nada que actualizar, lista vacia");
-            }else{
-                if (update && objectToManipulate.size()!=1){
+            } else {
+                if (update && objectToManipulate.size() != 1) {
                     throw new Exception("Error al Actualizar, mas de un objeto en la lista");
                 }
             }
@@ -136,45 +140,17 @@ public abstract class AbstractDao {
         return c;
     }
 
-//    public ArrayList<?> SelectAll(String table, String whereClause) {
-//        if (whereClause == null) {
-//            whereClause = "";
-//        }
-//        String query = "select * from " + table + " " + whereClause;
-//        Cursor cursor = executeSqlQuery(query, null);
-//        ArrayList list = new ArrayList();
-//        try {
-//            if (cursor.moveToFirst()) {
-//                while (!cursor.isAfterLast()) {
-//                    PersistentObject
-//                    cursor.moveToNext();
-//                }
-//            }
-//            cursor.close();
-//            return list;
-//        } catch (Exception ex) {
-//            return null;
-//        }
-//    }
-
-    public abstract  <T> ArrayList<T>  getAll();
-
-    public <T> ArrayList<T> SelectAll(Class<T> tClass, String table, String whereClause){
-        String query = "select * from " + table + " " + whereClause;
-        Cursor cursor = executeSqlQuery(query, null);
-        ArrayList<T> list = new ArrayList<>();
-        Field[] fields = tClass.getFields();
-        try {
-            Constructor<T> constructor = tClass.getConstructor(tClass);
-            list.add(constructor.newInstance(  ));
-
-        }catch(Exception ex){
-            return list;
+    public ArrayList getAll() {
+        Cursor c = executeSqlQuery("Select * from " + getTableNameForModel(), null);
+        if (c.getCount() == 0) {
+            return new ArrayList<>();
         }
-        return  list;
+        ArrayList result = new ArrayList<>();
+        while (c.moveToNext()) {
+            result.add(mapFromCursor(c));
+        }
+        return result;
     }
-
-
 
     public Cursor executeSqlQuery(String query, String[] selectionArgs) {
         SQLiteDatabase db = ApplicationContext.getInstance().getDb().getReadableDatabase();
@@ -182,5 +158,8 @@ public abstract class AbstractDao {
         return c;
     }
 
+    protected abstract String getTableNameForModel();
+
+    protected abstract  <T extends PersistentObject> T mapFromCursor(Cursor c);
 
 }

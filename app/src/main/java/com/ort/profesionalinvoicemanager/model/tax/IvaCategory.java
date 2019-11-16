@@ -8,6 +8,7 @@ import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import java.util.ArrayList;
 
 public class IvaCategory extends PersistentObject {
+    public static final String TABLE ="IVA_CATEGORY";
     public static final String KEY_CODE ="CODE";
     public static final String KEY_DESCRIPTION ="DESCRIPTION";
 
@@ -26,7 +27,7 @@ public class IvaCategory extends PersistentObject {
 
     @Override
     public String getTableName() {
-        return "IVA_CATEGORY";
+        return TABLE;
     }
 
     @Override
