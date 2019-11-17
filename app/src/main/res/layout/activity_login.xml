@@ -24,6 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tiloPasswordLogin" />
 
+
         <Button
             android:id="@+id/btnToSignUp"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
@@ -37,7 +38,6 @@
             app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnHardcodeLogin" />
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/idImgLogin"
             android:layout_width="wrap_content"

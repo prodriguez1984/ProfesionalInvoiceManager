@@ -23,6 +23,8 @@ public final class StringConstant {
     public static final String DOCUMENT_EMPTY = "El campo documento es obligatorio";
     public static final String IVA_EMPTY = "El campo iva es obligatorio";;
     public static final String CREATE_ERROR = "Ocurrió un error en la creación";
+    public static final String REPEAT_PASSWORD_NOT_EMPTY = "Debe repetir la contraseña";
+    public static final String DIFERENT_PASS = "Las contraseñas no coinciden";
 
     private StringConstant(){
 

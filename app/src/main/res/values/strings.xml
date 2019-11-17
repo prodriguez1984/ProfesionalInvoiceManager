@@ -18,7 +18,7 @@
     <string name="title_activity_industry">Industry</string>
 
     <!-- LoginActivity -->
-    <string name="login_username">Usuario</string>
+    <string name="login_username">Nombre Completo</string>
     <string name="login_password">Contraseña</string>
     <string name="login_signUp">Registrarse</string>
 
@@ -53,4 +53,6 @@
     <string name="datestartIndustry">Fecha de inicio de actividades</string>
     <string name="signUpTextButton">Registrarse</string>
     <string name="client_save">Guardar</string>
+    <string name="emailSignUp">Email</string>
+    <string name="repeatPassSignUp">Repetir Contraseña</string>
 </resources>

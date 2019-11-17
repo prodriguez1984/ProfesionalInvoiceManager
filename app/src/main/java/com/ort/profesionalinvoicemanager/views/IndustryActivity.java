@@ -68,6 +68,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private String idIva, descIva;
     private List<IvaCategory> lstIvaCategory;
 
+    private String username;
     private String email;
     private String password;
     //Spinner tipo dni
@@ -83,13 +84,14 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         Intent intent = getIntent();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            username = intent.getStringExtra("username");
             email = intent.getStringExtra("email");
             password = intent.getStringExtra("password");
         }
         configView();
 
         initSpinner();
-        tvIndustryWelcome.setText("Bienvenido:" + email + " " +StringConstant.EXPLAIN_INDUSTRY);
+        tvIndustryWelcome.setText("Bienvenido:" + username + " " +StringConstant.EXPLAIN_INDUSTRY);
         btnRegisterIndustry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +107,9 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                 String monoCat = idMonoCat;
                 if (validateFields(industryName,address,emailService,phoneService,cellPhone,dateStart,docType,docNumber,taxIvaCat,monoCat)){
                     User user = new User();
+                    user.setUserName(username);
+                    user.setMail(email);
+                    user.setPassword(password);
                     if (user != null){
                         Industry industry = new Industry();
                         industry.setName(industryName);
