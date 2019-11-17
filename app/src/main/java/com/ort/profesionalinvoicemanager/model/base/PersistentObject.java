@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public abstract class PersistentObject {
     public static String KEY_OID="OID";
-    private static String KEY_CREATION_TIMESTAMP="CREATION_TIMESTAMP";
-    private static String KEY_MODIFICATION_TIMESTAMP="MODIFICATION_TIMESTAMP";
+    public static String KEY_CREATION_TIMESTAMP="CREATION_TIMESTAMP";
+    public static String KEY_MODIFICATION_TIMESTAMP="MODIFICATION_TIMESTAMP";
     private String oid;
     private Date creationTimestamp;
     private Date modificationTimestamp;
@@ -35,10 +35,11 @@ public abstract class PersistentObject {
         if (creationTimestamp==null){
             creationTimestamp=new Date();
         }
-        values.put(KEY_CREATION_TIMESTAMP,creationTimestamp.toString());
-        if (modificationTimestamp!=null) {
-            values.put(KEY_MODIFICATION_TIMESTAMP, modificationTimestamp.toString());
+        if (modificationTimestamp==null) {
+            modificationTimestamp=new Date();
         }
+        values.put(KEY_CREATION_TIMESTAMP, AbstractDao.iso8601Format.format(creationTimestamp));
+        values.put(KEY_MODIFICATION_TIMESTAMP, AbstractDao.iso8601Format.format(modificationTimestamp));
         return values;
     }
 
@@ -111,5 +112,21 @@ public abstract class PersistentObject {
 
     protected void updateObject(){
         modificationTimestamp=new Date();
+    }
+
+    public Date getCreationTimestamp() {
+        return creationTimestamp;
+    }
+
+    public void setCreationTimestamp(Date creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
+    }
+
+    public Date getModificationTimestamp() {
+        return modificationTimestamp;
+    }
+
+    public void setModificationTimestamp(Date modificationTimestamp) {
+        this.modificationTimestamp = modificationTimestamp;
     }
 }
