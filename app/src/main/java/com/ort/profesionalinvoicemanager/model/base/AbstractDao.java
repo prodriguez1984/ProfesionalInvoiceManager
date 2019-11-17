@@ -14,11 +14,16 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractDao {
+
+    public static final DateFormat iso8601Format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     private ArrayList<PersistentObject> objectToManipulate;
 
@@ -147,7 +152,7 @@ public abstract class AbstractDao {
         }
         ArrayList result = new ArrayList<>();
         while (c.moveToNext()) {
-            result.add(mapFromCursor(c));
+            result.add(mapBasicData(mapFromCursor(c), c));
         }
         return result;
     }
@@ -160,6 +165,17 @@ public abstract class AbstractDao {
 
     protected abstract String getTableNameForModel();
 
-    protected abstract  <T extends PersistentObject> T mapFromCursor(Cursor c);
+    protected abstract <T extends PersistentObject> T mapFromCursor(Cursor c);
+
+    protected <T extends PersistentObject> T mapBasicData(PersistentObject p, Cursor c) {
+        p.setOid(c.getString(c.getColumnIndex(p.KEY_OID)));
+        try {
+            p.setCreationTimestamp(iso8601Format.parse(c.getString(c.getColumnIndex(p.KEY_CREATION_TIMESTAMP))));
+            p.setModificationTimestamp(iso8601Format.parse(c.getString(c.getColumnIndex(p.KEY_MODIFICATION_TIMESTAMP))));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return (T) p;
+    }
 
 }
