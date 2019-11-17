@@ -87,12 +87,12 @@ public class ClientListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
         ArrayList<Client> clientList = ClientDAO.getInstance().getAll();
-        mAdapter = new ClientListAdapter(clientList);
+        mAdapter = new ClientListAdapter(clientList, this.getActivity());
         recyclerView.setAdapter(mAdapter);
         return rootView;
     }

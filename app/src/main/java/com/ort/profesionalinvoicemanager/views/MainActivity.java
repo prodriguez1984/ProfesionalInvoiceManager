@@ -1,7 +1,9 @@
 package com.ort.profesionalinvoicemanager.views;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
