@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/productItemRow"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -14,21 +14,21 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_product"/>
+        android:src="@drawable/ic_product" />
 
     <LinearLayout
-        android:id="@+id/textview_container"
+        android:id="@+id/product_textview_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignWithParentIfMissing="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_toLeftOf="@+id/icon_imageview"
-        android:layout_toRightOf="@+id/avatar_imageview"
+        android:layout_toStartOf="@+id/product_button_container"
+        android:layout_toEndOf="@+id/product_icon"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp">
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/productName_textview"
@@ -38,29 +38,49 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <TextView
-        android:id="@+id/productDescription_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+            android:id="@+id/productDescription_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:id="@+id/price_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Price"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/icon_imageview"
+    <LinearLayout
+        android:id="@+id/product_button_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@mipmap/round_more_vert_black_24"/>
+        android:orientation="horizontal"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <ImageButton
+            android:id="@+id/product_btn_edit"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_edit" />
+
+        <ImageButton
+            android:id="@+id/product_btn_delete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@null"
+            android:src="@drawable/ic_delete" />
+    </LinearLayout>
 
 </RelativeLayout>
