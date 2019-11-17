@@ -7,7 +7,7 @@
     android:minHeight="72dp">
 
     <ImageView
-        android:id="@+id/avatar_imageview"
+        android:id="@+id/product_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"

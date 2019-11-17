@@ -2,6 +2,7 @@ package com.ort.profesionalinvoicemanager.views.ui.products;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,11 +45,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
         if(list.get(position) == null){
             return;
         }
+        ImageView icon = holder.rowClientItem.findViewById(R.id.product_icon);
         TextView productName = holder.rowClientItem.findViewById(R.id.productName_textview);
         TextView productDesc = holder.rowClientItem.findViewById(R.id.productDescription_textview);
         TextView productPrice = holder.rowClientItem.findViewById(R.id.price_textview);
 
         Product product = list.get(position);
+        if (Product.IDENTIFICATOR_PRODUCT.equals(product.getProductType())){
+            icon.setImageResource(R.drawable.ic_product);
+        }else{
+            icon.setImageResource(R.drawable.ic_service);
+        }
         productName.setText(product.getName());
         productDesc.setText(product.getDescription());
         productPrice.setText(product.getPrice().toString());
