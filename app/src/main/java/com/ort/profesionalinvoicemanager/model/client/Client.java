@@ -9,16 +9,29 @@ import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 import java.util.ArrayList;
 
 public class Client extends PersistentObject {
-    public static final String KEY_NAME ="NAME";
-    public static final String KEY_LASTNAME ="LASTANAME";
-    public static final String KEY_ADDRESS ="ADDRESS";
-    public static final String FKEY_TAX_INFORMATION ="TAXINFORMATION";
-
 
     private TaxInformation taxInformation;
     private String name;
     private String lastName;
     private String address;
+
+    public static final String TABLE="CLIENT";
+    public static final String KEY_NAME ="NAME";
+    public static final String KEY_LAST_NAME ="LAST_NAME";
+    public static final String KEY_ADDRESS ="ADDRESS";
+    public static final String KEY_TAX_INFORMATION ="TAX_INFORMATION_OID";
+
+    public Client(){
+        super();
+    }
+
+    public Client(String name, String lastName, String adress){
+        this();
+        this.name = name;
+        this.lastName = lastName;
+        this.address = adress;
+
+    }
 
     public TaxInformation getTaxInformation() {
         return taxInformation;
@@ -54,25 +67,26 @@ public class Client extends PersistentObject {
 
     @Override
     public String getTableName() {
-        return "CLIENT";
+        return TABLE;
     }
 
     @Override
     public ArrayList<PersistentField> getFieldsForTableCreation() {
         ArrayList<PersistentField> fields=new ArrayList<>();
         fields.add (new PersistentField(KEY_NAME, SQLiteDateType.TEXT,true));
-        fields.add (new PersistentField(KEY_LASTNAME, SQLiteDateType.TEXT,true));
+        fields.add (new PersistentField(KEY_LAST_NAME, SQLiteDateType.TEXT,true));
         fields.add (new PersistentField(KEY_ADDRESS, SQLiteDateType.TEXT,true));
-        fields.add (new PersistentField(FKEY_TAX_INFORMATION, SQLiteDateType.TEXT,true));
+        fields.add (new PersistentField(KEY_TAX_INFORMATION, SQLiteDateType.TEXT,false));
         return fields;
+
     }
 
     @Override
     protected ContentValues toParticularContentValues(ContentValues values) {
         values.put(KEY_NAME,getName());
-        values.put(KEY_LASTNAME,getLastName());
+        values.put(KEY_LAST_NAME,getLastName());
         values.put(KEY_ADDRESS,getAddress());
-        values.put(FKEY_TAX_INFORMATION,getTaxInformation().getOid());
+        //values.put(KEY_TAX_INFORMATION,getTaxInformation().getOid());
         return values;
     }
 }

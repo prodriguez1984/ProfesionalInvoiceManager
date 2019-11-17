@@ -3,6 +3,7 @@ package com.ort.profesionalinvoicemanager.DAO;
 import android.database.Cursor;
 
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
+import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
 import com.ort.profesionalinvoicemanager.model.user.User;
 
 import java.util.ArrayList;
@@ -34,30 +35,30 @@ public class UserDAO extends AbstractDao {
         if (c.getCount() == 0) {
             return null;
         }
-        User u = new User();
-        u.setOid(c.getString(c.getColumnIndex(User.KEY_USER)));
-        u.setMail(c.getString(c.getColumnIndex(User.KEY_MAIL)));
-        u.setPassword(c.getString(c.getColumnIndex(User.KEY_PASS)));
-        u.setUserName(c.getString(c.getColumnIndex(User.KEY_USER)));
-        return u;
+        return mapFromCursor(c);
     }
 
     public User getUserByMail(String mail) {
-        Cursor c = executeSqlQuery("Select * from USER where MAIL = ? and ACTIVE=1", new String[]{mail});
+        Cursor c = executeSqlQuery("Select * from "+User.TABLE+" where MAIL = ? and ACTIVE=1", new String[]{mail});
         if (c.getCount() == 0) {
             return null;
         }
         c.moveToFirst();
+        return mapFromCursor(c);
+    }
+
+    @Override
+    protected String getTableNameForModel() {
+        return User.TABLE;
+    }
+
+    @Override
+    protected User mapFromCursor(Cursor c) {
         User u = new User();
         u.setOid(c.getString(c.getColumnIndex(User.KEY_OID)));
         u.setMail(c.getString(c.getColumnIndex(User.KEY_MAIL)));
         u.setPassword(c.getString(c.getColumnIndex(User.KEY_PASS)));
         u.setUserName(c.getString(c.getColumnIndex(User.KEY_USER)));
         return u;
-    }
-
-    @Override
-    public <T> ArrayList<T> getAll() {
-        return null;
     }
 }

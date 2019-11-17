@@ -3,6 +3,7 @@ package com.ort.profesionalinvoicemanager.DAO;
 import android.database.Cursor;
 
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
+import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
 
 import java.util.ArrayList;
@@ -22,23 +23,16 @@ public class IvaCategoryDAO extends AbstractDao {
         return instance;
     }
 
-    public ArrayList<IvaCategory> getAll() {
-        ArrayList<IvaCategory> lstIva = new ArrayList<>();
-        Cursor c = executeSqlQuery("Select * FROM " + TABLE, null);
-        if (c.getCount() == 0) {
-            return null;
-        }
-        if (c.moveToFirst()) {
-            while (!c.isAfterLast()) {
-                IvaCategory ivaCategory = new IvaCategory();
-                ivaCategory.setCode(Integer.parseInt(c.getString(c.getColumnIndex(ivaCategory.KEY_CODE))));
-                ivaCategory.setOid(c.getString(c.getColumnIndex(ivaCategory.KEY_OID)));
-                ivaCategory.setDescription(c.getString(c.getColumnIndex(ivaCategory.KEY_DESCRIPTION)));
-                lstIva.add(ivaCategory);
-                c.moveToNext();
-            }
-        }
+    @Override
+    protected String getTableNameForModel() {
+        return IvaCategory.TABLE;
+    }
 
-        return lstIva;
+    @Override
+    protected IvaCategory mapFromCursor(Cursor c) {
+        IvaCategory ivaCategory = new IvaCategory();
+        ivaCategory.setOid(c.getString(c.getColumnIndex(ivaCategory.KEY_OID)));
+        ivaCategory.setDescription(c.getString(c.getColumnIndex(ivaCategory.KEY_DESCRIPTION)));
+        return ivaCategory;
     }
 }
