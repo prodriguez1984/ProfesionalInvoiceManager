@@ -12,11 +12,18 @@ public final class ValidateHelper {
     }
 
     public static boolean  validateEmptyString(String str){
-        return  !TextUtils.isEmpty(Objects.requireNonNull(str));
+        boolean error = false;
+        if ( str == null){
+            error = true;
+        }
+        else{
+           error =  TextUtils.isEmpty(Objects.requireNonNull(str));
+        }
+        return error;
     }
 
     public static boolean isEmailValid(String eMail) {
-        return !Patterns.EMAIL_ADDRESS.matcher(eMail).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(eMail).matches();
     }
 
     public static boolean passwordLength(String password, int length) {

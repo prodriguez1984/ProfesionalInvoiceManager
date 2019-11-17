@@ -1,5 +1,7 @@
 package com.ort.profesionalinvoicemanager.views;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,20 +11,29 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.DocTypeDAO;
 import com.ort.profesionalinvoicemanager.DAO.IvaCategoryDAO;
 import com.ort.profesionalinvoicemanager.DAO.MonotributoCategoryDAO;
+import com.ort.profesionalinvoicemanager.DAO.UserDAO;
+import com.ort.profesionalinvoicemanager.model.industry.Industry;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
 import com.ort.profesionalinvoicemanager.model.tax.MonotributoCategory;
+import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
+import com.ort.profesionalinvoicemanager.model.user.User;
 import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
+import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class IndustryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -33,7 +44,17 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private EditText etPhoneCreateIndustry;
     private EditText etCellPhoneCreateIndustry;
     private EditText etdatestartCreateIndustry;
+    private EditText etTaxDoc;
     private TextView tvIndustryWelcome;
+    private Button btnRegisterIndustry;
+
+    private TextInputLayout tiloIndustryName;
+    private TextInputLayout tiloAddress;
+    private TextInputLayout tiloEmail;
+    private TextInputLayout tiloPhone;
+    private TextInputLayout tiloCellPhone;
+    private TextInputLayout tiloStartDate;
+    private TextInputLayout tiloDocument;
 
     private Spinner spinnerTaxMonoCat;
     private List<MonotributoCategory> lstTaxMonoCat;
@@ -47,6 +68,8 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private String idIva, descIva;
     private List<IvaCategory> lstIvaCategory;
 
+    private String email;
+    private String password;
     //Spinner tipo dni
 
     @Override
@@ -56,32 +79,131 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        configView();
-//
         String value;
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            value = bundle.getString("email");
-            tvIndustryWelcome.setText("Bienvenido: " + value);
+        Intent intent = getIntent();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            email = intent.getStringExtra("email");
+            password = intent.getStringExtra("password");
         }
-
         configView();
+
         initSpinner();
+        tvIndustryWelcome.setText("Bienvenido:" + email + " " +StringConstant.EXPLAIN_INDUSTRY);
+        btnRegisterIndustry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String industryName = etCreateIndustry.getText().toString();
+                String address = etAddressCreateIndustry.getText().toString();
+                String emailService = etEmailCreateIndustry.getText().toString();
+                String phoneService = etPhoneCreateIndustry.getText().toString();
+                String cellPhone = etCellPhoneCreateIndustry.getText().toString();
+                String dateStart = etdatestartCreateIndustry.getText().toString();
+                String docType = idDoc;
+                String docNumber = etTaxDoc.getText().toString();
+                String taxIvaCat = idIva;
+                String monoCat = idMonoCat;
+                if (validateFields(industryName,address,emailService,phoneService,cellPhone,dateStart,docType,docNumber,taxIvaCat,monoCat)){
+                    User user = new User();
+                    if (user != null){
+                        Industry industry = new Industry();
+                        industry.setName(industryName);
+                        industry.setAddress(address);
+                        industry.setMail(email);
+                        industry.setTelephone(phoneService);
+                        industry.setCellphone(cellPhone);
+                        Date date = new Date(dateStart);
+                        industry.setActivityStart(date);
+                        TaxInformation taxInformation = new TaxInformation();
+                        DocumentType documentType = new DocumentType();
+                        documentType.setOid(docType);
+                        taxInformation.setDocumentType(documentType);
+                        taxInformation.setDocumentNumber(docNumber);
+                        IvaCategory ivaCategory = new IvaCategory();
+                        ivaCategory.setOid(idIva);
+                        taxInformation.setIva(ivaCategory);
+                        MonotributoCategory monotributoCategory = new MonotributoCategory();
+                        monotributoCategory.setOid(monoCat);
+                        taxInformation.setMonotributoCategory(monotributoCategory);
+                        industry.setTaxInformation(taxInformation);
+                        user.setIndustry(industry);
+                        try {
+                            UserDAO.getInstance().saveUser(user);
+                        } catch (Exception e) {
+                            showError(e.getMessage());
+                        }
+                    }else{
+                        showError(StringConstant.CREATE_ERROR);
+                    }
+                };
+            }
+        });
+//        configView();
+//        initSpinner();
+    }
+    private boolean validateFields(String industryName, String address, String emailService, String phoneService, String cellPhone, String dateStart, String docType, String docNumber, String taxIvaCat, String monoCat) {
+        boolean error = false;
+        if (ValidateHelper.validateEmptyString(industryName)){
+            tiloIndustryName.setError(StringConstant.INDUSTRY_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(address)){
+            tiloAddress.setError(StringConstant.ADDRESS_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(emailService)){
+            tiloEmail.setError(StringConstant.EMAIL_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(phoneService)){
+            tiloPhone.setError(StringConstant.PHONE_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(cellPhone)){
+            tiloCellPhone.setError(StringConstant.CELL_PHONE_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(dateStart)){
+            tiloStartDate.setError(StringConstant.DATE_START_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(docNumber)){
+            tiloDocument.setError(StringConstant.DOCUMENT_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(dateStart)){
+            tiloStartDate.setError(StringConstant.DATE_START_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(idIva)){
+            showError(StringConstant.IVA_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(idDoc)){
+            showError(StringConstant.IVA_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(idMonoCat)){
+            showError(StringConstant.IVA_EMPTY);
+            error = true;
+        }
+        return !error;
     }
 
     private void initSpinner() {
         try {
-            lstDocumentTypes =  DocTypeDAO.getInstance().getAll();
+            lstDocumentTypes = DocTypeDAO.getInstance().getAll();
             lstTaxMonoCat = MonotributoCategoryDAO.getInstance().getAll();
             lstIvaCategory = IvaCategoryDAO.getInstance().getAll();
 
-        }catch(Exception e){
-            Log.d( "",e.getMessage());
+        } catch (Exception e) {
+            Log.d("", e.getMessage());
         }
 
         //Implemento el setOnItemSelectedListener: para realizar acciones cuando se seleccionen los ítems
         spinnerDocType.setOnItemSelectedListener(this);
         spinnerTaxMonoCat.setOnItemSelectedListener(this);
+        spinnerIvaCategory.setOnItemSelectedListener(this);
         //Convierto la variable List<> en un ArrayList<>()
         List<String> listaDocs = new ArrayList<>();
         List<String> listaCats = new ArrayList<>();
@@ -90,16 +212,20 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
         //Agrego los nombres de los países obtenidos y lo almaceno en  `listaPaisesSql`
         listaDocs.add(StringConstant.DEFAULT_DOCTYPE_SPINNER);
-        for(int i = 0; i < lstDocumentTypes.size(); i++){
-            listaDocs.add(lstDocumentTypes.get(i).getDescription());
+        for (int i = 0; i < lstDocumentTypes.size(); i++) {
+            if (lstDocumentTypes.get(i).getDescription().equals(StringConstant.CUIT) ){
+                listaDocs.add(lstDocumentTypes.get(i).getDescription());
+            }
         }
         listaCats.add(StringConstant.DEFAULT_MONOCAT_SPINNER);
-        for(int i = 0; i < lstTaxMonoCat.size(); i++){
+        for (int i = 0; i < lstTaxMonoCat.size(); i++) {
             listaCats.add(lstTaxMonoCat.get(i).getCategory());
         }
         listaIva.add(StringConstant.DEFAULT_IVACAT_SPINNER);
-        for(int i = 0; i < lstIvaCategory.size(); i++){
-            listaIva.add(lstIvaCategory.get(i).getDescription());
+        for (int i = 0; i < lstIvaCategory.size(); i++) {
+            if (lstIvaCategory.get(i).getCode() == 12 || lstIvaCategory.get(i).getCode() == 6){
+                listaIva.add(lstIvaCategory.get(i).getDescription());
+            }
         }
         //Implemento el adapter con el contexto, layout, listaPaisesSql
         ArrayAdapter<String> adapterDocType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaDocs);
@@ -113,7 +239,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void configView() {
-//        tvIndustryWelcome = (TextView) findViewById(R.id.tvIndustryWelcome);
+        tvIndustryWelcome = (TextView) findViewById(R.id.txtIndustryCreate);
         txtIndustryCreate = (TextView) findViewById(R.id.txtIndustryCreate);
         etCreateIndustry = (EditText) findViewById(R.id.etCreateIndustry);
         etAddressCreateIndustry = (EditText) findViewById(R.id.etAddressCreateIndustry);
@@ -121,16 +247,53 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         etPhoneCreateIndustry = (EditText) findViewById(R.id.etPhoneCreateIndustry);
         etCellPhoneCreateIndustry = (EditText) findViewById(R.id.etCellPhoneCreateIndustry);
         etdatestartCreateIndustry = (EditText) findViewById(R.id.etdatestartCreateIndustry);
-
+        etdatestartCreateIndustry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+        etTaxDoc = (EditText) findViewById(R.id.etTaxDoc);
         spinnerDocType = (Spinner) findViewById(R.id.spinnerTaxDocType);
-        spinnerTaxMonoCat =  (Spinner) findViewById(R.id.spinnerTaxMonoCat);
-        spinnerIvaCategory =  (Spinner) findViewById(R.id.spinnerTaxIVACat);
+        spinnerTaxMonoCat = (Spinner) findViewById(R.id.spinnerTaxMonoCat);
+        spinnerIvaCategory = (Spinner) findViewById(R.id.spinnerTaxIVACat);
+        btnRegisterIndustry = (Button) findViewById(R.id.btnRegisterIndustry);
 
+        tiloIndustryName = (TextInputLayout) findViewById(R.id.tilo_nameIndustry);
+        tiloAddress = (TextInputLayout) findViewById(R.id.tilo_addressCreateIndustry);
+        tiloEmail = (TextInputLayout) findViewById(R.id.tilo_emailCreateIndustry);
+        tiloPhone = (TextInputLayout) findViewById(R.id.tilo_phoneCreateIndustry);
+        tiloCellPhone = (TextInputLayout) findViewById(R.id.tilo_cellphoneCreateIndustry);
+        tiloStartDate = (TextInputLayout) findViewById(R.id.tilo_datestartCreateIndustry);
+        tiloAddress = (TextInputLayout) findViewById(R.id.tilo_addressCreateIndustry);
+        tiloDocument = (TextInputLayout) findViewById(R.id.tilo_tax_Document);
+
+    }
+
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.etdatestartCreateIndustry:
+//
+//                break;
+//        }
+//    }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = day + " / " + (month+1) + " / " + year;
+                etdatestartCreateIndustry.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        if(position > 0){
+        if (position > 0) {
             //Doc type
             switch (adapterView.getId()) {
                 case R.id.spinnerTaxDocType:
@@ -168,14 +331,18 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                     break;
             }
             // get spinner value
-        }else{
-            Toast.makeText(this,"Seleccione un valor", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Seleccione un valor", Toast.LENGTH_SHORT).show();
 
         }
 
 
     }
 
+    private void showError(String messagge) {
+        Toast.makeText(this.getApplicationContext(),
+                messagge, Toast.LENGTH_SHORT).show();
+    }
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 

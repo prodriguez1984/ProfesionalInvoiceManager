@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
         ApplicationContext.getInstance().init(getApplicationContext());
-        ApplicationContext.getInstance().getDb().onCreate(ApplicationContext.getInstance().getDb().getWritableDatabase());
+        //ApplicationContext.getInstance().getDb().onCreate(ApplicationContext.getInstance().getDb().getWritableDatabase());
         setContentView(R.layout.activity_login);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             tiloPassword.setError("El password es incorrecto");
             error = true;
         }*/
-        return  error;
+        return  !error;
     }
 
     private void configView() {
@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userName = etUserName.getText().toString();
                 String password = etPasssword.getText().toString();
-                if (!validateFields(userName,password)){
+                if (validateFields(userName,password)){
                     User u = UserDAO.getInstance().getUserByMail(userName);
                     if (u!=null && password.equals(u.getPassword())) {
                         ApplicationContext.getInstance().setLoggedUser(u);

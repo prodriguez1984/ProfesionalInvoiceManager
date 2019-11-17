@@ -70,6 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }else{
                         Intent i = new Intent(getApplicationContext(), IndustryActivity.class);
                         i.putExtra("email", eMail);
+                        i.putExtra("password", password);
                         startActivity(i);
                     }
 

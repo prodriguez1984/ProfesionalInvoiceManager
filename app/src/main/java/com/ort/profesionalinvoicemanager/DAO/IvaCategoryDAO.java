@@ -31,6 +31,7 @@ public class IvaCategoryDAO extends AbstractDao {
         if (c.moveToFirst()) {
             while (!c.isAfterLast()) {
                 IvaCategory ivaCategory = new IvaCategory();
+                ivaCategory.setCode(Integer.parseInt(c.getString(c.getColumnIndex(ivaCategory.KEY_CODE))));
                 ivaCategory.setOid(c.getString(c.getColumnIndex(ivaCategory.KEY_OID)));
                 ivaCategory.setDescription(c.getString(c.getColumnIndex(ivaCategory.KEY_DESCRIPTION)));
                 lstIva.add(ivaCategory);
