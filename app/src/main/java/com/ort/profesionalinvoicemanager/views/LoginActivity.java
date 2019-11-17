@@ -5,11 +5,8 @@ package com.ort.profesionalinvoicemanager.views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,8 +27,6 @@ import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.model.user.User;
 import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
 import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
-
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "AndroidClarified";
@@ -62,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validateFields(String userName, String password) {
         Boolean error = false;
-        if (!ValidateHelper.validateEmptyString(userName)) {
+        if (ValidateHelper.validateEmptyString(userName)) {
             tiloUsername.setError(StringConstant.USER_NOT_EMPTY);
             error = true;
         } else if (!ValidateHelper.isEmailValid(userName)) {
@@ -70,11 +65,11 @@ public class LoginActivity extends AppCompatActivity {
             error = true;
         }
 
-        return  error;
+        return  !error;
     }
 
     private void configView() {
-        btnLogin = findViewById(R.id.btnHardcodeLogin);
+        btnLogin = findViewById(R.id.btnLogin);
         btnToSignUp = findViewById(R.id.btnToSignUp);
         etUserName = (EditText) findViewById(R.id.etUsernameLogin);
         etPasssword = (EditText) findViewById(R.id.etPasswordLogin);

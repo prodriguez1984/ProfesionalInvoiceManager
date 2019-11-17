@@ -12,8 +12,8 @@ public final class StringConstant {
     public static final String DEFAULT_MONOCAT_SPINNER = "Seleccione Monotributo";
     public static final String DEFAULT_IVACAT_SPINNER = "Seleccione IVA";
     public static final String CUIT = "CUIT";
-    public static final String EXPLAIN_INDUSTRY = "En esta sección deberá registrar el servicio que brinda.\n " +
-            "Al finalizar podrá ingresar y comenzar a facturar sus se" ;
+    public static final String EXPLAIN_INDUSTRY = "\nEn esta sección deberá registrar \nel servicio que brinda.\n " +
+            "Al finalizar podrá ingresar y comenzar a facturar." ;
     public static final String INDUSTRY_EMPTY = "El campo nombre industria es obligatorio";
     public static final String ADDRESS_EMPTY = "El campo dirección es obligatorio";
     public static final String EMAIL_EMPTY = "El campo email es obligatorio";
@@ -25,6 +25,7 @@ public final class StringConstant {
     public static final String CREATE_ERROR = "Ocurrió un error en la creación";
     public static final String REPEAT_PASSWORD_NOT_EMPTY = "Debe repetir la contraseña";
     public static final String DIFERENT_PASS = "Las contraseñas no coinciden";
+    public static final String IIBB_EMPTY = "El campo ingresos brutos es obligatorio";
 
     private StringConstant(){
 

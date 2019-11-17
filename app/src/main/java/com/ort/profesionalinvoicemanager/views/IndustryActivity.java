@@ -23,6 +23,7 @@ import com.ort.profesionalinvoicemanager.DAO.DocTypeDAO;
 import com.ort.profesionalinvoicemanager.DAO.IvaCategoryDAO;
 import com.ort.profesionalinvoicemanager.DAO.MonotributoCategoryDAO;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
+import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.industry.Industry;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
@@ -32,6 +33,8 @@ import com.ort.profesionalinvoicemanager.model.user.User;
 import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
 import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +48,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private EditText etCellPhoneCreateIndustry;
     private EditText etdatestartCreateIndustry;
     private EditText etTaxDoc;
+    private EditText etIibb;
     private TextView tvIndustryWelcome;
     private Button btnRegisterIndustry;
 
@@ -55,6 +59,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private TextInputLayout tiloCellPhone;
     private TextInputLayout tiloStartDate;
     private TextInputLayout tiloDocument;
+    private TextInputLayout tiloIibb;
 
     private Spinner spinnerTaxMonoCat;
     private List<MonotributoCategory> lstTaxMonoCat;
@@ -91,7 +96,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         configView();
 
         initSpinner();
-        tvIndustryWelcome.setText("Bienvenido:" + username + " " +StringConstant.EXPLAIN_INDUSTRY);
+        tvIndustryWelcome.setText("Bienvenido " + username + "\n" +StringConstant.EXPLAIN_INDUSTRY);
         btnRegisterIndustry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,11 +106,12 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                 String phoneService = etPhoneCreateIndustry.getText().toString();
                 String cellPhone = etCellPhoneCreateIndustry.getText().toString();
                 String dateStart = etdatestartCreateIndustry.getText().toString();
+                String iibb = etIibb.getText().toString();
                 String docType = idDoc;
                 String docNumber = etTaxDoc.getText().toString();
                 String taxIvaCat = idIva;
                 String monoCat = idMonoCat;
-                if (validateFields(industryName,address,emailService,phoneService,cellPhone,dateStart,docType,docNumber,taxIvaCat,monoCat)){
+                if (validateFields(industryName,address,emailService,phoneService,cellPhone,dateStart,docType,docNumber,taxIvaCat,monoCat,iibb)){
                     User user = new User();
                     user.setUserName(username);
                     user.setMail(email);
@@ -117,8 +123,12 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                         industry.setMail(email);
                         industry.setTelephone(phoneService);
                         industry.setCellphone(cellPhone);
-                        Date date = new Date(dateStart);
-                        industry.setActivityStart(date);
+                        try {
+                            SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            industry.setActivityStart(originalFormat.parse(dateStart.replaceAll("\\s","")));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         TaxInformation taxInformation = new TaxInformation();
                         DocumentType documentType = new DocumentType();
                         documentType.setOid(docType);
@@ -130,10 +140,15 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                         MonotributoCategory monotributoCategory = new MonotributoCategory();
                         monotributoCategory.setOid(monoCat);
                         taxInformation.setMonotributoCategory(monotributoCategory);
+                        taxInformation.setIibb(iibb);
                         industry.setTaxInformation(taxInformation);
+
                         user.setIndustry(industry);
                         try {
                             UserDAO.getInstance().saveUser(user);
+                            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                            startActivity(intent);
+
                         } catch (Exception e) {
                             showError(e.getMessage());
                         }
@@ -146,7 +161,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 //        configView();
 //        initSpinner();
     }
-    private boolean validateFields(String industryName, String address, String emailService, String phoneService, String cellPhone, String dateStart, String docType, String docNumber, String taxIvaCat, String monoCat) {
+    private boolean validateFields(String industryName, String address, String emailService, String phoneService, String cellPhone, String dateStart, String docType, String docNumber, String taxIvaCat, String monoCat, String iibb) {
         boolean error = false;
         if (ValidateHelper.validateEmptyString(industryName)){
             tiloIndustryName.setError(StringConstant.INDUSTRY_EMPTY);
@@ -190,6 +205,10 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         }
         if (ValidateHelper.validateEmptyString(idMonoCat)){
             showError(StringConstant.IVA_EMPTY);
+            error = true;
+        }
+        if (ValidateHelper.validateEmptyString(iibb)){
+            showError(StringConstant.IIBB_EMPTY);
             error = true;
         }
         return !error;
@@ -251,6 +270,8 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         etEmailCreateIndustry = (EditText) findViewById(R.id.etEmailCreateIndustry);
         etPhoneCreateIndustry = (EditText) findViewById(R.id.etPhoneCreateIndustry);
         etCellPhoneCreateIndustry = (EditText) findViewById(R.id.etCellPhoneCreateIndustry);
+        etIibb = (EditText) findViewById(R.id.etiibb);
+
         etdatestartCreateIndustry = (EditText) findViewById(R.id.etdatestartCreateIndustry);
         etdatestartCreateIndustry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,6 +293,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         tiloStartDate = (TextInputLayout) findViewById(R.id.tilo_datestartCreateIndustry);
         tiloAddress = (TextInputLayout) findViewById(R.id.tilo_addressCreateIndustry);
         tiloDocument = (TextInputLayout) findViewById(R.id.tilo_tax_Document);
+        tiloIibb = (TextInputLayout) findViewById(R.id.tilo_iibb);
 
     }
 

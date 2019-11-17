@@ -31,6 +31,7 @@ public class IvaCategoryDAO extends AbstractDao {
     @Override
     protected IvaCategory mapFromCursor(Cursor c) {
         IvaCategory ivaCategory = new IvaCategory();
+        ivaCategory.setCode(Integer.parseInt(c.getString(c.getColumnIndex(ivaCategory.KEY_CODE))));
         ivaCategory.setOid(c.getString(c.getColumnIndex(ivaCategory.KEY_OID)));
         ivaCategory.setDescription(c.getString(c.getColumnIndex(ivaCategory.KEY_DESCRIPTION)));
         return ivaCategory;

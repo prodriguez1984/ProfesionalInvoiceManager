@@ -143,12 +143,31 @@
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="136dp" />
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilo_iibb"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="380dp"
+                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etiibb"
+
+                    android:layout_width="383dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/iibb"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="136dp" />
+            </com.google.android.material.textfield.TextInputLayout>
             <include
                 android:id="@+id/taxClientFragment"
                 layout="@layout/fragment_tax_information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tilo_industry_mail"
+                app:layout_constraintTop_toBottomOf="@+id/tilo_iibb"
                 />
 
             <Button
