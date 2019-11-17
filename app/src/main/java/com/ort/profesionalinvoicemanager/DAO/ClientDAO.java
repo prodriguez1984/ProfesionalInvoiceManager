@@ -37,7 +37,6 @@ public class ClientDAO extends AbstractDao {
     @Override
     protected Client mapFromCursor(Cursor c) {
         Client client = new Client();
-        client.setOid(c.getString(c.getColumnIndex(Client.KEY_OID)));
         client.setName(c.getString(c.getColumnIndex(Client.KEY_NAME)));
         client.setLastName(c.getString(c.getColumnIndex(Client.KEY_LAST_NAME)));
         client.setAddress(c.getString(c.getColumnIndex(Client.KEY_ADDRESS)));

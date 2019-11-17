@@ -37,7 +37,7 @@ public class MonotributoCategory extends PersistentObject {
 
     @Override
     public String getTableName() {
-        return "";
+        return TABLE;
     }
 
     @Override

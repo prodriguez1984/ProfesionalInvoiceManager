@@ -4,6 +4,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.industry.Industry;
+import com.ort.profesionalinvoicemanager.model.product.Product;
+import com.ort.profesionalinvoicemanager.model.product.Unit;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
 import com.ort.profesionalinvoicemanager.model.tax.MonotributoCategory;
@@ -24,12 +26,15 @@ public interface PersistenceAndMockData {
         persistenClasses.add(Industry.class.getName());
         persistenClasses.add(User.class.getName());
         persistenClasses.add(Client.class.getName());
+        persistenClasses.add(Unit.class.getName());
+        persistenClasses.add(Product.class.getName());
         return persistenClasses;
     }
 
     public static ArrayList<PersistentObject> getMoObjects() {
         ArrayList<PersistentObject> mockObjects = new ArrayList<>();
-        mockObjects.add(new User("Pablo Rodriguez", "123456", "pablorodri1984@gmail.com"));
+
+        /*-----DATOS DE Referencia----*/
         mockObjects.add(new IvaCategory(new Integer(1), "IVA Responsable Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(2), "IVA Responsable no Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(3), "IVA no Responsable"));
@@ -93,7 +98,68 @@ public interface PersistenceAndMockData {
         mockObjects.add(new DocumentType(new Integer(99), "Sin identificar/venta global diaria"));
         mockObjects.add(new DocumentType(new Integer(30), "Certificado de Migración"));
         mockObjects.add(new DocumentType(new Integer(88), "Usado por Anses para Padrón"));
+        Unit u=new Unit(new Integer(0), "SIN DESCRIPCION");
+        mockObjects.add(u);
+        mockObjects.add(new Unit(new Integer(1), "KILOGRAMO"));
+        mockObjects.add(new Unit(new Integer(2), "METROS"));
+        mockObjects.add(new Unit(new Integer(3), "METRO CUADRADO"));
+        mockObjects.add(new Unit(new Integer(4), "METRO CUBICO"));
+        mockObjects.add(new Unit(new Integer(5), "LITROS"));
+        mockObjects.add(new Unit(new Integer(6), "1000 KILOWATT HORA"));
+        mockObjects.add(new Unit(new Integer(7), "UNIDAD"));
+        mockObjects.add(new Unit(new Integer(8), "PAR"));
+        mockObjects.add(new Unit(new Integer(9), "DOCENA"));
+        mockObjects.add(new Unit(new Integer(10), "QUILATE"));
+        mockObjects.add(new Unit(new Integer(11), "MILLAR"));
+        mockObjects.add(new Unit(new Integer(12), "MEGA U. INTER. ACT. ANTIB"));
+        mockObjects.add(new Unit(new Integer(13), "UNIDAD INT. ACT. INMUNG"));
+        mockObjects.add(new Unit(new Integer(14), "GRAMO"));
+        mockObjects.add(new Unit(new Integer(15), "MILIMETRO"));
+        mockObjects.add(new Unit(new Integer(16), "MILIMETRO CUBICO"));
+        mockObjects.add(new Unit(new Integer(17), "KILOMETRO"));
+        mockObjects.add(new Unit(new Integer(18), "HECTOLITRO"));
+        mockObjects.add(new Unit(new Integer(19), "MEGA UNIDAD INT. ACT. INMUNG"));
+        mockObjects.add(new Unit(new Integer(20), "CENTIMETRO"));
+        mockObjects.add(new Unit(new Integer(21), "KILOGRAMO ACTIVO"));
+        mockObjects.add(new Unit(new Integer(22), "GRAMO ACTIVO"));
+        mockObjects.add(new Unit(new Integer(23), "GRAMO BASE"));
+        mockObjects.add(new Unit(new Integer(24), "UIACTHOR"));
+        mockObjects.add(new Unit(new Integer(25), "JGO.PQT. MAZO NAIPES"));
+        mockObjects.add(new Unit(new Integer(26), "MUIACTHOR"));
+        mockObjects.add(new Unit(new Integer(27), "CENTIMETRO CUBICO"));
+        mockObjects.add(new Unit(new Integer(28), "UIACTANT"));
+        mockObjects.add(new Unit(new Integer(29), "TONELADA"));
+        mockObjects.add(new Unit(new Integer(30), "DECAMETRO CUBICO"));
+        mockObjects.add(new Unit(new Integer(31), "HECTOMETRO CUBICO"));
+        mockObjects.add(new Unit(new Integer(32), "KILOMETRO CUBICO"));
+        mockObjects.add(new Unit(new Integer(33), "MICROGRAMO"));
+        mockObjects.add(new Unit(new Integer(34), "NANOGRAMO"));
+        mockObjects.add(new Unit(new Integer(35), "PICOGRAMO"));
+        mockObjects.add(new Unit(new Integer(36), "MUIACTANT"));
+        mockObjects.add(new Unit(new Integer(37), "UIACTIG"));
+        mockObjects.add(new Unit(new Integer(41), "MILIGRAMO"));
+        mockObjects.add(new Unit(new Integer(47), "MILILITRO"));
+        mockObjects.add(new Unit(new Integer(48), "CURIE"));
+        mockObjects.add(new Unit(new Integer(49), "MILICURIE"));
+        mockObjects.add(new Unit(new Integer(50), "MICROCURIE"));
+        mockObjects.add(new Unit(new Integer(51), "U.INTER. ACT. HORMONAL"));
+        mockObjects.add(new Unit(new Integer(52), "MEGA U. INTER. ACT. HOR."));
+        mockObjects.add(new Unit(new Integer(53), "KILOGRAMO BASE"));
+        mockObjects.add(new Unit(new Integer(54), "GRUESA"));
+        mockObjects.add(new Unit(new Integer(55), "MUIACTIG"));
+        mockObjects.add(new Unit(new Integer(61), "KILOGRAMO BRUTO"));
+        mockObjects.add(new Unit(new Integer(62), "PACK"));
+        mockObjects.add(new Unit(new Integer(63), "HORMA"));
+        mockObjects.add(new Unit(new Integer(97), "SEÑAS/ANTICIPOS"));
+        mockObjects.add(new Unit(new Integer(98), "OTRAS UNIDADES"));
+        mockObjects.add(new Unit(new Integer(99), "BONIFICACION"));
+
+        /*-----DATOS DE PRUEBA quitar para version final----*/
+        mockObjects.add(new User("Pablo Rodriguez", "123456", "pablorodri1984@gmail.com"));
         mockObjects.add(new Client("Juan Carlos", "Gil", "Calle Sin Numeración 1422"));
+        mockObjects.add(new Product("Un Servicio","Desc","00",new Double("9.5"),u,Product.IDENTIFICATOR_SERVICE));
+        mockObjects.add(new Product("Un Producto","Desc","01",new Double("98.5"),u,Product.IDENTIFICATOR_PRODUCT));
         return mockObjects;
     }
+
 }
