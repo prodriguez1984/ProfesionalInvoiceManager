@@ -92,7 +92,7 @@ public class ClientListFragment extends Fragment {
 
         // specify an adapter (see also next example)
         ArrayList<Client> clientList = ClientDAO.getInstance().getAll();
-        mAdapter = new ClientListAdapter(clientList);
+        mAdapter = new ClientListAdapter(clientList, this.getActivity());
         recyclerView.setAdapter(mAdapter);
         return rootView;
     }

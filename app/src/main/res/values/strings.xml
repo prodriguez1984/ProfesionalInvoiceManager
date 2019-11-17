@@ -52,4 +52,5 @@
     <string name="cellPhoneIndustry">Celular del Servicio</string>
     <string name="datestartIndustry">Fecha de inicio de actividades</string>
     <string name="signUpTextButton">Registrarse</string>
+    <string name="client_save">Guardar</string>
 </resources>

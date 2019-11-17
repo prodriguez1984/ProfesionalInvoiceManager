@@ -1,18 +1,34 @@
 package com.ort.profesionalinvoicemanager.views;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.ort.profesionalinvoicemanager.DAO.DocTypeDAO;
+import com.ort.profesionalinvoicemanager.DAO.IvaCategoryDAO;
+import com.ort.profesionalinvoicemanager.DAO.MonotributoCategoryDAO;
+import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
+import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
+import com.ort.profesionalinvoicemanager.model.tax.MonotributoCategory;
+import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -23,7 +39,19 @@ import java.util.Collections;
  * Use the {@link TaxInformationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TaxInformationFragment extends Fragment {
+public class TaxInformationFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    private Spinner spinnerTaxMonoCat;
+    private List<MonotributoCategory> lstTaxMonoCat;
+    private String idMonoCat, descMonoCat;
+
+    private Spinner spinnerDocType;
+    private String idDoc, descDoc;
+    private List<DocumentType> lstDocumentTypes;
+
+    private Spinner spinnerIvaCategory;
+    private String idIva, descIva;
+    private List<IvaCategory> lstIvaCategory;
+
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -69,33 +97,16 @@ public class TaxInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tax_information, container, false);
-        Spinner spinnerDocType = (Spinner) view.findViewById(R.id.spinnerTaxDocType);;
-        //================Datos cargados desde Array=====================//
-        //Hago referencia al spinner con el id `sp_frutas`
-        //Implemento el setOnItemSelectedListener: para realizar acciones cuando se seleccionen los ítems
-//        spinnerDocType.setOnItemSelectedListener(this.getActivity());
-        //Convierto la variable List<> en un ArrayList<>()
-        ArrayList<String> listaFrutas = new ArrayList<>();
-        //Arreglo con nombre de frutas
-        String[] strFrutas = new String[] {"Pera", "Manzana", "Fresa", "Sandia", "Mango"};
-        //Agrego las frutas del arreglo `strFrutas` a la listaFrutas
-        Collections.addAll(listaFrutas, strFrutas);
-        //Implemento el adapter con el contexto, layout, listaFrutas
-        ArrayAdapter<String> comboAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item, listaFrutas);
-        //Cargo el spinner con los datos
-        spinnerDocType.setAdapter(comboAdapter);
-
+        configView(view);
+        initSpinner();
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tax_information, container, false);
+        return view;
 
     }
 
     private void initTaxSpinner() {
 
-    }
-    private void configView(View view) {
-//       spinnerDocType = (Spinner) view.findViewById(R.id.taxDocType);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,22 +116,73 @@ public class TaxInformationFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        if(position > 0){
+            //Doc type
+            switch (adapterView.getId()) {
+                case R.id.spinnerTaxDocType:
+                    //Almaceno el id del país seleccionado
+                    idDoc = lstDocumentTypes.get(position).getOid();
+                    //Almaceno el nombre del país seleccionado
+                    descDoc = lstDocumentTypes.get(position).getDescription();
 
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
+                    Toast.makeText(this.getContext(), "Id doc: " + idDoc + " - Desc doc: " + descDoc, Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+            //Category
+            switch (adapterView.getId()) {
+                case R.id.spinnerTaxMonoCat:
+                    //Almaceno el id del país seleccionado
+                    idMonoCat = lstTaxMonoCat.get(position).getOid();
+                    //Almaceno el nombre del país seleccionado
+                    descMonoCat = lstTaxMonoCat.get(position).getCategory();
+
+                    Toast.makeText(this.getContext(), "Id doc: " + idMonoCat + " - Desc doc: " + descMonoCat, Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+            //Iva
+            switch (adapterView.getId()) {
+                case R.id.spinnerTaxIVACat:
+                    //Almaceno el id del país seleccionado
+                    idIva = lstIvaCategory.get(position).getOid();
+                    //Almaceno el nombre del país seleccionado
+                    descIva = lstIvaCategory.get(position).getDescription();
+
+                    Toast.makeText(this.getContext(), "Id iva: " + idIva + " - Desc iva: " + descIva, Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+            // get spinner value
+        }else{
+            Toast.makeText(this.getContext(),"Seleccione un valor", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+   /* @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }*/
 
     /**
      * This interface must be implemented by activities that contain this
@@ -135,5 +197,55 @@ public class TaxInformationFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void configView(View view) {
+        spinnerDocType = (Spinner) view.findViewById(R.id.spinnerTaxDocType);
+        spinnerTaxMonoCat =  (Spinner) view.findViewById(R.id.spinnerTaxMonoCat);
+        spinnerIvaCategory =  (Spinner) view.findViewById(R.id.spinnerTaxIVACat);
+
+    }
+
+    private void initSpinner() {
+        try {
+            lstDocumentTypes =  DocTypeDAO.getInstance().getAll();
+            lstTaxMonoCat = MonotributoCategoryDAO.getInstance().getAll();
+            lstIvaCategory = IvaCategoryDAO.getInstance().getAll();
+
+        }catch(Exception e){
+            Log.d( "",e.getMessage());
+        }
+
+        //Implemento el setOnItemSelectedListener: para realizar acciones cuando se seleccionen los ítems
+        spinnerDocType.setOnItemSelectedListener(this);
+        spinnerTaxMonoCat.setOnItemSelectedListener(this);
+        //Convierto la variable List<> en un ArrayList<>()
+        List<String> listaDocs = new ArrayList<>();
+        List<String> listaCats = new ArrayList<>();
+        List<String> listaIva = new ArrayList<>();
+        //Almaceno el tamaño de la lista getAllPaises()
+
+        //Agrego los nombres de los países obtenidos y lo almaceno en  `listaPaisesSql`
+        listaDocs.add(StringConstant.DEFAULT_DOCTYPE_SPINNER);
+        for(int i = 0; i < lstDocumentTypes.size(); i++){
+            listaDocs.add(lstDocumentTypes.get(i).getDescription());
+        }
+        listaCats.add(StringConstant.DEFAULT_MONOCAT_SPINNER);
+        for(int i = 0; i < lstTaxMonoCat.size(); i++){
+            listaCats.add(lstTaxMonoCat.get(i).getCategory());
+        }
+        listaIva.add(StringConstant.DEFAULT_IVACAT_SPINNER);
+        for(int i = 0; i < lstIvaCategory.size(); i++){
+            listaIva.add(lstIvaCategory.get(i).getDescription());
+        }
+        //Implemento el adapter con el contexto, layout, listaPaisesSql
+        ArrayAdapter<String> adapterDocType = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaDocs);
+        ArrayAdapter<String> adapterMonoCat = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaCats);
+        ArrayAdapter<String> adapterIvaCat = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaIva);
+
+        //Cargo el spinner con los datos
+        spinnerDocType.setAdapter(adapterDocType);
+        spinnerTaxMonoCat.setAdapter(adapterMonoCat);
+        spinnerIvaCategory.setAdapter(adapterIvaCat);
     }
 }
