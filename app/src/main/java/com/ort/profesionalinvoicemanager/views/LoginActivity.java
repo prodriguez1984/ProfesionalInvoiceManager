@@ -45,14 +45,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
         ApplicationContext.getInstance().init(getApplicationContext());
-       // ApplicationContext.getInstance().getDb().onCreate(ApplicationContext.getInstance().getDb().getWritableDatabase());
+
         setContentView(R.layout.activity_login);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
+        ApplicationContext.getInstance().setLoggedUser(UserDAO.getInstance().getUserByMail("pablorodri1984@gmail.com"));
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
         configView();
-        //Intent intent = new Intent(getApplicationContext(),IndustryActivity.class);
-        //startActivity(intent);
     }
 
     public boolean validateFields(String userName, String password) {
