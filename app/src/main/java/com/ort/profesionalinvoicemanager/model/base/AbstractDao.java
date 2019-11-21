@@ -54,6 +54,7 @@ public abstract class AbstractDao {
             throw e;
         } finally {
             sqLiteDatabase.endTransaction();//termina transaccion, si se ejecuto setTransactionSuccessful hace comit sino rollback
+            objectToManipulate.clear();
         }
     }
 
@@ -85,6 +86,7 @@ public abstract class AbstractDao {
             throw e;
         } finally {
             sqLiteDatabase.endTransaction();//termina transaccion, si se ejecuto setTransactionSuccessful hace comit sino rollback
+            objectToManipulate.clear();
         }
     }
 
@@ -107,6 +109,7 @@ public abstract class AbstractDao {
             throw e;
         } finally {
             sqLiteDatabase.endTransaction();//termina transaccion, si se ejecuto setTransactionSuccessful hace comit sino rollback
+            objectToManipulate.clear();
         }
     }
 
@@ -159,21 +162,22 @@ public abstract class AbstractDao {
 
     public ArrayList getAllWithActiveCondition(boolean showActive) {
         int value;
-        if (showActive){
-            value=1;
-        }else{
-            value=0;
+        Cursor c;
+        if (showActive) {
+            c = executeSqlQuery("Select * from " + getTableNameForModel() + " where ACTIVE = 1", null);
+            if (c.getCount() == 0) {
+                return new ArrayList<>();
+            }
+            ArrayList result = new ArrayList<>();
+            while (c.moveToNext()) {
+                result.add(mapBasicData(mapFromCursor(c), c));
+            }
+            return result;
+        } else {
+            return getAll();
         }
 
-        Cursor c = executeSqlQuery("Select * from " + getTableNameForModel()+" where ACTIVE = ?", new String[]{String.valueOf(value)});
-        if (c.getCount() == 0) {
-            return new ArrayList<>();
-        }
-        ArrayList result = new ArrayList<>();
-        while (c.moveToNext()) {
-            result.add(mapBasicData(mapFromCursor(c), c));
-        }
-        return result;
+
     }
 
     public <T extends PersistentObject> T  getByOid(String oid) {
@@ -199,6 +203,9 @@ public abstract class AbstractDao {
         try {
             p.setCreationTimestamp(iso8601Format.parse(c.getString(c.getColumnIndex(p.KEY_CREATION_TIMESTAMP))));
             p.setModificationTimestamp(iso8601Format.parse(c.getString(c.getColumnIndex(p.KEY_MODIFICATION_TIMESTAMP))));
+            if (!((PersistentObjectWithLogicalDeletion)p).physicalDelete()){
+                ((PersistentObjectWithLogicalDeletion)p).active=c.getInt(c.getColumnIndex(((PersistentObjectWithLogicalDeletion) p).KEY_ACTIVE));
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
