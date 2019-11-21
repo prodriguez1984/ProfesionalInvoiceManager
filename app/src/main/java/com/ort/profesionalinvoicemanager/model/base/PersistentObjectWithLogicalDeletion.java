@@ -31,4 +31,9 @@ public abstract class PersistentObjectWithLogicalDeletion extends PersistentObje
     protected boolean physicalDelete() {
         return false;
     }
+
+    public boolean isActive(){
+        return active.intValue()==1;
+    }
+
 }

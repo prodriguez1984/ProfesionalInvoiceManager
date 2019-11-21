@@ -3,12 +3,13 @@ package com.ort.profesionalinvoicemanager.model.product;
 import android.content.ContentValues;
 
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.base.PersistentObjectWithLogicalDeletion;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class Product extends PersistentObject {
+public class Product extends PersistentObjectWithLogicalDeletion {
 
     public static final String TABLE="PRODUCT";
 

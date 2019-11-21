@@ -2,11 +2,12 @@ package com.ort.profesionalinvoicemanager.model.base;
 
 import android.content.ContentValues;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-public abstract class PersistentObject {
+public abstract class PersistentObject implements Serializable {
     public static String KEY_OID="OID";
     public static String KEY_CREATION_TIMESTAMP="CREATION_TIMESTAMP";
     public static String KEY_MODIFICATION_TIMESTAMP="MODIFICATION_TIMESTAMP";

@@ -1,9 +1,11 @@
 package com.ort.profesionalinvoicemanager.DAO;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.base.PersistentObjectWithLogicalDeletion;
 import com.ort.profesionalinvoicemanager.model.product.Product;
 import com.ort.profesionalinvoicemanager.model.product.Unit;
 
@@ -42,5 +44,16 @@ public class ProductDAO extends AbstractDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Product activeProduct(Product p){
+        p.active=new Integer(1);
+        super.addObjectToManipulate(p);
+        try {
+            update();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return p;
     }
 }
