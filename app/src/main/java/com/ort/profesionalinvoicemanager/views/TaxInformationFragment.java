@@ -18,13 +18,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.DocTypeDAO;
 import com.ort.profesionalinvoicemanager.DAO.IvaCategoryDAO;
 import com.ort.profesionalinvoicemanager.DAO.MonotributoCategoryDAO;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
 import com.ort.profesionalinvoicemanager.model.tax.MonotributoCategory;
+import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
+import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +54,8 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     private Spinner spinnerIvaCategory;
     private String idIva, descIva;
     private List<IvaCategory> lstIvaCategory;
+
+    private TextInputLayout tiloDoc;
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,8 +104,6 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
         View view = inflater.inflate(R.layout.fragment_tax_information, container, false);
         configView(view);
         initSpinner();
-
-        // Inflate the layout for this fragment
         return view;
 
     }
@@ -167,6 +170,54 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
 
     }
 
+    public boolean validateFields() {
+        Boolean  tiloDocHasError = validateField(tiloDoc);
+        Boolean  DocTypeNameHasError = validateField(spinnerDocType);
+        Boolean  TaxMonoCatHasError = validateField(spinnerTaxMonoCat);
+        Boolean  IvaCategoryHasError = validateField(spinnerIvaCategory);
+
+        Boolean  hasError = tiloDocHasError ||
+                            DocTypeNameHasError ||
+                            TaxMonoCatHasError ||
+                            IvaCategoryHasError;
+        return hasError;
+    }
+
+    private boolean validateField(Spinner spinner) {
+        Boolean hasError = Boolean.FALSE;
+        if(spinner.getSelectedItemId() == 0){
+            hasError = Boolean.TRUE;
+            ((TextView)spinner.getSelectedView()).setError("Error message");
+        } else {
+            ((TextView)spinner.getSelectedView()).setError(null);
+        }
+        return hasError;
+    }
+
+    private Boolean validateField(TextInputLayout tilo){
+        String text = tilo.getEditText().getText().toString();
+        Boolean hasError = Boolean.FALSE;
+        if (ValidateHelper.validateEmptyString(text)) {
+            tilo.setError(StringConstant.DATA_CANT_BE_EMPTY);
+            hasError = Boolean.TRUE;
+        }else{
+            tilo.setError(null);
+        }
+        return hasError;
+    }
+
+    public TaxInformation bindAndSave() {
+        DocumentType docType = new DocumentType(idDoc);
+        IvaCategory ivaCat = new IvaCategory(idIva);
+        MonotributoCategory monoCat = new MonotributoCategory(idMonoCat);
+        TaxInformation taxInfo = new TaxInformation("prueba iibb",
+                                                    tiloDoc.getEditText().getText().toString(),
+                                                    docType,
+                                                    ivaCat,
+                                                    monoCat);
+        return taxInfo;
+    }
+
    /* @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -200,9 +251,10 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     }
 
     private void configView(View view) {
-        spinnerDocType = (Spinner) view.findViewById(R.id.spinnerTaxDocType);
-        spinnerTaxMonoCat =  (Spinner) view.findViewById(R.id.spinnerTaxMonoCat);
-        spinnerIvaCategory =  (Spinner) view.findViewById(R.id.spinnerTaxIVACat);
+        this.spinnerDocType = (Spinner) view.findViewById(R.id.spinnerTaxDocType);
+        this.spinnerTaxMonoCat =  (Spinner) view.findViewById(R.id.spinnerTaxMonoCat);
+        this.spinnerIvaCategory =  (Spinner) view.findViewById(R.id.spinnerTaxIVACat);
+        this.tiloDoc = view.findViewById(R.id.tilo_tax_Document);
 
     }
 
@@ -219,6 +271,7 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
         //Implemento el setOnItemSelectedListener: para realizar acciones cuando se seleccionen los ítems
         spinnerDocType.setOnItemSelectedListener(this);
         spinnerTaxMonoCat.setOnItemSelectedListener(this);
+        spinnerIvaCategory.setOnItemSelectedListener(this);
         //Convierto la variable List<> en un ArrayList<>()
         List<String> listaDocs = new ArrayList<>();
         List<String> listaCats = new ArrayList<>();

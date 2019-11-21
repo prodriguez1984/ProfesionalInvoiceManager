@@ -25,6 +25,10 @@ public class IvaCategory extends PersistentObject {
         this.description = description;
     }
 
+    public IvaCategory(String oidIva) {
+        this.setOid(oidIva);
+    }
+
     @Override
     public String getTableName() {
         return TABLE;

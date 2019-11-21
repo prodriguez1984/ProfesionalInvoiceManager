@@ -35,6 +35,10 @@ public class MonotributoCategory extends PersistentObject {
         this.maxElectricityConmsumtion = maxElectricityConmsumtion;
     }
 
+    public MonotributoCategory(String oidMonoCat) {
+        this.setOid(oidMonoCat);
+    }
+
     @Override
     public String getTableName() {
         return TABLE;

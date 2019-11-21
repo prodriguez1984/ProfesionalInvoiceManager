@@ -11,6 +11,8 @@ public final class StringConstant {
     public static final String DEFAULT_DOCTYPE_SPINNER = "Seleccione Categoría";
     public static final String DEFAULT_MONOCAT_SPINNER = "Seleccione Monotributo";
     public static final String DEFAULT_IVACAT_SPINNER = "Seleccione IVA";
+    public static final String DATA_ERROR = "Por favor verifique los datos ingresados y vuelva a intentar";
+    public static final String DATA_CANT_BE_EMPTY = "El campo ? no puede estar vacío";
     public static final String CUIT = "CUIT";
     public static final String EXPLAIN_INDUSTRY = "\nEn esta sección deberá registrar \nel servicio que brinda.\n " +
             "Al finalizar podrá ingresar y comenzar a facturar." ;
@@ -26,6 +28,7 @@ public final class StringConstant {
     public static final String REPEAT_PASSWORD_NOT_EMPTY = "Debe repetir la contraseña";
     public static final String DIFERENT_PASS = "Las contraseñas no coinciden";
     public static final String IIBB_EMPTY = "El campo ingresos brutos es obligatorio";
+    public static final String CLIENT_CREATED_SUCCESSFULY = "Cliente creado satisfactoriamente";
 
     private StringConstant(){
 

@@ -33,6 +33,14 @@ public class Client extends PersistentObject {
 
     }
 
+    public Client(String name, String lastName, String adress, TaxInformation tax){
+        this();
+        this.name = name;
+        this.lastName = lastName;
+        this.address = adress;
+        this.taxInformation = tax;
+    }
+
     public TaxInformation getTaxInformation() {
         return taxInformation;
     }
