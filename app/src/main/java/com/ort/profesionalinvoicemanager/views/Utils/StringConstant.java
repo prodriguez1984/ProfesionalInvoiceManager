@@ -11,6 +11,8 @@ public final class StringConstant {
     public static final String DEFAULT_DOCTYPE_SPINNER = "Seleccione Categoría";
     public static final String DEFAULT_MONOCAT_SPINNER = "Seleccione Monotributo";
     public static final String DEFAULT_IVACAT_SPINNER = "Seleccione IVA";
+    public static final String DATA_ERROR = "Por favor verifique los datos ingresados y vuelva a intentar";
+    public static final String DATA_CANT_BE_EMPTY = "El campo ? no puede estar vacío";
 
     private StringConstant(){
 

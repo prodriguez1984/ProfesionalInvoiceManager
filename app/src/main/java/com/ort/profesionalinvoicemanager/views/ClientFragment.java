@@ -12,6 +12,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
+import com.ort.profesionalinvoicemanager.model.client.Client;
+import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
+import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 
 
 /**
@@ -22,7 +29,7 @@ import android.view.ViewGroup;
  * Use the {@link ClientFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClientFragment extends Fragment {
+public class ClientFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,6 +38,12 @@ public class ClientFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Button btnSave;
+    private TextInputLayout tiloName;
+    private TextInputLayout tiloLastName;
+    private TextInputLayout tiloAdress;
+    private TaxInformationFragment taxInfoFragment;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,7 +83,17 @@ public class ClientFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         container.removeAllViews();
-        return inflater.inflate(R.layout.fragment_client, container, false);
+        View view = inflater.inflate(R.layout.fragment_client, container, false);
+        configView(view);
+        return view;
+    }
+
+    private void configView(View view) {
+        this.btnSave = view.findViewById(R.id.clientBtnSave);
+        btnSave.setOnClickListener(this);
+        this.tiloName = view.findViewById(R.id.tilo_client_name);
+        this.tiloLastName = view.findViewById(R.id.tilo_client_lastname);
+        this.tiloAdress = view.findViewById(R.id.tilo_client_adress);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,9 +105,49 @@ public class ClientFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Fragment childFragment = new TaxInformationFragment();
+        this.taxInfoFragment = new TaxInformationFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.taxClientFragment, childFragment).commit();
+        transaction.replace(R.id.taxClientFragment, taxInfoFragment).commit();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        Boolean  tiloNameHasError = validateField(tiloName);
+        Boolean  tiloLastNameHasError = validateField(tiloLastName);
+        Boolean  tiloAdressHasError = validateField(tiloAdress);
+        Boolean  taxInfoFragmentHasError = taxInfoFragment.validateFields();
+
+        Boolean hasError = tiloNameHasError || tiloLastNameHasError || tiloAdressHasError || taxInfoFragmentHasError;
+        if(hasError) {
+            showError();
+        } else {
+            bindAndSave();
+        }
+    }
+
+    private void bindAndSave() {
+        Client client = new Client( tiloName.getEditText().getText().toString(),
+                                    tiloLastName.getEditText().getText().toString(),
+                                    tiloAdress.getEditText().getText().toString(),
+                                    taxInfoFragment.bindAndSave());
+    }
+
+    private Boolean validateField(TextInputLayout tilo){
+        String text = tilo.getEditText().getText().toString();
+        Boolean hasError = Boolean.FALSE;
+        if (!ValidateHelper.validateEmptyString(text)) {
+            tilo.setError(StringConstant.DATA_CANT_BE_EMPTY);
+            hasError = Boolean.TRUE;
+        }else{
+            tilo.setError(null);
+        }
+        return hasError;
+    }
+
+    private void showError() {
+        Toast.makeText(this.getContext(),
+                StringConstant.DATA_ERROR, Toast.LENGTH_SHORT).show();
     }
 
     /*@Override
