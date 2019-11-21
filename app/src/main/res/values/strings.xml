@@ -19,7 +19,7 @@
     <string name="title_activity_industry">Industry</string>
 
     <!-- LoginActivity -->
-    <string name="login_username">Usuario</string>
+    <string name="login_username">Email usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_signUp">Registrarse</string>
 
@@ -41,7 +41,7 @@
     <string name="client_Lastname">Apellido</string>
     <string name="client_Adress">Dirección</string>
 
-    <string name="harcode_login">Login Harcode</string>
+    <string name="harcode_login">Login </string>
     <string name="title_activity_sign_up">SignUp</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -54,4 +54,8 @@
     <string name="datestartIndustry">Fecha de inicio de actividades</string>
     <string name="signUpTextButton">Registrarse</string>
     <string name="client_save">Guardar</string>
+    <string name="emailSignUp">Email</string>
+    <string name="repeatPassSignUp">Repetir Contraseña</string>
+    <string name="iibb">Ingresos Brutos</string>
+    <string name="title_activity_product_create">ProductCreate</string>
 </resources>

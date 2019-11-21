@@ -26,10 +26,17 @@ public class SignUpActivity extends AppCompatActivity {
     private SignInButton googleSignInButton;
     private Button btnSignUp;
     private GoogleSignInOptions gso;
+
     private EditText etUserName;
-    private EditText etPasssword;
+    private EditText etEmail;
+    private EditText etPassword;
+    private EditText etRepeatPass;
+
     private TextInputLayout tiloUsername;
+    private TextInputLayout tiloEmail;
     private TextInputLayout tiloPassword;
+    private TextInputLayout tiloRepeatPass;
+
     private UserDAO userDAO;
 
     @Override
@@ -37,42 +44,50 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         configView();
-
-
     }
 
     private void configView() {
         btnSignUp = (Button) findViewById(R.id.idBtnSignUp);
         etUserName = (EditText) findViewById(R.id.etUsernameSignUp);
-        etPasssword = (EditText) findViewById(R.id.etPasswordSignUp);
+        etEmail = (EditText) findViewById(R.id.etEmailSignUp);
+        etPassword = (EditText) findViewById(R.id.etPasswordSignUp);
+        etRepeatPass = (EditText) findViewById(R.id.etRepeatPassSignUp);
+
         tiloUsername = (TextInputLayout) findViewById(R.id.tiloUsernameSignUp);
+        tiloEmail = (TextInputLayout) findViewById(R.id.tiloEmailSignUp);
         tiloPassword = (TextInputLayout) findViewById(R.id.tiloPasswordSignUp);
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
-        googleSignInButton = findViewById(R.id.sign_in_buttonLogin);
-        googleSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //validar si tengo internet aca tener un try por si no hay...
-                Intent signInIntent = googleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, 101);
-            }
-        });
+        tiloRepeatPass = (TextInputLayout) findViewById(R.id.tiloRepeatPassSignUp);
+
+//        googleSignInClient = GoogleSignIn.getClient(this, gso);
+//        googleSignInButton = findViewById(R.id.sig);
+//        googleSignInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //validar si tengo internet aca tener un try por si no hay...
+//                Intent signInIntent = googleSignInClient.getSignInIntent();
+//                startActivityForResult(signInIntent, 101);
+//            }
+//        });
 
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String eMail = String.valueOf(etUserName.getText());
-                String password = String.valueOf(etPasssword.getText());
-                if (validateFields(eMail, password)){
+                String username = String.valueOf(etUserName.getText());
+                String eMail = String.valueOf(etEmail.getText());
+                String password = String.valueOf(etPassword.getText());
+                String repeatPass = String.valueOf(etRepeatPass.getText());
+
+                if (validateFields(username, eMail,password,repeatPass)){
                     if (userExist(eMail)){
                         showSignUpError();
                     }else{
                         Intent i = new Intent(getApplicationContext(), IndustryActivity.class);
+                        i.putExtra("username", username);
                         i.putExtra("email", eMail);
+                        i.putExtra("password", password);
                         startActivity(i);
                     }
-
                 };
             }
 
@@ -87,31 +102,38 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public boolean validateFields(String userName, String password) {
+    public boolean validateFields(String userName,String eMail,String password,  String repeatPass) {
         Boolean error = false;
 //        User user = getUserByMail(userName);
         if (ValidateHelper.validateEmptyString(userName)) {
             tiloUsername.setError(StringConstant.USER_NOT_EMPTY);
             error = true;
-        } else if (!ValidateHelper.isEmailValid(userName)) {
+
+        } else if (ValidateHelper.validateEmptyString(eMail)) {
+            tiloEmail.setError(StringConstant.EMAIL_EMPTY);
+            error = true;
+        }
+        else if (!ValidateHelper.isEmailValid(eMail)) {
             tiloUsername.setError(StringConstant.INVALID_EMAIL);
             error = true;
-        } /*else if (!userName.equals(getUser().getUserName())) {
-            tiloUsername.setError("El usuario es incorrecto");
-            error = true;
-        }*/
-
+        }
         if (ValidateHelper.validateEmptyString(password)) {
             tiloPassword.setError(StringConstant.PASSWORD_NOT_EMPTY);
             error = true;
         } else if (ValidateHelper.passwordLength(password, LENGTH_PASSWORD)) {
             tiloPassword.setError(StringConstant.LENGTH_PASSWORD);
             error = true;
-        }/* else if (!getUser().getPassword().equals((password))) {
-            tiloPassword.setError("El password es incorrecto");
+        } if (ValidateHelper.validateEmptyString(repeatPass)) {
+            tiloPassword.setError(StringConstant.REPEAT_PASSWORD_NOT_EMPTY);
             error = true;
-        }*/
-        return  error;
+        } else if (ValidateHelper.passwordLength(repeatPass, LENGTH_PASSWORD)) {
+            tiloPassword.setError(StringConstant.LENGTH_PASSWORD);
+            error = true;
+        } else if (!ValidateHelper.comparatePass(password, repeatPass)) {
+            tiloPassword.setError(StringConstant.DIFERENT_PASS);
+            error = true;
+        }
+        return  !error;
     }
 
     private void showSignUpError() {

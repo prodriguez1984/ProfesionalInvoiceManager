@@ -18,16 +18,37 @@ public final class ValidateHelper {
     }
 
     public static boolean  validateEmptyString(String str){
-        return  !TextUtils.isEmpty(Objects.requireNonNull(str));
+        boolean error = false;
+        if ( str == null){
+            error = true;
+        }
+        else{
+           error =  TextUtils.isEmpty(Objects.requireNonNull(str));
+        }
+        return error;
     }
 
     public static boolean isEmailValid(String eMail) {
-        matcher = pattern.matcher(eMail);
-        return matcher.matches();
+        if (eMail != null){
+            matcher = pattern.matcher(eMail);
+            return matcher.matches();
+        }else{
+            return false;
+        }
+
     }
 
     public static boolean passwordLength(String password, int length) {
         return password.length() != length;
     }
 
+    public static boolean comparatePass(String password, String repeatPass) {
+        boolean error = false;
+        if (password != null && repeatPass != null ){
+            if (!password.equals(repeatPass) ){
+                error = true;
+            }
+        }
+        return !error;
+    }
 }

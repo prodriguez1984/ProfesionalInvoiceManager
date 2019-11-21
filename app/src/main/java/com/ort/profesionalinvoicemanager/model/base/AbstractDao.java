@@ -157,6 +157,33 @@ public abstract class AbstractDao {
         return result;
     }
 
+    public ArrayList getAllWithActiveCondition(boolean showActive) {
+        int value;
+        if (showActive){
+            value=1;
+        }else{
+            value=0;
+        }
+
+        Cursor c = executeSqlQuery("Select * from " + getTableNameForModel()+" where ACTIVE = ?", new String[]{String.valueOf(value)});
+        if (c.getCount() == 0) {
+            return new ArrayList<>();
+        }
+        ArrayList result = new ArrayList<>();
+        while (c.moveToNext()) {
+            result.add(mapBasicData(mapFromCursor(c), c));
+        }
+        return result;
+    }
+
+    public <T extends PersistentObject> T  getByOid(String oid) {
+        Cursor c = executeSqlQuery("Select * from " + getTableNameForModel()+" where OID = ?", new String[]{oid});
+        if (c.getCount() == 0) {
+            return null;
+        }
+        return mapBasicData(mapFromCursor(c), c);
+    }
+
     public Cursor executeSqlQuery(String query, String[] selectionArgs) {
         SQLiteDatabase db = ApplicationContext.getInstance().getDb().getReadableDatabase();
         Cursor c = db.rawQuery(query, selectionArgs);

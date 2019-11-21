@@ -34,4 +34,13 @@ public class ProductDAO extends AbstractDao {
         p.setUnit(new Unit(c.getString(c.getColumnIndex(Product.KEY_UNIT_OID))));
         return p;
     }
+
+    public void deleteProduct(Product p){
+        super.addObjectToManipulate(p);
+        try {
+            super.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -5,11 +5,8 @@ package com.ort.profesionalinvoicemanager.views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,8 +28,6 @@ import com.ort.profesionalinvoicemanager.model.user.User;
 import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
 import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 
-import java.util.Objects;
-
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "AndroidClarified";
     private static final int LENGTH_PASSWORD = 6;
@@ -50,19 +45,20 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Prueba de cometario
         ApplicationContext.getInstance().init(getApplicationContext());
-       // ApplicationContext.getInstance().getDb().onCreate(ApplicationContext.getInstance().getDb().getWritableDatabase());
+
         setContentView(R.layout.activity_login);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
+        ApplicationContext.getInstance().setLoggedUser(UserDAO.getInstance().getUserByMail("pablorodri1984@gmail.com"));
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
         configView();
-        //Intent intent = new Intent(getApplicationContext(),IndustryActivity.class);
-        //startActivity(intent);
     }
 
     public boolean validateFields(String userName, String password) {
         Boolean error = false;
-        if (!ValidateHelper.validateEmptyString(userName)) {
+        if (ValidateHelper.validateEmptyString(userName)) {
             tiloUsername.setError(StringConstant.USER_NOT_EMPTY);
             error = true;
         } else if (!ValidateHelper.isEmailValid(userName)) {
@@ -70,11 +66,11 @@ public class LoginActivity extends AppCompatActivity {
             error = true;
         }
 
-        return  error;
+        return  !error;
     }
 
     private void configView() {
-        btnLogin = findViewById(R.id.btnHardcodeLogin);
+        btnLogin = findViewById(R.id.btnLogin);
         btnToSignUp = findViewById(R.id.btnToSignUp);
         etUserName = (EditText) findViewById(R.id.etUsernameLogin);
         etPasssword = (EditText) findViewById(R.id.etPasswordLogin);
@@ -106,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userName = etUserName.getText().toString();
                 String password = etPasssword.getText().toString();
-                if (!validateFields(userName,password)){
+                if (validateFields(userName,password)){
                     User u = UserDAO.getInstance().getUserByMail(userName);
                     if (u!=null && password.equals(u.getPassword())) {
                         ApplicationContext.getInstance().setLoggedUser(u);

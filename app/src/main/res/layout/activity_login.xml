@@ -6,15 +6,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/common_google_signin_btn_text_dark_default"
         tools:context=".LoginActivity">
 
 
         <Button
-            android:id="@+id/btnHardcodeLogin"
+            android:id="@+id/btnLogin"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="159dp"
-            android:layout_height="49dp"
+            android:layout_width="419dp"
+            android:layout_height="52dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/secondary_text"
             android:text="@string/harcode_login"
@@ -24,11 +23,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tiloPasswordLogin" />
 
+
         <Button
             android:id="@+id/btnToSignUp"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="159dp"
-            android:layout_height="49dp"
+            android:layout_width="411dp"
+            android:layout_height="45dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/secondary_text"
             android:text="@string/signUpTextButton"
@@ -36,24 +36,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnHardcodeLogin" />
+            app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/idImgLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.458"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/idLoginTxtTitle"
-            app:srcCompat="@mipmap/icono_facturacion_round"></androidx.appcompat.widget.AppCompatImageView>
-
+            app:srcCompat="@mipmap/icono_facturacion_foreground"></androidx.appcompat.widget.AppCompatImageView>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_buttonLogin"
-            android:layout_width="165dp"
-            android:layout_height="49dp"
+            android:layout_width="403dp"
+            android:layout_height="54dp"
             android:background="@color/secondary_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,8 +67,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tiloPasswordLogin"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="431dp"
+            android:layout_height="59dp"
             android:layout_marginTop="40dp"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"

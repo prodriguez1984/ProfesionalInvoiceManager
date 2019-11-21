@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.ort.profesionalinvoicemanager.DAO.ProductDAO;
 import com.ort.profesionalinvoicemanager.model.product.Product;
 import com.ort.profesionalinvoicemanager.views.R;
@@ -67,14 +69,13 @@ public class ProductFragmentList extends Fragment {
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
         ArrayList<Product> list = ProductDAO.getInstance().getAll();
-        mAdapter = new ProductAdapter(list);
+        mAdapter = new ProductAdapter(getContext(), list);
         recyclerView.setAdapter(mAdapter);
         return rootView;
     }
@@ -85,26 +86,17 @@ public class ProductFragmentList extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
- /*   @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-*/
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdapter!=null){
+            ((ProductAdapter) mAdapter).setList(ProductDAO.getInstance().getAll());
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }
