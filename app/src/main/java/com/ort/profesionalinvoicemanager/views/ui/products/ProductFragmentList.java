@@ -9,8 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -53,6 +57,7 @@ public class ProductFragmentList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -74,7 +79,7 @@ public class ProductFragmentList extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        ArrayList<Product> list = ProductDAO.getInstance().getAll();
+        ArrayList<Product> list = ProductDAO.getInstance().getAllWithActiveCondition(true);
         mAdapter = new ProductAdapter(getContext(), list);
         recyclerView.setAdapter(mAdapter);
         return rootView;
@@ -92,11 +97,18 @@ public class ProductFragmentList extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (mAdapter!=null){
-            ((ProductAdapter) mAdapter).setList(ProductDAO.getInstance().getAll());
-            mAdapter.notifyDataSetChanged();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.product_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_showInactive){
+            ((ProductAdapter) mAdapter).changeWholeData(ProductDAO.getInstance().getAllWithActiveCondition(false));
         }
+
+        return super.onOptionsItemSelected(item);
     }
 }
