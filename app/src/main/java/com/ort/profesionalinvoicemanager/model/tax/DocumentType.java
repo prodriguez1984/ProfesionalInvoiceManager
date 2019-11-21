@@ -25,6 +25,10 @@ public class DocumentType extends PersistentObject {
         this.description = description;
     }
 
+    public DocumentType(String oid) {
+        this.setOid(oid);
+    }
+
     @Override
     public String getTableName() {
         return TABLE;

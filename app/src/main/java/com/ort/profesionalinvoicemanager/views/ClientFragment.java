@@ -1,6 +1,7 @@
 package com.ort.profesionalinvoicemanager.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,9 +17,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.ort.profesionalinvoicemanager.DAO.ClientDAO;
+import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
 import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
+import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 
 
 /**
@@ -131,12 +135,26 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
                                     tiloLastName.getEditText().getText().toString(),
                                     tiloAdress.getEditText().getText().toString(),
                                     taxInfoFragment.bindAndSave());
+        try {
+            ClientDAO.getInstance().saveUser(client);
+            Toast.makeText(this.getContext(),
+                    StringConstant.CLIENT_CREATED_SUCCESSFULY, Toast.LENGTH_SHORT).show();
+            Fragment clientLisFragment = new ClientListFragment();
+            this.getFragmentManager().beginTransaction()
+                    .replace(R.id.nav_host_fragment, clientLisFragment)
+                    .commit();
+
+        } catch (Exception e) {
+            showError();
+        }
+
+
     }
 
     private Boolean validateField(TextInputLayout tilo){
         String text = tilo.getEditText().getText().toString();
         Boolean hasError = Boolean.FALSE;
-        if (!ValidateHelper.validateEmptyString(text)) {
+        if (ValidateHelper.validateEmptyString(text)) {
             tilo.setError(StringConstant.DATA_CANT_BE_EMPTY);
             hasError = Boolean.TRUE;
         }else{

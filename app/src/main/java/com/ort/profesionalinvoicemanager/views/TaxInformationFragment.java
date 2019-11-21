@@ -197,7 +197,7 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     private Boolean validateField(TextInputLayout tilo){
         String text = tilo.getEditText().getText().toString();
         Boolean hasError = Boolean.FALSE;
-        if (!ValidateHelper.validateEmptyString(text)) {
+        if (ValidateHelper.validateEmptyString(text)) {
             tilo.setError(StringConstant.DATA_CANT_BE_EMPTY);
             hasError = Boolean.TRUE;
         }else{
@@ -207,10 +207,15 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     }
 
     public TaxInformation bindAndSave() {
-        TaxInformation taxInfo = new TaxInformation(tiloDoc.getEditText().getText().toString(),
-                                                    spinnerDocType.getId(),
-                                                    spinnerIvaCategory.getId(),
-                                                    spinnerTaxMonoCat.getId())
+        DocumentType docType = new DocumentType(idDoc);
+        IvaCategory ivaCat = new IvaCategory(idIva);
+        MonotributoCategory monoCat = new MonotributoCategory(idMonoCat);
+        TaxInformation taxInfo = new TaxInformation("prueba iibb",
+                                                    tiloDoc.getEditText().getText().toString(),
+                                                    docType,
+                                                    ivaCat,
+                                                    monoCat);
+        return taxInfo;
     }
 
    /* @Override
@@ -266,6 +271,7 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
         //Implemento el setOnItemSelectedListener: para realizar acciones cuando se seleccionen los ítems
         spinnerDocType.setOnItemSelectedListener(this);
         spinnerTaxMonoCat.setOnItemSelectedListener(this);
+        spinnerIvaCategory.setOnItemSelectedListener(this);
         //Convierto la variable List<> en un ArrayList<>()
         List<String> listaDocs = new ArrayList<>();
         List<String> listaCats = new ArrayList<>();
