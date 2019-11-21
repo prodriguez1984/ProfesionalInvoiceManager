@@ -30,6 +30,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
     private final ArrayList<Product> list;
     private Context context;
 
+
+    public interface OnItemClickListener {
+        void onItemClick(Product item);
+    }
+
     public ProductAdapter(Context context, ArrayList<Product> list) {
         this.context = context;
         this.list = list;
@@ -42,6 +47,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
         public ProductListHolder(RelativeLayout rowItem) {
             super(rowItem);
             rowClientItem = rowItem;
+        }
+        //Este metodo agrega el salto a la pantalla de inspeccion
+        public void bind(final String oid) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ProductInspection.class);
+                    intent.putExtra("productOid",oid);
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
 
     }
@@ -70,6 +85,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
         ImageButton btnActive = holder.rowClientItem.findViewById(R.id.product_btn_Active);
 
         Product product = list.get(position);
+        holder.bind(product.getOid());
         if (Product.IDENTIFICATOR_PRODUCT.equals(product.getProductType())) {
             icon.setImageResource(R.drawable.ic_product);
         } else {

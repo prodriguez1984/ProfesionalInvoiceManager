@@ -8,6 +8,7 @@ public abstract class PersistentObjectWithLogicalDeletion extends PersistentObje
 
     public PersistentObjectWithLogicalDeletion() {
         super();
+        physicalDeletion=false;
     }
 
     @Override
@@ -25,11 +26,6 @@ public abstract class PersistentObjectWithLogicalDeletion extends PersistentObje
         StringBuffer query=super.initializeCreationQuery();
         query.append(getFieldStringForCreation(KEY_ACTIVE,SQLiteDateType.INTEGER,true));
         return query;
-    }
-
-    @Override
-    protected boolean physicalDelete() {
-        return false;
     }
 
     public boolean isActive(){

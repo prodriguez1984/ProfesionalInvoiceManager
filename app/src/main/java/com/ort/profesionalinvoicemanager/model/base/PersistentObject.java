@@ -14,8 +14,10 @@ public abstract class PersistentObject implements Serializable {
     private String oid;
     private Date creationTimestamp;
     private Date modificationTimestamp;
+    protected boolean physicalDeletion;
 
     public PersistentObject() {
+        physicalDeletion=true;
         oid=UUID.randomUUID().toString();
     }
 
@@ -76,7 +78,7 @@ public abstract class PersistentObject implements Serializable {
     }
 
     protected boolean physicalDelete(){
-        return true;
+        return physicalDeletion;
     }
 
     public String getOid() {
