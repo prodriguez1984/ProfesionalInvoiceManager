@@ -64,4 +64,5 @@
     <string name="product_lblDesc">Descripcion:</string>
     <string name="product_lblUnit">Unidad:</string>
     <string name="product_lblUPrice">Precio</string>
+    <string name="home">Home</string>
 </resources>
