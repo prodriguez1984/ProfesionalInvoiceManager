@@ -185,6 +185,7 @@ public abstract class AbstractDao {
         if (c.getCount() == 0) {
             return null;
         }
+        c.moveToNext();
         return mapBasicData(mapFromCursor(c), c);
     }
 
@@ -203,7 +204,7 @@ public abstract class AbstractDao {
         try {
             p.setCreationTimestamp(iso8601Format.parse(c.getString(c.getColumnIndex(p.KEY_CREATION_TIMESTAMP))));
             p.setModificationTimestamp(iso8601Format.parse(c.getString(c.getColumnIndex(p.KEY_MODIFICATION_TIMESTAMP))));
-            if (!((PersistentObjectWithLogicalDeletion)p).physicalDelete()){
+            if (!p.physicalDelete()){
                 ((PersistentObjectWithLogicalDeletion)p).active=c.getInt(c.getColumnIndex(((PersistentObjectWithLogicalDeletion) p).KEY_ACTIVE));
             }
         } catch (ParseException e) {
