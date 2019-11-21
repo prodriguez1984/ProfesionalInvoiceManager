@@ -46,6 +46,12 @@ public class ProductDAO extends AbstractDao {
         }
     }
 
+    public Product getCompleteProductByOid(String oid){
+        Product p=getByOid(oid);
+        p.setUnit(UnitDAO.getInstance().getByOid(p.getUnit().getOid()));
+        return p;
+    }
+
     public Product activeProduct(Product p){
         p.active=new Integer(1);
         super.addObjectToManipulate(p);
