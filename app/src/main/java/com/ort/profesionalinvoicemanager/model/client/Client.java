@@ -3,12 +3,13 @@ package com.ort.profesionalinvoicemanager.model.client;
 import android.content.ContentValues;
 
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.base.PersistentObjectWithLogicalDeletion;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
 import java.util.ArrayList;
 
-public class Client extends PersistentObject {
+public class Client extends PersistentObjectWithLogicalDeletion {
 
     private TaxInformation taxInformation;
     private String name;
@@ -96,5 +97,9 @@ public class Client extends PersistentObject {
         values.put(KEY_ADDRESS,getAddress());
         //values.put(KEY_TAX_INFORMATION,getTaxInformation().getOid());
         return values;
+    }
+
+    public boolean isActive(){
+        return active.intValue()==1;
     }
 }
