@@ -4,6 +4,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.industry.Industry;
+import com.ort.profesionalinvoicemanager.model.invoice.Invoice;
+import com.ort.profesionalinvoicemanager.model.invoice.InvoiceDetail;
+import com.ort.profesionalinvoicemanager.model.invoice.PaymentCondition;
 import com.ort.profesionalinvoicemanager.model.product.Product;
 import com.ort.profesionalinvoicemanager.model.product.Unit;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
@@ -28,6 +31,9 @@ public interface PersistenceAndMockData {
         persistenClasses.add(Client.class.getName());
         persistenClasses.add(Unit.class.getName());
         persistenClasses.add(Product.class.getName());
+        persistenClasses.add(Invoice.class.getName());
+        persistenClasses.add(InvoiceDetail.class.getName());
+        persistenClasses.add(PaymentCondition.class.getName());
         return persistenClasses;
     }
 
@@ -153,12 +159,26 @@ public interface PersistenceAndMockData {
         mockObjects.add(new Unit(new Integer(97), "SEÑAS/ANTICIPOS"));
         mockObjects.add(new Unit(new Integer(98), "OTRAS UNIDADES"));
         mockObjects.add(new Unit(new Integer(99), "BONIFICACION"));
+        mockObjects.add(new DocumentType(new Integer(0), "Contado"));
+        mockObjects.add(new DocumentType(new Integer(1), "Tarjeta de Debito"));
+        mockObjects.add(new DocumentType(new Integer(2), "Tarjeta de Debito"));
+        mockObjects.add(new DocumentType(new Integer(3), "Cuenta Corriente"));
+        mockObjects.add(new DocumentType(new Integer(4), "Cheque"));
+        mockObjects.add(new DocumentType(new Integer(5), "Ticket"));
+        mockObjects.add(new DocumentType(new Integer(6), "Mercado Pago"));
+        mockObjects.add(new DocumentType(new Integer(7), "Otra"));
 
         /*-----DATOS DE PRUEBA quitar para version final----*/
         mockObjects.add(new User("Pablo Rodriguez", "123456", "pablorodri1984@gmail.com"));
-        mockObjects.add(new Client("Juan Carlos", "Gil", "Calle Sin Numeración 1422"));
-        mockObjects.add(new Product("Un Servicio","Desc","00",new Double("9.5"),u,Product.IDENTIFICATOR_SERVICE));
-        mockObjects.add(new Product("Un Producto","Desc","01",new Double("98.5"),u,Product.IDENTIFICATOR_PRODUCT));
+        Client c=new Client("Juan Carlos", "Gil", "Calle Sin Numeración 1422");
+                Product p=new Product("Un Servicio","Desc","00",new Double(9.5),u,Product.IDENTIFICATOR_SERVICE);
+        Product p2= new Product("Un Producto","Desc","01",new Double(98.5),u,Product.IDENTIFICATOR_PRODUCT);
+       /* InvoiceDetail i=new InvoiceDetail(new Double(2.5), new Double(0), new Double(0), new Double(0),new Integer (10), p);
+        InvoiceDetail i2=new InvoiceDetail(new Double(2.5), new Double(0), new Double(0), new Double(0),new Integer (10), p2);*/
+
+        mockObjects.add(c);
+        mockObjects.add(p);
+        mockObjects.add(p2);
         return mockObjects;
     }
 
