@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ort.profesionalinvoicemanager.DAO.ProductDAO;
@@ -49,11 +51,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
             rowClientItem = rowItem;
         }
         //Este metodo agrega el salto a la pantalla de inspeccion
-        public void bind(final String oid) {
+        public void bind(final String productOid) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), ProductInspection.class);
-                    intent.putExtra("productOid",oid);
+                    intent.putExtra("productOid",productOid);
                     v.getContext().startActivity(intent);
                 }
             });
@@ -177,7 +179,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
             }
         });
 
-   }
+    }
 
     @Override
     public int getItemCount() {
