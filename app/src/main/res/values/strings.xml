@@ -65,4 +65,8 @@
     <string name="product_lblUnit">Unidad:</string>
     <string name="product_lblUPrice">Precio</string>
     <string name="home">Home</string>
+    <string name="menu_home">Home</string>
+    <string name="create_client">Agregar Cliente</string>
+    <string name="create_product">Agregar Producto</string>
+    <string name="bill">Facturar</string>
 </resources>

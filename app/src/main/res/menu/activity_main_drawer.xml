@@ -5,6 +5,11 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home_custom"
+            android:icon="@drawable/home2"
+            android:title="@string/menu_home" />
+
+        <item
             android:id="@+id/nav_industry"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_Industry" />
