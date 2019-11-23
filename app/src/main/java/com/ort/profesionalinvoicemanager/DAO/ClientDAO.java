@@ -3,9 +3,7 @@ package com.ort.profesionalinvoicemanager.DAO;
 import android.database.Cursor;
 
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
-import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
 import com.ort.profesionalinvoicemanager.model.client.Client;
-import com.ort.profesionalinvoicemanager.model.product.Product;
 
 import java.util.ArrayList;
 
@@ -65,4 +63,8 @@ public class ClientDAO extends AbstractDao {
     }
 
 
+    public Client getCompleteClientByOid(String oid) {
+        Client client=getByOid(oid);
+        return client;
+    }
 }

@@ -67,4 +67,14 @@
     <string name="product_active">Activo:</string>
     <string name="product_key">Producto</string>
     <string name="service_key">Servicio</string>
+    <string name="client_lblName">Nombre:</string>
+    <string name="client_lblLastName">Apellido:</string>
+    <string name="client_lblMail">E-Mail:</string>
+    <string name="client_lblAdress">Dirección:</string>
+    <string name="taxInfo_lblIibb">Ingresos Brutos:</string>
+    <string name="taxInfo_lblDocNum">Documento:</string>
+    <string name="taxInfo_lblDocType">Tipo de Documento:</string>
+    <string name="taxInfo_lblIVA">Categoría IVA:</string>
+    <string name="taxInfo_lblMonoCat">Categoría Monotributo:</string>
+    <string name="client_active">Activo:</string>
 </resources>
