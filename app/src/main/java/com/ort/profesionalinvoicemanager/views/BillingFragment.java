@@ -1,49 +1,45 @@
 package com.ort.profesionalinvoicemanager.views;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
-import com.ort.profesionalinvoicemanager.views.ui.products.ProductCreate;
+import com.ort.profesionalinvoicemanager.DAO.BillingDAO;
+import com.ort.profesionalinvoicemanager.DAO.InvoiceDAO;
+import com.ort.profesionalinvoicemanager.model.invoice.Invoice;
+import com.ort.profesionalinvoicemanager.views.Utils.PdfHelper;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeCustomFragment.OnFragmentInteractionListener} interface
+ * {@link BillingFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeCustomFragment#newInstance} factory method to
+ * Use the {@link BillingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeCustomFragment extends Fragment {
+public class BillingFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static final String OID = "d457af5f-d1f4-497e-a5ff-6480459569ee";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private Button btnCreateClient;
-    private Button btnCreateProduct;
-    private Button btnBill;
+    private Button btnBillingProccess;
 
     private OnFragmentInteractionListener mListener;
 
-    public HomeCustomFragment() {
+    public BillingFragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +49,11 @@ public class HomeCustomFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeCustomFragment.
+     * @return A new instance of fragment BillingFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeCustomFragment newInstance(String param1, String param2) {
-        HomeCustomFragment fragment = new HomeCustomFragment();
+    public static BillingFragment newInstance(String param1, String param2) {
+        BillingFragment fragment = new BillingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,37 +74,25 @@ public class HomeCustomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_home_custom, container, false);
-//        configView();
         container.removeAllViews();
-        View view = inflater.inflate(R.layout.fragment_home_custom, container, false);
+        View view = inflater.inflate(R.layout.fragment_client, container, false);
         configView(view);
         return view;
     }
 
     private void configView(View view) {
-        btnCreateClient = (Button)view.findViewById(R.id.btnCreateClient);
-        btnCreateClient.setOnClickListener(new View.OnClickListener() {
+        btnBillingProccess = (Button)view.findViewById(R.id.btnBillingProccess);
+        btnBillingProccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClientFragment nextFrag= new ClientFragment();
-                Fragment clientListFragment = new ClientListFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment, nextFrag)
-                        .commit();
+                PdfHelper pdfHelper = new PdfHelper();
+                Invoice invoice= InvoiceDAO.getInstance().getCompleteInvoiceByOid(OID);
+                PdfDocument pdf =  pdfHelper.getPdf(invoice);
+                BillingDAO billingDAO = new BillingDAO();
+                billingDAO.SendEmail(pdf);
             }
         });
-        btnCreateProduct = (Button)view.findViewById(R.id.btnCreateProduct);
-        btnCreateProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ProductCreate.class);
-                startActivity(intent);
-            }
-        });
-        btnBill = (Button)view.findViewById(R.id.btnBill);
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

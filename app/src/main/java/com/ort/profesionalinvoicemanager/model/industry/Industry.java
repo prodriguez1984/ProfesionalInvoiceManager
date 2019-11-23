@@ -45,6 +45,30 @@ public class Industry extends PersistentObjectWithLogicalDeletion {
         return fields;
     }
 
+    public Industry() {
+    }
+
+    /**
+     *
+     * @param name
+     * @param address
+     * @param mail
+     * @param telephone
+     * @param cellphone
+     * @param activityStart
+     * @param taxInformation
+     */
+    public Industry(String name, String address, String mail, String telephone, String cellphone, Date activityStart, TaxInformation taxInformation) {
+
+        this.name = name;
+        this.address = address;
+        this.mail = mail;
+        this.telephone = telephone;
+        this.cellphone = cellphone;
+        this.activityStart = activityStart;
+        this.taxInformation = taxInformation;
+    }
+
     @Override
     protected ContentValues toParticularContentValues(ContentValues values) {
         values.put(KEY_NAME, getName());
@@ -57,6 +81,8 @@ public class Industry extends PersistentObjectWithLogicalDeletion {
 
         return values;
     }
+
+
 
     public String getName() {
         return name;

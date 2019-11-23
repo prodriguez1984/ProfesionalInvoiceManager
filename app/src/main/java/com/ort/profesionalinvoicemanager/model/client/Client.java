@@ -25,6 +25,12 @@ public class Client extends PersistentObject {
         super();
     }
 
+    /**
+     *
+     * @param name
+     * @param lastName
+     * @param adress
+     */
     public Client(String name, String lastName, String adress){
         this();
         this.name = name;

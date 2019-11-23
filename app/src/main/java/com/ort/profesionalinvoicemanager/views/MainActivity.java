@@ -123,6 +123,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                             .replace(R.id.nav_host_fragment, clientListFragment)
                                             .commit();
                 break;
+            case R.id.nav_billing:
+                Fragment billingFragment = new BillingFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment, billingFragment)
+                        .commit();
+                break;
         }
         return true;
     }
