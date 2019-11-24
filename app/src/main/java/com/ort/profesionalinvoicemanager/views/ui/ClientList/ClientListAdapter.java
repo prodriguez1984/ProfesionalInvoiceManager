@@ -13,11 +13,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ort.profesionalinvoicemanager.DAO.ClientDAO;
 import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.product.Product;
+import com.ort.profesionalinvoicemanager.views.ClientFragment;
 import com.ort.profesionalinvoicemanager.views.R;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductInspection;
 
@@ -112,9 +115,11 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
             @Override
             public void onClick(View v) {
                 Client client = clientList.get(position);
-                Intent intent = new Intent(v.getContext(), ProductInspection.class);
-                intent.putExtra("product",client);
-                v.getContext().startActivity(intent);
+                Client completeClient = ClientDAO.getInstance().getCompleteClientByOid(client.getOid());
+                Fragment clientFragment = new ClientFragment().newInstance(completeClient);
+                ((FragmentActivity)mCtx).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment, clientFragment)
+                        .commit();
             }
         });
 

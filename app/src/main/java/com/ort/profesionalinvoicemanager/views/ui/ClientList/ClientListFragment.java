@@ -84,6 +84,7 @@ public class ClientListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
         View rootView = inflater.inflate(R.layout.fragment_client_list, container, false);
         //        // 1. get a reference to recyclerView
         recyclerView = rootView.findViewById(R.id.my_recycler_view);
@@ -97,6 +98,7 @@ public class ClientListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
+        //TODO: Arreglar esto para que traiga el cliente completo(con el tax information)
         ArrayList<Client> clientList = ClientDAO.getInstance().getAllWithActiveCondition(true);
         mAdapter = new ClientListAdapter(clientList, this.getActivity());
         recyclerView.setAdapter(mAdapter);

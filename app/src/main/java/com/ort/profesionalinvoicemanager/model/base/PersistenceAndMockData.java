@@ -180,12 +180,12 @@ public interface PersistenceAndMockData {
         Date today = Calendar.getInstance().getTime();
         TaxInformation taxInformation = new TaxInformation("No inscritpo","11111111",new DocumentType(new Integer(1), "CI Buenos Aires"),new IvaCategory(new Integer(6), "Responsable Monotributo"),new MonotributoCategory("C", new BigDecimal("276255.98"), "No requiere", "Hasta 60 m2", "Hasta 6700 Kw"));
         Industry industry =new Industry("Industry test,","Salguero","pepe@pepe.com","12345678","12345678",today,new TaxInformation());
-        Invoice invoice = new Invoice(c,new PaymentCondition(new Integer(0), "Contado"),today,today,today,today,"A",industry,12345678,12345,1250.00,0.0,0.0,1250.00);
+        //Invoice invoice = new Invoice(c,new PaymentCondition(new Integer(0), "Contado"),today,today,today,today,"A",industry,12345678,12345,1250.00,0.0,0.0,1250.00);
 
         //mockObjects.add(c);
         mockObjects.add(p);
         mockObjects.add(p2);
-        mockObjects.add(invoice);
+        //mockObjects.add(invoice);
         return mockObjects;
     }
 

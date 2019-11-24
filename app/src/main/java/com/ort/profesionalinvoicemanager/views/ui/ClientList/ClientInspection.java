@@ -26,7 +26,7 @@ public class ClientInspection extends AppCompatActivity {
         txt=findViewById(R.id.client_txtLastName);
         txt.setText(client.getLastName());
         txt=findViewById(R.id.client_txtMail);
-        txt.setText(client.getName());
+        txt.setText(client.getMail());
         txt=findViewById(R.id.client_txtAdress);
         txt.setText(client.getAddress());
 

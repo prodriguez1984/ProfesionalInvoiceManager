@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.ClientDAO;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
@@ -36,12 +37,10 @@ import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 public class ClientFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_CLIENT = "CLIENT";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Client client;
 
     private Button btnSave;
     private TextInputLayout tiloName;
@@ -60,16 +59,14 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param client Parameter 1.
      * @return A new instance of fragment ClientFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClientFragment newInstance(String param1, String param2) {
+    public static ClientFragment newInstance(Client client) {
         ClientFragment fragment = new ClientFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_CLIENT, client);
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,8 +75,7 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            this.client = (Client) getArguments().getSerializable(ARG_CLIENT);
         }
     }
 
@@ -90,6 +86,12 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
         container.removeAllViews();
         View view = inflater.inflate(R.layout.fragment_client, container, false);
         configView(view);
+        if(this.client != null){
+            this.tiloName.getEditText().setText(client.getName());
+            this.tiloLastName.getEditText().setText(client.getLastName());
+            this.tiloMail.getEditText().setText(client.getMail());
+            this.tiloAdress.getEditText().setText(client.getAddress());
+        }
         return view;
     }
 
@@ -111,7 +113,11 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        this.taxInfoFragment = new TaxInformationFragment();
+        if(this.client == null){
+            this.taxInfoFragment = new TaxInformationFragment();
+        } else {
+            this.taxInfoFragment  = new TaxInformationFragment().newInstance(client.getTaxInformation());
+        }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.taxClientFragment, taxInfoFragment).commit();
     }
@@ -138,15 +144,26 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
     }
 
     private void bindAndSave() {
-        Client client = new Client( tiloName.getEditText().getText().toString(),
-                                    tiloLastName.getEditText().getText().toString(),
-                                    tiloAdress.getEditText().getText().toString(),
-                                    tiloMail.getEditText().getText().toString(),
-                                    taxInfoFragment.bindAndSave());
         try {
-            ClientDAO.getInstance().saveUser(client);
-            Toast.makeText(this.getContext(),
-                    StringConstant.CLIENT_CREATED_SUCCESSFULY, Toast.LENGTH_SHORT).show();
+            if(this.client == null){
+                Client client = new Client( tiloName.getEditText().getText().toString(),
+                                            tiloLastName.getEditText().getText().toString(),
+                                            tiloAdress.getEditText().getText().toString(),
+                                            tiloMail.getEditText().getText().toString(),
+                                            taxInfoFragment.bindAndSave());
+                ClientDAO.getInstance().saveUser(client);
+                Toast.makeText(this.getContext(),
+                        StringConstant.CLIENT_CREATED_SUCCESSFULY, Toast.LENGTH_SHORT).show();
+            }else{
+                this.client.setName(tiloName.getEditText().getText().toString());
+                this.client.setLastName(tiloLastName.getEditText().getText().toString());
+                this.client.setAddress(tiloAdress.getEditText().getText().toString());
+                this.client.setMail(tiloMail.getEditText().getText().toString());
+                this.client.setTaxInformation(taxInfoFragment.bindAndSave());
+                ClientDAO.getInstance().edit(client);
+                Toast.makeText(this.getContext(),
+                        StringConstant.CLIENT_EDITED_SUCCESSFULY, Toast.LENGTH_SHORT).show();
+            }
             Fragment clientLisFragment = new ClientListFragment();
             this.getFragmentManager().beginTransaction()
                     .replace(R.id.nav_host_fragment, clientLisFragment)

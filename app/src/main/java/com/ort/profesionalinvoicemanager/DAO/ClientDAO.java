@@ -71,4 +71,13 @@ public class ClientDAO extends AbstractDao {
         client.setTaxInformation(TaxInformationDAO.getInstance().getCompleteTaxInformationByOid(client.getTaxInformation().getOid()));
         return client;
     }
+
+    public void edit(Client client){
+        super.addObjectToManipulate(client);
+        try {
+            update();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
