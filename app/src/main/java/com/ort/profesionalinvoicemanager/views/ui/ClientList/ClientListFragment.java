@@ -10,12 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ort.profesionalinvoicemanager.DAO.ClientDAO;
+import com.ort.profesionalinvoicemanager.DAO.ProductDAO;
 import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.views.R;
+import com.ort.profesionalinvoicemanager.views.ui.products.ProductAdapter;
 
 import java.util.ArrayList;
 
@@ -69,6 +74,7 @@ public class ClientListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -78,6 +84,7 @@ public class ClientListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
         View rootView = inflater.inflate(R.layout.fragment_client_list, container, false);
         //        // 1. get a reference to recyclerView
         recyclerView = rootView.findViewById(R.id.my_recycler_view);
@@ -91,7 +98,8 @@ public class ClientListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        ArrayList<Client> clientList = ClientDAO.getInstance().getAll();
+        //TODO: Arreglar esto para que traiga el cliente completo(con el tax information)
+        ArrayList<Client> clientList = ClientDAO.getInstance().getAllWithActiveCondition(true);
         mAdapter = new ClientListAdapter(clientList, this.getActivity());
         recyclerView.setAdapter(mAdapter);
         return rootView;
@@ -134,5 +142,21 @@ public class ClientListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.product_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_showInactive){
+            ((ClientListAdapter) mAdapter).changeWholeData(ClientDAO.getInstance().getAllWithActiveCondition(false));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

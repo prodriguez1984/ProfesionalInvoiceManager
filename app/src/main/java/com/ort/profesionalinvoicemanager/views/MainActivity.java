@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
     public static final String GOOGLE_ACCOUNT = "google_account";
+    private FloatingActionButton fab;
+    private int actualItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                switch (actualItem){
+
+                    case R.id.nav_home_custom:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
+                    case R.id.nav_industry:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
+                    case R.id.nav_client:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
+                    case R.id.nav_billing:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
+                    case R.id.nav_clientList:
+                        Fragment clientFragment = new ClientFragment();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.nav_host_fragment, clientFragment)
+                                .commit();
+                        break;
+                    default:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                        break;
+
+                }
             }
         });
         drawer = findViewById(R.id.drawer_layout);
@@ -101,30 +131,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home_custom:
+                actualItem = R.id.nav_home_custom;
                 Fragment homeFragment = new HomeCustomFragment();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_home_custom, homeFragment)
                         .commit();
                 break;
             case R.id.nav_industry:
+                actualItem = R.id.nav_industry;
                 Fragment industryFragment = new IndustryFragment();
                 getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.nav_host_fragment, industryFragment)
                                                 .commit();
                 break;
             case R.id.nav_client:
+                actualItem = R.id.nav_client;
                 Fragment clientFragment = new ClientFragment();
                 getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.nav_host_fragment, clientFragment)
                                                 .commit();
                 break;
             case R.id.nav_clientList:
+                actualItem = R.id.nav_clientList;
                 Fragment clientListFragment = new ClientListFragment();
                 getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.nav_host_fragment, clientListFragment)
                                             .commit();
                 break;
             case R.id.nav_billing:
+                actualItem = R.id.nav_billing;
                 Fragment billingFragment = new BillingFragment();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment, billingFragment)

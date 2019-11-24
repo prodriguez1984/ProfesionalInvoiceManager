@@ -29,6 +29,7 @@ public final class StringConstant {
     public static final String DIFERENT_PASS = "Las contraseñas no coinciden";
     public static final String IIBB_EMPTY = "El campo ingresos brutos es obligatorio";
     public static final String CLIENT_CREATED_SUCCESSFULY = "Cliente creado satisfactoriamente";
+    public static final String CLIENT_EDITED_SUCCESSFULY = "Cliente editado satisfactoriamente";
 
     private StringConstant(){
 
