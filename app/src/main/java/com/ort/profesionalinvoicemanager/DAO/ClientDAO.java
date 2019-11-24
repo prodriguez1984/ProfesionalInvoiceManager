@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.client.Client;
+import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,9 @@ public class ClientDAO extends AbstractDao {
         Client client = new Client();
         client.setName(c.getString(c.getColumnIndex(Client.KEY_NAME)));
         client.setLastName(c.getString(c.getColumnIndex(Client.KEY_LAST_NAME)));
+        client.setMail(c.getString(c.getColumnIndex(Client.KEY_MAIL)));
         client.setAddress(c.getString(c.getColumnIndex(Client.KEY_ADDRESS)));
+        client.setTaxInformation(new TaxInformation(c.getString(c.getColumnIndex(Client.KEY_TAX_INFORMATION))));
         return client;
     }
 
@@ -65,6 +68,7 @@ public class ClientDAO extends AbstractDao {
 
     public Client getCompleteClientByOid(String oid) {
         Client client=getByOid(oid);
+        client.setTaxInformation(TaxInformationDAO.getInstance().getCompleteTaxInformationByOid(client.getTaxInformation().getOid()));
         return client;
     }
 }

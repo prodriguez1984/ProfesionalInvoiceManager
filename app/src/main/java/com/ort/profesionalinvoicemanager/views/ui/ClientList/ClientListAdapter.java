@@ -48,11 +48,12 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         }
 
         //Este metodo agrega el salto a la pantalla de inspeccion
-        public void bind(final String oid) {
+        public void bind(final String clientOid, String taxOid) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), ClientInspection.class);
-                    intent.putExtra("productOid",oid);
+                    intent.putExtra("clientOid",clientOid);
+                    intent.putExtra("taxOid",taxOid);
                     v.getContext().startActivity(intent);
                 }
             });
@@ -87,7 +88,9 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         TextView clientNameTV = holder.rowClientItem.findViewById(R.id.title_textview);
         TextView clientDescriptionTV = holder.rowClientItem.findViewById(R.id.subtitle_textview);
         Client client = clientList.get(position);
-        clientNameTV.setText(client.getName());
+        holder.bind(client.getOid(), client.getTaxInformation().getOid());
+        clientNameTV.setText(client.getName()+" "+client.getLastName());
+        clientDescriptionTV.setText(client.getMail());
         //TextView clientNameTV = holder.rowClientItem.findViewById(R.id.title_textview);
         ImageButton btnEdit = holder.rowClientItem.findViewById(R.id.client_btn_edit);
         ImageButton btnDelete = holder.rowClientItem.findViewById(R.id.client_btn_delete);
@@ -140,7 +143,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
                             }
                         })
                         .setTitle("Confirmar")
-                        .setMessage("¿Eliminar el cliene " + client.getName() + "?")
+                        .setMessage("¿Eliminar el cliente " + client.getName() + "?")
                         .create();
                 dialog.show();
             }

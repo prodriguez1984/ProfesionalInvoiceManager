@@ -46,6 +46,7 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
     private Button btnSave;
     private TextInputLayout tiloName;
     private TextInputLayout tiloLastName;
+    private TextInputLayout tiloMail;
     private TextInputLayout tiloAdress;
     private TaxInformationFragment taxInfoFragment;
 
@@ -97,6 +98,7 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
         btnSave.setOnClickListener(this);
         this.tiloName = view.findViewById(R.id.tilo_client_name);
         this.tiloLastName = view.findViewById(R.id.tilo_client_lastname);
+        this.tiloMail = view.findViewById(R.id.tilo_client_mail);
         this.tiloAdress = view.findViewById(R.id.tilo_client_adress);
     }
 
@@ -119,10 +121,15 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
 
         Boolean  tiloNameHasError = validateField(tiloName);
         Boolean  tiloLastNameHasError = validateField(tiloLastName);
+        Boolean  tiloMailHasError = validateField(tiloMail);
+        if (!ValidateHelper.isEmailValid(tiloMail.getEditText().getText().toString())) {
+            tiloMail.setError(StringConstant.INVALID_EMAIL);
+            tiloMailHasError = Boolean.TRUE;
+        }
         Boolean  tiloAdressHasError = validateField(tiloAdress);
         Boolean  taxInfoFragmentHasError = taxInfoFragment.validateFields();
 
-        Boolean hasError = tiloNameHasError || tiloLastNameHasError || tiloAdressHasError || taxInfoFragmentHasError;
+        Boolean hasError = tiloNameHasError || tiloMailHasError || tiloLastNameHasError || tiloAdressHasError || taxInfoFragmentHasError;
         if(hasError) {
             showError();
         } else {
@@ -134,6 +141,7 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
         Client client = new Client( tiloName.getEditText().getText().toString(),
                                     tiloLastName.getEditText().getText().toString(),
                                     tiloAdress.getEditText().getText().toString(),
+                                    tiloMail.getEditText().getText().toString(),
                                     taxInfoFragment.bindAndSave());
         try {
             ClientDAO.getInstance().saveUser(client);

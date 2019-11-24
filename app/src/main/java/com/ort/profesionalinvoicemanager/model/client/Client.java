@@ -107,8 +107,9 @@ public class Client extends PersistentObjectWithLogicalDeletion {
     protected ContentValues toParticularContentValues(ContentValues values) {
         values.put(KEY_NAME,getName());
         values.put(KEY_LAST_NAME,getLastName());
+        values.put(KEY_MAIL,getMail());
         values.put(KEY_ADDRESS,getAddress());
-        //values.put(KEY_TAX_INFORMATION,getTaxInformation().getOid());
+        values.put(KEY_TAX_INFORMATION,getTaxInformation().getOid());
         return values;
     }
 

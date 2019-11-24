@@ -77,4 +77,5 @@
     <string name="taxInfo_lblIVA">Categoría IVA:</string>
     <string name="taxInfo_lblMonoCat">Categoría Monotributo:</string>
     <string name="client_active">Activo:</string>
+    <string name="client_Mail">E-Mail</string>
 </resources>

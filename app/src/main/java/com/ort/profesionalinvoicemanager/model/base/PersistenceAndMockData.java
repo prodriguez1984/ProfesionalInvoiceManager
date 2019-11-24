@@ -170,13 +170,13 @@ public interface PersistenceAndMockData {
 
         /*-----DATOS DE PRUEBA quitar para version final----*/
         mockObjects.add(new User("Pablo Rodriguez", "123456", "pablorodri1984@gmail.com"));
-        Client c=new Client("Juan Carlos", "Gil", "Calle Sin Numeración 1422");
+/*        Client c=new Client("Juan Carlos", "Gil", "Calle Sin Numeración 1422","prueba@aol.com");*/
                 Product p=new Product("Un Servicio","Desc","00",new Double(9.5),u,Product.IDENTIFICATOR_SERVICE);
         Product p2= new Product("Un Producto","Desc","01",new Double(98.5),u,Product.IDENTIFICATOR_PRODUCT);
        /* InvoiceDetail i=new InvoiceDetail(new Double(2.5), new Double(0), new Double(0), new Double(0),new Integer (10), p);
         InvoiceDetail i2=new InvoiceDetail(new Double(2.5), new Double(0), new Double(0), new Double(0),new Integer (10), p2);*/
 
-        mockObjects.add(c);
+        //mockObjects.add(c);
         mockObjects.add(p);
         mockObjects.add(p2);
         return mockObjects;
