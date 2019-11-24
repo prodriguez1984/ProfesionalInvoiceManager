@@ -59,11 +59,11 @@
     <string name="iibb">Ingresos Brutos</string>
     <string name="title_activity_product_create">ProductCreate</string>
     <string name="action_showInactive">Mostrar Inactivos</string>
-    <string name="product_lblCode">Codigo Producto:</string>
+    <string name="product_lblCode">Codigo:</string>
     <string name="product_lblName">Producto:</string>
     <string name="product_lblDesc">Descripcion:</string>
     <string name="product_lblUnit">Unidad:</string>
-    <string name="product_lblUPrice">Precio</string>
+    <string name="product_lblUPrice">Precio:</string>
     <string name="home">Home</string>
     <string name="menu_home">Home</string>
     <string name="product_active">Activo:</string>

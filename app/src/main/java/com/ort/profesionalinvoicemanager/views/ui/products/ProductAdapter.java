@@ -31,6 +31,7 @@ import java.util.ArrayList;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductListHolder> {
     private final ArrayList<Product> list;
     private Context context;
+    private boolean addOrEdit=false;
 
 
     public interface OnItemClickListener {
@@ -99,6 +100,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
 
         if (!product.isActive()) {
             btnDetele.setVisibility(View.GONE);
+            btnEdit.setVisibility(View.GONE);
             btnActive.setVisibility(View.VISIBLE);
             productName.setTextColor(context.getResources().getColor(R.color.material_on_primary_disabled));
             productDesc.setTextColor(context.getResources().getColor(R.color.material_on_primary_disabled));
@@ -106,6 +108,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
         } else {
             btnActive.setVisibility(View.GONE);
             btnDetele.setVisibility(View.VISIBLE);
+            btnEdit.setVisibility(View.VISIBLE);
             productName.setTextColor(context.getResources().getColor(R.color.primary_text));
             productDesc.setTextColor(context.getResources().getColor(R.color.primary_text));
             productPrice.setTextColor(context.getResources().getColor(R.color.primary_text));
@@ -116,8 +119,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
             public void onClick(View v) {
                 Product product = list.get(position);
                 Intent intent = new Intent(v.getContext(), ProductCreate.class);
-                intent.putExtra("product",product);
+                intent.putExtra("productOid",product.getOid());
+                intent.putExtra("saveAction",Boolean.FALSE);
                 v.getContext().startActivity(intent);
+                addOrEdit=true;
             }
         });
 
@@ -193,4 +198,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductL
         notifyDataSetChanged();
     }
 
+    public boolean isAddOrEdit() {
+        return addOrEdit;
+    }
+
+    public void setAddOrEdit(boolean addOrEdit) {
+        this.addOrEdit = addOrEdit;
+    }
 }
