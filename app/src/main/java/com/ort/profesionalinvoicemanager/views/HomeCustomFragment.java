@@ -107,6 +107,15 @@ public class HomeCustomFragment extends Fragment {
             }
         });
         btnBill = (Button)view.findViewById(R.id.btnBill);
+        btnBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BillingFragment nextFrag= new BillingFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment, nextFrag)
+                        .commit();
+            }
+        });
     }
 
 

@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.format.TextStyle;
-
 public class PdfHelper {
 
     public PdfDocument getPdf(Invoice invoice) {
@@ -26,7 +25,12 @@ public class PdfHelper {
         paint.setColor(Color.RED);
         canvas.drawCircle(50, 50, 30, paint);
         paint.setColor(Color.BLACK);
-        canvas.drawText(invoice.getLetter(), 80, 50, paint);
+        String text = invoice.getIndustry().toString() + "\n"
+                        + invoice.getIndustry().getTaxInformation().toString() + "\n"
+                        + invoice.getIndustry().getTaxInformation().getIva().toString() + "\n"
+                        + invoice.getClient().toString() + "\n"
+                        + invoice.toString();
+        canvas.drawText(text, 80, 50, paint);
         //canvas.drawt
         // finish the page
         document.finishPage(page);
@@ -35,9 +39,9 @@ public class PdfHelper {
         pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 2).create();
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
-        paint = new Paint();
-        paint.setColor(Color.BLUE);
-        canvas.drawCircle(100, 100, 100, paint);
+//        paint = new Paint();
+//        paint.setColor(Color.BLUE);
+//        canvas.drawCircle(100, 100, 100, paint);
         document.finishPage(page);
         // write the document content
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/mypdf/";
@@ -45,7 +49,7 @@ public class PdfHelper {
         if (!file.exists()) {
             file.mkdirs();
         }
-        String targetPdf = directory_path+"test-2.pdf";
+        String targetPdf = directory_path+"test-3.pdf";
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));

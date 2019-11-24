@@ -2,6 +2,7 @@ package com.ort.profesionalinvoicemanager.model.invoice;
 
 import android.content.ContentValues;
 
+import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import com.ort.profesionalinvoicemanager.model.client.Client;
@@ -78,10 +79,10 @@ public class Invoice extends PersistentObject {
         values.put(KEY_CAE              , getCAE());
         values.put(KEY_PAYMENT_CONDITION, getPaymentCondition().getOid());
         values.put(KEY_CLIENT           , getClient().getOid());
-        values.put(KEY_SINCE            , getInvoiceSince().toString());
-        values.put(KEY_UNTIL            ,getInvoiceUntil().toString() );
-        values.put(KEY_DUE_DATE         , getDueDate().toString());
-        values.put(KEY_INVOICE_DATE     , getInvoiceDate().toString());
+        values.put(KEY_SINCE            , AbstractDao.iso8601Format.format(getInvoiceSince()));
+        values.put(KEY_UNTIL            ,AbstractDao.iso8601Format.format(getInvoiceUntil()));
+        values.put(KEY_DUE_DATE         , AbstractDao.iso8601Format.format(getDueDate()));
+        values.put(KEY_INVOICE_DATE     , AbstractDao.iso8601Format.format(getInvoiceDate()));
         values.put(KEY_INDUSTRY         , getIndustry().getOid());
         values.put(KEY_AMOUNT           , getAmount());
         values.put(KEY_DISCOUNT_AMOUNT  , getDiscountAmount());
@@ -125,6 +126,23 @@ public class Invoice extends PersistentObject {
         this.discountAmount = discountAmount;
         this.discountRate = discountRate;
         this.netAmount = netAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                ", Fecha de factura " + invoiceDate +
+                ", Desde " + invoiceSince +
+                ", Hasta " + invoiceUntil +
+                ", Vencimiento " + dueDate +
+                ", Letra '" + letter + '\'' +
+                ", Número de Factura=" + invoiceNumber +
+                ", CAE=" + CAE +
+                ", Total=" + amount +
+                ", Descuento=" + discountAmount +
+                ", Porcentaje de Descuento=" + discountRate +
+                ", Monto Neto=" + netAmount +
+                '}';
     }
 
     public Client getClient() {

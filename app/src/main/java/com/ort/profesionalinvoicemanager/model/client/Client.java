@@ -25,6 +25,10 @@ public class Client extends PersistentObject {
         super();
     }
 
+    public Client(String oid) {
+        this.setOid(oid);
+    }
+
     /**
      *
      * @param name
@@ -45,6 +49,15 @@ public class Client extends PersistentObject {
         this.lastName = lastName;
         this.address = adress;
         this.taxInformation = tax;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 
     public TaxInformation getTaxInformation() {

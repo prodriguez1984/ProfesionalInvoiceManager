@@ -75,7 +75,7 @@ public class BillingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         container.removeAllViews();
-        View view = inflater.inflate(R.layout.fragment_client, container, false);
+        View view = inflater.inflate(R.layout.fragment_billing, container, false);
         configView(view);
         return view;
     }

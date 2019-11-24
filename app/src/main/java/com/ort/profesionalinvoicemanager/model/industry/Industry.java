@@ -2,6 +2,7 @@ package com.ort.profesionalinvoicemanager.model.industry;
 
 import android.content.ContentValues;
 
+import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.base.PersistentObjectWithLogicalDeletion;
 import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
@@ -10,13 +11,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Industry extends PersistentObjectWithLogicalDeletion {
-    private final String KEY_NAME = "NAME";
-    private final String KEY_ADDRESS = "ADDRESS";
-    private final String KEY_MAIL = "MAIL";
-    private final String KEY_TELEPHONE = "TELEPHONE";
-    private final String KEY_CELLPHONE = "CELLPHONE";
-    private final String KEY_ACTIVITY_START = "ACTIVITY_START";
-    private final String KEY_TAX_INFORMATION = "TAX_INFORMATION";
+    public final String KEY_NAME = "NAME";
+    public final String KEY_ADDRESS = "ADDRESS";
+    public final String KEY_MAIL = "MAIL";
+    public final String KEY_TELEPHONE = "TELEPHONE";
+    public final String KEY_CELLPHONE = "CELLPHONE";
+    public final String KEY_ACTIVITY_START = "ACTIVITY_START";
+    public final String KEY_TAX_INFORMATION = "TAX_INFORMATION";
 
     private String name;
     private String address;
@@ -48,6 +49,9 @@ public class Industry extends PersistentObjectWithLogicalDeletion {
     public Industry() {
     }
 
+    public Industry(String oid) {
+        this.setOid(oid);
+    }
     /**
      *
      * @param name
@@ -59,7 +63,6 @@ public class Industry extends PersistentObjectWithLogicalDeletion {
      * @param taxInformation
      */
     public Industry(String name, String address, String mail, String telephone, String cellphone, Date activityStart, TaxInformation taxInformation) {
-
         this.name = name;
         this.address = address;
         this.mail = mail;
@@ -76,13 +79,23 @@ public class Industry extends PersistentObjectWithLogicalDeletion {
         values.put(KEY_MAIL, getMail());
         values.put(KEY_TELEPHONE, getTelephone());
         values.put(KEY_CELLPHONE, getCellphone());
-        values.put(KEY_ACTIVITY_START, getActivityStart().toString());
+        values.put(KEY_ACTIVITY_START  , AbstractDao.iso8601Format.format(getActivityStart()));
         values.put(KEY_TAX_INFORMATION, getTaxInformation().getOid());
 
         return values;
     }
 
-
+    @Override
+    public String toString() {
+        return "Industry{" +
+                "Nombre='" + name + '\'' +
+                ", Dirección='" + address + '\'' +
+                ", mail='" + mail + '\'' +
+                ", Telefono='" + telephone + '\'' +
+                ", Celular='" + cellphone + '\'' +
+                ", Fecha de inicio de actividades=" + activityStart +
+                +'}';
+    }
 
     public String getName() {
         return name;
@@ -111,6 +124,8 @@ public class Industry extends PersistentObjectWithLogicalDeletion {
     public TaxInformation getTaxInformation() {
         return taxInformation;
     }
+
+
 
     public void setName(String name) {
         this.name = name;

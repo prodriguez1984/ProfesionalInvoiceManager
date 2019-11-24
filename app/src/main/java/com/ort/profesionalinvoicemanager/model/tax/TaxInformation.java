@@ -8,11 +8,11 @@ import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import java.util.ArrayList;
 
 public class TaxInformation extends PersistentObjectWithLogicalDeletion {
-    private final String KEY_IIBB = "IIBB";
-    private final String KEY_DOCUMENT_NUMBER = "DOCUMENT_NUMBER";
-    private final String KEY_DOCUMENT_TYPE = "DOCUMENT_TYPE";
-    private final String KEY_IVA = "IVA";
-    private final String KEY_MONOTRIBUTO = "MONOTRIBUTO";
+    public final String KEY_IIBB = "IIBB";
+    public final String KEY_DOCUMENT_NUMBER = "DOCUMENT_NUMBER";
+    public final String KEY_DOCUMENT_TYPE = "DOCUMENT_TYPE";
+    public final String KEY_IVA = "IVA";
+    public final String KEY_MONOTRIBUTO = "MONOTRIBUTO";
 
     private String iibb;
     private String documentNumber;
@@ -21,6 +21,10 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
     private MonotributoCategory monotributoCategory;
 
     public TaxInformation(){super();}
+
+    public TaxInformation(String oid) {
+        super.setOid(oid);
+    }
 
     /**
      *
@@ -37,6 +41,15 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
         this.documentType = documentType;
         this.iva = iva;
         this.monotributoCategory = monotributoCategory;
+    }
+
+    @Override
+    public String toString() {
+        return "TaxInformation{" +
+                "Ingresos Brutos='" + iibb + '\'' +
+                ", Tipo de Documento=" + documentType +
+                ", Número='" + documentNumber + '\'' +
+                '}';
     }
 
     @Override

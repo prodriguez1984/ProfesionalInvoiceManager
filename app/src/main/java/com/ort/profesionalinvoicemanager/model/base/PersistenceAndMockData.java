@@ -16,9 +16,12 @@ import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 import com.ort.profesionalinvoicemanager.model.user.User;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public interface PersistenceAndMockData {
 
@@ -43,7 +46,8 @@ public interface PersistenceAndMockData {
         ArrayList<PersistentObject> mockObjects = new ArrayList<>();
 
         /*-----DATOS DE Referencia----*/
-        mockObjects.add(new IvaCategory(new Integer(1), "IVA Responsable Inscripto"));
+        IvaCategory ivaCategory = new IvaCategory(new Integer(1), "IVA Responsable Inscripto");
+        mockObjects.add(ivaCategory);
         mockObjects.add(new IvaCategory(new Integer(2), "IVA Responsable no Inscripto"));
         mockObjects.add(new IvaCategory(new Integer(3), "IVA no Responsable"));
         mockObjects.add(new IvaCategory(new Integer(4), "IVA Sujeto Exento"));
@@ -57,7 +61,8 @@ public interface PersistenceAndMockData {
         mockObjects.add(new IvaCategory(new Integer(12), "Pequeño Contribuyente Eventual"));
         mockObjects.add(new IvaCategory(new Integer(13), "Monotributista Social"));
         mockObjects.add(new IvaCategory(new Integer(14), "Pequeño Contribuyente Eventual Social"));
-        mockObjects.add(new MonotributoCategory("A", new BigDecimal("138127.99"), "No requiere", "Hasta 30 m2", "Hasta 3330 Kw"));
+        MonotributoCategory monotributoCategory = new MonotributoCategory("A", new BigDecimal("138127.99"), "No requiere", "Hasta 30 m2", "Hasta 3330 Kw");
+        mockObjects.add(monotributoCategory);
         mockObjects.add(new MonotributoCategory("B", new BigDecimal("207191.98"), "No requiere", "Hasta 45 m2", "Hasta 5000 Kw"));
         mockObjects.add(new MonotributoCategory("C", new BigDecimal("276255.98"), "No requiere", "Hasta 60 m2", "Hasta 6700 Kw"));
         mockObjects.add(new MonotributoCategory("D", new BigDecimal("414383.98"), "No requiere", "Hasta 85 m2", "Hasta 10000 Kw"));
@@ -68,7 +73,8 @@ public interface PersistenceAndMockData {
         mockObjects.add(new MonotributoCategory("I", new BigDecimal("1352503.24"), "No requiere", "Hasta 200 m2", "Hasta 20000 Kw"));
         mockObjects.add(new MonotributoCategory("J", new BigDecimal("1553939.89"), "No requiere", "Hasta 200 m2", "Hasta 20000 Kw"));
         mockObjects.add(new MonotributoCategory("K", new BigDecimal("1726599.88"), "No requiere", "Hasta 200 m2", "Hasta 20000 Kw"));
-        mockObjects.add(new DocumentType(new Integer(0), "CI Policía Federal"));
+        DocumentType documentType = new DocumentType(new Integer(0), "CI Policía Federal");
+        mockObjects.add(documentType);
         mockObjects.add(new DocumentType(new Integer(1), "CI Buenos Aires"));
         mockObjects.add(new DocumentType(new Integer(2), "CI Catamarca"));
         mockObjects.add(new DocumentType(new Integer(3), "CI Córdoba"));
@@ -161,7 +167,8 @@ public interface PersistenceAndMockData {
         mockObjects.add(new Unit(new Integer(97), "SEÑAS/ANTICIPOS"));
         mockObjects.add(new Unit(new Integer(98), "OTRAS UNIDADES"));
         mockObjects.add(new Unit(new Integer(99), "BONIFICACION"));
-        mockObjects.add(new PaymentCondition(new Integer(0), "Contado"));
+        PaymentCondition paymentCondition = new PaymentCondition(new Integer(0), "Contado");
+        mockObjects.add(paymentCondition);
         mockObjects.add(new PaymentCondition(new Integer(1), "Tarjeta de Debito"));
         mockObjects.add(new PaymentCondition(new Integer(2), "Tarjeta de Debito"));
         mockObjects.add(new PaymentCondition(new Integer(3), "Cuenta Corriente"));
@@ -177,14 +184,17 @@ public interface PersistenceAndMockData {
         Product p2= new Product("Un Producto","Desc","01",new Double(98.5),u,Product.IDENTIFICATOR_PRODUCT);
        /* InvoiceDetail i=new InvoiceDetail(new Double(2.5), new Double(0), new Double(0), new Double(0),new Integer (10), p);
         InvoiceDetail i2=new InvoiceDetail(new Double(2.5), new Double(0), new Double(0), new Double(0),new Integer (10), p2);*/
-        Date today = Calendar.getInstance().getTime();
-        TaxInformation taxInformation = new TaxInformation("No inscritpo","11111111",new DocumentType(new Integer(1), "CI Buenos Aires"),new IvaCategory(new Integer(6), "Responsable Monotributo"),new MonotributoCategory("C", new BigDecimal("276255.98"), "No requiere", "Hasta 60 m2", "Hasta 6700 Kw"));
-        Industry industry =new Industry("Industry test,","Salguero","pepe@pepe.com","12345678","12345678",today,new TaxInformation());
-        Invoice invoice = new Invoice(c,new PaymentCondition(new Integer(0), "Contado"),today,today,today,today,"A",industry,12345678,12345,1250.00,0.0,0.0,1250.00);
+        Date today = new Date();
+
+        TaxInformation taxInformation = new TaxInformation("No inscritpo","11111111",documentType, "CI Buenos Aires",ivaCategory,monotributoCategory);
+        Industry industry =new Industry("Industry test,","Salguero","pepe@pepe.com","12345678","12345678",today,taxInformation);
+
+        Invoice invoice = new Invoice(c,paymentCondition,today,today,today,today,"A",industry,12345678,12345,1250.00,0.0,0.0,1250.00);
 
         mockObjects.add(c);
         mockObjects.add(p);
         mockObjects.add(p2);
+        mockObjects.add(industry);
         mockObjects.add(invoice);
         return mockObjects;
     }
