@@ -89,15 +89,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tilo_client_adress"
         tools:layout_editor_absoluteX="16dp" />
 
-    <Button
-        android:id="@+id/clientBtnSave"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/client_fab_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/client_save"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taxClientFragment" />
-
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_save" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

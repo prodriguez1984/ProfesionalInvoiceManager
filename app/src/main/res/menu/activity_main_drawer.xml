@@ -14,13 +14,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_Industry" />
         <item
-            android:id="@+id/nav_client"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_client" />
-        <item
             android:id="@+id/nav_clientList"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:icon="@mipmap/round_person_black_36"
+            android:title="@string/menu_clients" />
         <item
             android:id="@+id/nav_ProductList"
             android:icon="@drawable/ic_product"

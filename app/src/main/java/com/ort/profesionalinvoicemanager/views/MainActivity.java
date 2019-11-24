@@ -52,10 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                         break;
-                    case R.id.nav_client:
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        break;
                     case R.id.nav_billing:
                         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
@@ -81,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home_custom,
-                R.id.nav_industry, R.id.nav_client, R.id.nav_clientList,R.id.nav_ProductList,
+                R.id.nav_industry, R.id.nav_clientList,R.id.nav_ProductList,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
@@ -142,13 +138,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Fragment industryFragment = new IndustryFragment();
                 getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.nav_host_fragment, industryFragment)
-                                                .commit();
-                break;
-            case R.id.nav_client:
-                actualItem = R.id.nav_client;
-                Fragment clientFragment = new ClientFragment();
-                getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.nav_host_fragment, clientFragment)
                                                 .commit();
                 break;
             case R.id.nav_clientList:

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.ClientDAO;
@@ -42,7 +43,6 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private Client client;
 
-    private Button btnSave;
     private TextInputLayout tiloName;
     private TextInputLayout tiloLastName;
     private TextInputLayout tiloMail;
@@ -96,8 +96,8 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
     }
 
     private void configView(View view) {
-        this.btnSave = view.findViewById(R.id.clientBtnSave);
-        btnSave.setOnClickListener(this);
+        FloatingActionButton fab = view.findViewById (R.id.client_fab_save);
+        fab.setOnClickListener(this);
         this.tiloName = view.findViewById(R.id.tilo_client_name);
         this.tiloLastName = view.findViewById(R.id.tilo_client_lastname);
         this.tiloMail = view.findViewById(R.id.tilo_client_mail);

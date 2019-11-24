@@ -1,6 +1,7 @@
 package com.ort.profesionalinvoicemanager.views.ui.ClientList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,11 +17,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ort.profesionalinvoicemanager.DAO.ClientDAO;
 import com.ort.profesionalinvoicemanager.DAO.ProductDAO;
 import com.ort.profesionalinvoicemanager.model.client.Client;
+import com.ort.profesionalinvoicemanager.views.ClientFragment;
 import com.ort.profesionalinvoicemanager.views.R;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductAdapter;
+import com.ort.profesionalinvoicemanager.views.ui.products.ProductCreate;
 
 import java.util.ArrayList;
 
@@ -102,6 +106,17 @@ public class ClientListFragment extends Fragment {
         ArrayList<Client> clientList = ClientDAO.getInstance().getAllWithActiveCondition(true);
         mAdapter = new ClientListAdapter(clientList, this.getActivity());
         recyclerView.setAdapter(mAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.client_create_add_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment clientFragment = new ClientFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment, clientFragment)
+                        .commit();
+            }
+        });
         return rootView;
     }
 
