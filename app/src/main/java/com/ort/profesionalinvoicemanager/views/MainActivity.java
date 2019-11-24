@@ -1,9 +1,7 @@
 package com.ort.profesionalinvoicemanager.views;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +21,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home_custom,
                 R.id.nav_industry, R.id.nav_client, R.id.nav_clientList,R.id.nav_ProductList,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
@@ -102,6 +99,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_home_custom:
+                Fragment homeFragment = new HomeCustomFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_home_custom, homeFragment)
+                        .commit();
+                break;
             case R.id.nav_industry:
                 Fragment industryFragment = new IndustryFragment();
                 getSupportFragmentManager().beginTransaction()
@@ -119,6 +122,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.nav_host_fragment, clientListFragment)
                                             .commit();
+                break;
+            case R.id.nav_billing:
+                Fragment billingFragment = new BillingFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment, billingFragment)
+                        .commit();
                 break;
         }
         return true;

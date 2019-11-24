@@ -15,20 +15,20 @@ import java.util.Date;
 
 public class Invoice extends PersistentObject {
     public static final String TABLE ="INVOICE";
-    private final String KEY_LETTER = "LETTER";
-    private final String KEY_INVOICE_NUMBER = "INVOICE_NUMBER";
-    private final String KEY_CAE = "CAE";
-    private final String KEY_PAYMENT_CONDITION = "PAYMENT_CONDITION_OID";
-    private final String KEY_CLIENT = "CLIENT_OID";
-    private final String KEY_SINCE = "SINCE";
-    private final String KEY_UNTIL = "UNTIL";
-    private final String KEY_DUE_DATE = "DUE_DATE";
-    private final String KEY_INVOICE_DATE = "INVOICE_DATE";
-    private final String KEY_INDUSTRY = "INDUSTRY_OID";
-    private final String KEY_AMOUNT = "AMOUNT";
-    private final String KEY_DISCOUNT_AMOUNT = "DISCOUNT_AMOUNT";
-    private final String KEY_DISCOUNT_RATE = "DISCOUNT_RATE";
-    private final String KEY_NET_AMOUNT = "NET_AMOUNT";
+    public static final String KEY_LETTER = "LETTER";
+    public static final String KEY_INVOICE_NUMBER = "INVOICE_NUMBER";
+    public static final String KEY_CAE = "CAE";
+    public static final String KEY_PAYMENT_CONDITION = "PAYMENT_CONDITION_OID";
+    public static final String KEY_CLIENT = "CLIENT_OID";
+    public static final String KEY_SINCE = "SINCE";
+    public static final String KEY_UNTIL = "UNTIL";
+    public static final String KEY_DUE_DATE = "DUE_DATE";
+    public static final String KEY_INVOICE_DATE = "INVOICE_DATE";
+    public static final String KEY_INDUSTRY = "INDUSTRY_OID";
+    public static final String KEY_AMOUNT = "AMOUNT";
+    public static final String KEY_DISCOUNT_AMOUNT = "DISCOUNT_AMOUNT";
+    public static final String KEY_DISCOUNT_RATE = "DISCOUNT_RATE";
+    public static final String KEY_NET_AMOUNT = "NET_AMOUNT";
 
     private Client client;
     private PaymentCondition paymentCondition;
@@ -90,6 +90,26 @@ public class Invoice extends PersistentObject {
         return values;
     }
 
+    public Invoice() {
+    }
+
+    /**
+     *
+     * @param client
+     * @param paymentCondition
+     * @param invoiceDate
+     * @param invoiceSince
+     * @param invoiceUntil
+     * @param dueDate
+     * @param letter
+     * @param industry
+     * @param invoiceNumber
+     * @param CAE
+     * @param amount
+     * @param discountAmount
+     * @param discountRate
+     * @param netAmount
+     */
     public Invoice(Client client, PaymentCondition paymentCondition, Date invoiceDate, Date invoiceSince, Date invoiceUntil, Date dueDate, String letter, Industry industry, Integer invoiceNumber, Integer CAE, Double amount, Double discountAmount, Double discountRate, Double netAmount) {
         this.client = client;
         this.paymentCondition = paymentCondition;

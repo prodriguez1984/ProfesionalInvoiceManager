@@ -26,8 +26,16 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
     public TaxInformation(String oid) {
         super.setOid(oid);
     }
-
+    /**
+     *
+     * @param iibb
+     * @param documentNumber
+     * @param documentType
+     * @param iva
+     * @param monotributoCategory
+     */
     public TaxInformation(String iibb, String documentNumber, DocumentType documentType, IvaCategory iva, MonotributoCategory monotributoCategory) {
+
         this.iibb = iibb;
         this.documentNumber = documentNumber;
         this.documentType = documentType;

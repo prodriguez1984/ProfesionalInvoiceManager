@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_industry">
+    app:startDestination="@+id/nav_home_custom">
 
     <fragment
         android:id="@+id/nav_industry"
@@ -16,7 +16,11 @@
         android:name="com.ort.profesionalinvoicemanager.views.ClientFragment"
         android:label="@string/menu_client"
         tools:layout="@layout/fragment_client" />
-
+    <fragment
+        android:id="@+id/nav_home_custom"
+        android:name="com.ort.profesionalinvoicemanager.views.HomeCustomFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home_custom" />
     <fragment
         android:id="@+id/nav_clientList"
         android:name="com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment"
@@ -46,4 +50,9 @@
         android:name="com.ort.profesionalinvoicemanager.views.ui.send.SendFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_send" />
+    <fragment
+        android:id="@+id/nav_billing"
+        android:name="com.ort.profesionalinvoicemanager.views.BillingFragment"
+        android:label="@string/menu_billing"
+        tools:layout="@layout/fragment_billing" />
 </navigation>

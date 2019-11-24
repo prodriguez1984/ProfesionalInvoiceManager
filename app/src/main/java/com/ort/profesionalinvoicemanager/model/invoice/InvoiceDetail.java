@@ -24,6 +24,9 @@ public class InvoiceDetail extends PersistentObject {
     private Integer quantity;
     private Product product;
 
+    public InvoiceDetail() {
+    }
+
     public InvoiceDetail(Double amount, Double discountAmount, Double discountRate, Double netAmount, Integer quantity, Product product) {
         this.amount = amount;
         this.discountAmount = discountAmount;
