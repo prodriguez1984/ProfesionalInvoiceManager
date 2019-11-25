@@ -185,8 +185,8 @@ public interface PersistenceAndMockData {
        /* InvoiceDetail i=new InvoiceDetail(new Double(2.5), new Double(0), new Double(0), new Double(0),new Integer (10), p);
         InvoiceDetail i2=new InvoiceDetail(new Double(2.5), new Double(0), new Double(0), new Double(0),new Integer (10), p2);*/
         Date today = new Date();
-
-        TaxInformation taxInformation = new TaxInformation("No inscritpo","11111111",documentType, "CI Buenos Aires",ivaCategory,monotributoCategory);
+        TaxInformation taxInformation = new TaxInformation("No inscritpo","11111111",documentType,ivaCategory,monotributoCategory);
+//        TaxInformation taxInformation = new TaxInformation("No inscritpo","11111111",documentType, "CI Buenos Aires",ivaCategory,monotributoCategory);
         Industry industry =new Industry("Industry test,","Salguero","pepe@pepe.com","12345678","12345678",today,taxInformation);
 
         Invoice invoice = new Invoice(c,paymentCondition,today,today,today,today,"A",industry,12345678,12345,1250.00,0.0,0.0,1250.00);
@@ -194,6 +194,7 @@ public interface PersistenceAndMockData {
         mockObjects.add(c);
         mockObjects.add(p);
         mockObjects.add(p2);
+        mockObjects.add(taxInformation);
         mockObjects.add(industry);
         mockObjects.add(invoice);
         return mockObjects;
