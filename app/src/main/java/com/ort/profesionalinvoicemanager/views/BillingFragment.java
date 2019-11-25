@@ -87,7 +87,7 @@ public class BillingFragment extends Fragment {
             public void onClick(View view) {
                 PdfHelper pdfHelper = new PdfHelper();
                 Invoice invoice= InvoiceDAO.getInstance().getCompleteInvoiceByOid(OID);
-                PdfDocument pdf =  pdfHelper.getPdf(invoice);
+                String pdf =  pdfHelper.getPdf(invoice);
                 BillingDAO billingDAO = new BillingDAO();
                 billingDAO.SendEmail(pdf,getContext());
             }

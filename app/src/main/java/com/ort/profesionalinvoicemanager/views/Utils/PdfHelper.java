@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.time.format.TextStyle;
 public class PdfHelper {
 
-    public PdfDocument getPdf(Invoice invoice) {
+    public String getPdf(Invoice invoice) {
         PdfDocument document = new PdfDocument();
         // crate a page description
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
@@ -85,6 +85,6 @@ public class PdfHelper {
         }
         // close the document
         document.close();
-        return document;
+        return targetPdf;
     }
 }
