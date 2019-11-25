@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,7 +24,7 @@
             android:id="@+id/product_create_txtCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/industry_name" />
+            android:hint="@string/product_lblCode" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +44,7 @@
             android:id="@+id/product_create_txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/industry_address" />
+            android:hint="@string/product_lblName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -52,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +64,7 @@
             android:id="@+id/product_create_txtDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/industry_address" />
+            android:hint="@string/product_lblDesc" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -71,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,22 +84,81 @@
             android:id="@+id/product_create_txtPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/industry_address" />
+            android:inputType="numberDecimal"
+            android:hint="@string/product_lblUPrice" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <ToggleButton
-        android:id="@+id/toggleButton"
+    <FrameLayout
+        android:id="@+id/product_create_spinner_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="ToggleButton"
-        tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="308dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/product_create_lblPrice">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/spinner_border">
+
+            <Spinner
+                android:id="@+id/product_create_unit"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:spinnerMode="dropdown"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="#FFFFFF"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/product_lblUnit"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/product_create_productType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_create_spinner_layout"
+        android:orientation="vertical">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/product_create_productType_product"
+                    style="@style/ToggleButton"
+                    android:layout_margin="6dp"
+                    android:text="@string/product_key" />
+
+                <RadioButton
+                    android:id="@+id/product_create_productType_service"
+                    style="@style/ToggleButton"
+                    android:layout_margin="6dp"
+                    android:text="@string/service_key" />
+            </RadioGroup>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

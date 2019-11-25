@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
 import com.ort.profesionalinvoicemanager.model.tax.MonotributoCategory;
@@ -11,11 +12,8 @@ import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
 public class TaxInformationDAO extends AbstractDao {
     private final String TABLE = "TAX_INFORMATION";
-    private static TaxInformationDAO instance;
 
-    private TaxInformationDAO() {
-        super();
-    }
+    private static TaxInformationDAO instance;
 
     public static TaxInformationDAO getInstance() {
         if (instance == null) {
@@ -34,17 +32,17 @@ public class TaxInformationDAO extends AbstractDao {
         TaxInformation taxInformation = new TaxInformation();
         taxInformation.setIibb(c.getString(c.getColumnIndex(taxInformation.KEY_IIBB)));
         taxInformation.setDocumentNumber(c.getString(c.getColumnIndex(taxInformation.KEY_DOCUMENT_NUMBER)));
-        taxInformation.setDocumentType(new DocumentType(c.getString(c.getColumnIndex(taxInformation.KEY_DOCUMENT_TYPE))));
-        taxInformation.setMonotributoCategory(new MonotributoCategory(c.getString(c.getColumnIndex(taxInformation.KEY_MONOTRIBUTO))));
-        taxInformation.setIva(new IvaCategory(c.getString(c.getColumnIndex(taxInformation.KEY_IVA))));
-        return  taxInformation;
+        taxInformation.setDocumentType(new DocumentType(c.getString(c.getColumnIndex(taxInformation.KEY_DOCUMENT_TYPE_OID))));
+        taxInformation.setIva(new IvaCategory(c.getString(c.getColumnIndex(taxInformation.KEY_IVA_OID))));
+        taxInformation.setMonotributoCategory(new MonotributoCategory(c.getString(c.getColumnIndex(taxInformation.KEY_MONOTRIBUTO_OID))));
+        return taxInformation;
     }
 
-    public TaxInformation getCompleteTaxInformationByOid(String oid){
-        TaxInformation taxInformation =getByOid(oid);
+    public TaxInformation getCompleteTaxInformationByOid(String oid) {
+        TaxInformation taxInformation=getByOid(oid);
         taxInformation.setDocumentType(DocTypeDAO.getInstance().getByOid(taxInformation.getDocumentType().getOid()));
-        taxInformation.setMonotributoCategory(MonotributoCategoryDAO.getInstance().getByOid(taxInformation.getMonotributoCategory().getOid()));
         taxInformation.setIva(IvaCategoryDAO.getInstance().getByOid(taxInformation.getIva().getOid()));
+        taxInformation.setMonotributoCategory(MonotributoCategoryDAO.getInstance().getByOid(taxInformation.getMonotributoCategory().getOid()));
         return taxInformation;
     }
 }

@@ -1,6 +1,7 @@
 package com.ort.profesionalinvoicemanager.views.ui.products;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 
 
-public class ProductFragmentList extends Fragment {
+public class ProductFragmentList extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -38,6 +39,7 @@ public class ProductFragmentList extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -82,6 +84,18 @@ public class ProductFragmentList extends Fragment {
         ArrayList<Product> list = ProductDAO.getInstance().getAllWithActiveCondition(true);
         mAdapter = new ProductAdapter(getContext(), list);
         recyclerView.setAdapter(mAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.product_create_add_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProductCreate.class);
+                intent.putExtra("saveAction",Boolean.TRUE);
+                ((ProductAdapter)mAdapter).setAddOrEdit(true);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
     }
 
@@ -110,5 +124,15 @@ public class ProductFragmentList extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (((ProductAdapter) mAdapter).isAddOrEdit()){
+            ((ProductAdapter) mAdapter).changeWholeData(ProductDAO.getInstance().getAllWithActiveCondition(true));
+            ((ProductAdapter) mAdapter).setAddOrEdit(false);
+        }
+
     }
 }

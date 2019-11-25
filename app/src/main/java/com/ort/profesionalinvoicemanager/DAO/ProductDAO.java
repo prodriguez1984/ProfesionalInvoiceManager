@@ -62,4 +62,14 @@ public class ProductDAO extends AbstractDao {
         }
         return p;
     }
+
+    public void updateProduct(Product p) throws Exception {
+        addObjectToManipulate(p);
+        update();
+    }
+
+    public void createProduct(Product p) throws Exception {
+        addObjectToManipulate(p);
+        insert();
+    }
 }

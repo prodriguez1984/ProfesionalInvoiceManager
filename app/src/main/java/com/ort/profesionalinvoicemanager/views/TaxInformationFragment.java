@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.DocTypeDAO;
 import com.ort.profesionalinvoicemanager.DAO.IvaCategoryDAO;
 import com.ort.profesionalinvoicemanager.DAO.MonotributoCategoryDAO;
+import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.tax.DocumentType;
 import com.ort.profesionalinvoicemanager.model.tax.IvaCategory;
 import com.ort.profesionalinvoicemanager.model.tax.MonotributoCategory;
@@ -57,15 +58,17 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
 
     private TextInputLayout tiloDoc;
 
+    private ArrayAdapter<String> adapterDocType;
+    private ArrayAdapter<String> adapterMonoCat;
+    private ArrayAdapter<String> adapterIvaCat;
+
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_TAXINFO = "TAXINFO";
 //    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    /*private String mParam1;
-    private String mParam2;*/
-
+    private TaxInformation taxInformation;
     private OnFragmentInteractionListener mListener;
 
 
@@ -80,11 +83,10 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
      * @return A new instance of fragment TaxInformationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TaxInformationFragment newInstance() {
+    public static TaxInformationFragment newInstance(TaxInformation taxInfo) {
         TaxInformationFragment fragment = new TaxInformationFragment();
         Bundle args = new Bundle();
-        /*args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);*/
+        args.putSerializable(ARG_TAXINFO, taxInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -93,8 +95,7 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            /*mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);*/
+            this.taxInformation = (TaxInformation) getArguments().getSerializable(ARG_TAXINFO);
         }
     }
 
@@ -104,6 +105,15 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
         View view = inflater.inflate(R.layout.fragment_tax_information, container, false);
         configView(view);
         initSpinner();
+        if(this.taxInformation != null){
+            this.tiloDoc.getEditText().setText(taxInformation.getDocumentNumber());
+            int pos = adapterDocType.getPosition(taxInformation.getDocumentType().getDescription());
+            this.spinnerDocType.setSelection(pos);
+            pos = adapterMonoCat.getPosition(taxInformation.getMonotributoCategory().getCategory());
+            this.spinnerTaxMonoCat.setSelection(pos);
+            pos = adapterIvaCat.getPosition(taxInformation.getIva().getDescription());
+            this.spinnerIvaCategory.setSelection(pos);
+        }
         return view;
 
     }
@@ -207,14 +217,24 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     }
 
     public TaxInformation bindAndSave() {
-        DocumentType docType = new DocumentType(idDoc);
-        IvaCategory ivaCat = new IvaCategory(idIva);
-        MonotributoCategory monoCat = new MonotributoCategory(idMonoCat);
-        TaxInformation taxInfo = new TaxInformation("prueba iibb",
-                                                    tiloDoc.getEditText().getText().toString(),
-                                                    docType,
-                                                    ivaCat,
-                                                    monoCat);
+        TaxInformation taxInfo;
+        if(this.taxInformation==null){
+            DocumentType docType = new DocumentType(idDoc);
+            IvaCategory ivaCat = new IvaCategory(idIva);
+            MonotributoCategory monoCat = new MonotributoCategory(idMonoCat);
+            taxInfo = new TaxInformation("prueba iibb",
+                                                        tiloDoc.getEditText().getText().toString(),
+                                                        docType,
+                                                        ivaCat,
+                                                        monoCat);
+        } else{
+            this.taxInformation.setIibb("prueba iibb");
+            this.taxInformation.setDocumentNumber(tiloDoc.getEditText().getText().toString());
+            this.taxInformation.setDocumentType(new DocumentType(idDoc));
+            this.taxInformation.setIva(new IvaCategory(idIva));
+            this.taxInformation.setMonotributoCategory(new MonotributoCategory(idMonoCat));
+            taxInfo = this.taxInformation;
+        }
         return taxInfo;
     }
 
@@ -292,9 +312,9 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
             listaIva.add(lstIvaCategory.get(i).getDescription());
         }
         //Implemento el adapter con el contexto, layout, listaPaisesSql
-        ArrayAdapter<String> adapterDocType = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaDocs);
-        ArrayAdapter<String> adapterMonoCat = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaCats);
-        ArrayAdapter<String> adapterIvaCat = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaIva);
+        this.adapterDocType = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaDocs);
+        this.adapterMonoCat = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaCats);
+        this.adapterIvaCat = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaIva);
 
         //Cargo el spinner con los datos
         spinnerDocType.setAdapter(adapterDocType);

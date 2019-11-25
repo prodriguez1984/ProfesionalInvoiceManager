@@ -15,6 +15,7 @@
             android:label="@string/title_activity_product_create"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ui.products.ProductInspection" />
+        <activity android:name=".ui.ClientList.ClientInspection" />
         <activity android:name=".TaxActivity" />
         <activity
             android:name=".IndustryActivity"
