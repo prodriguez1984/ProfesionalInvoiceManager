@@ -89,7 +89,7 @@ public class BillingFragment extends Fragment {
                 Invoice invoice= InvoiceDAO.getInstance().getCompleteInvoiceByOid(OID);
                 PdfDocument pdf =  pdfHelper.getPdf(invoice);
                 BillingDAO billingDAO = new BillingDAO();
-                billingDAO.SendEmail(pdf);
+                billingDAO.SendEmail(pdf,getContext());
             }
         });
     }

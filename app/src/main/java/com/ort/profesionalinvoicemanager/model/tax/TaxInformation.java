@@ -14,11 +14,11 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
     public final String KEY_IVA = "IVA";
     public final String KEY_MONOTRIBUTO = "MONOTRIBUTO";
 
-    public final String KEY_IIBB = "IIBB";
-    public final String KEY_DOCUMENT_NUMBER = "DOCUMENT_NUMBER";
-    public final String KEY_DOCUMENT_TYPE_OID = "DOCUMENT_TYPE_OID";
-    public final String KEY_IVA_OID = "IVA_OID";
-    public final String KEY_MONOTRIBUTO_OID = "MONOTRIBUTO_OID";
+//    public final String KEY_IIBB = "IIBB";
+//    public final String KEY_DOCUMENT_NUMBER = "DOCUMENT_NUMBER";
+//    public final String KEY_DOCUMENT_TYPE_OID = "DOCUMENT_TYPE_OID";
+//    public final String KEY_IVA_OID = "IVA_OID";
+//    public final String KEY_MONOTRIBUTO_OID = "MONOTRIBUTO_OID";
 
     private String iibb;
     private String documentNumber;
@@ -68,9 +68,9 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
         ArrayList<PersistentField> fields = new ArrayList<>();
         fields.add(new PersistentField(KEY_IIBB, SQLiteDateType.TEXT, true));
         fields.add(new PersistentField(KEY_DOCUMENT_NUMBER, SQLiteDateType.TEXT, true));
-        fields.add(new PersistentField(KEY_DOCUMENT_TYPE_OID, SQLiteDateType.TEXT, true));
-        fields.add(new PersistentField(KEY_IVA_OID, SQLiteDateType.TEXT, true));
-        fields.add(new PersistentField(KEY_MONOTRIBUTO_OID, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_DOCUMENT_TYPE, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_IVA, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_MONOTRIBUTO, SQLiteDateType.TEXT, true));
         return fields;
     }
 
@@ -78,9 +78,9 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
     protected ContentValues toParticularContentValues(ContentValues values) {
         values.put(KEY_IIBB, getIibb());
         values.put(KEY_DOCUMENT_NUMBER, getDocumentNumber());
-        values.put(KEY_DOCUMENT_TYPE_OID, getDocumentType().getOid());
-        values.put(KEY_IVA_OID, getIva().getOid());
-        values.put(KEY_MONOTRIBUTO_OID, getMonotributoCategory().getOid());
+        values.put(KEY_DOCUMENT_TYPE, getDocumentType().getOid());
+        values.put(KEY_IVA, getIva().getOid());
+        values.put(KEY_MONOTRIBUTO, getMonotributoCategory().getOid());
         return values;
     }
 

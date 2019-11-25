@@ -32,9 +32,9 @@ public class TaxInformationDAO extends AbstractDao {
         TaxInformation taxInformation = new TaxInformation();
         taxInformation.setIibb(c.getString(c.getColumnIndex(taxInformation.KEY_IIBB)));
         taxInformation.setDocumentNumber(c.getString(c.getColumnIndex(taxInformation.KEY_DOCUMENT_NUMBER)));
-        taxInformation.setDocumentType(new DocumentType(c.getString(c.getColumnIndex(taxInformation.KEY_DOCUMENT_TYPE_OID))));
-        taxInformation.setIva(new IvaCategory(c.getString(c.getColumnIndex(taxInformation.KEY_IVA_OID))));
-        taxInformation.setMonotributoCategory(new MonotributoCategory(c.getString(c.getColumnIndex(taxInformation.KEY_MONOTRIBUTO_OID))));
+        taxInformation.setDocumentType(new DocumentType(c.getString(c.getColumnIndex(taxInformation.KEY_DOCUMENT_TYPE))));
+        taxInformation.setIva(new IvaCategory(c.getString(c.getColumnIndex(taxInformation.KEY_IVA))));
+        taxInformation.setMonotributoCategory(new MonotributoCategory(c.getString(c.getColumnIndex(taxInformation.KEY_MONOTRIBUTO))));
         return taxInformation;
     }
 

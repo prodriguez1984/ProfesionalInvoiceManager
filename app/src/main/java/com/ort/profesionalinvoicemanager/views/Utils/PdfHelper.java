@@ -74,7 +74,7 @@ public class PdfHelper {
         if (!file.exists()) {
             file.mkdirs();
         }
-        String targetPdf = directory_path+"test-3.pdf";
+        String targetPdf = directory_path+"factura.pdf";
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
