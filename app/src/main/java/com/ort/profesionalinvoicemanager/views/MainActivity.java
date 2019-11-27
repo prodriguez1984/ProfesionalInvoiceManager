@@ -45,9 +45,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     public static final String GOOGLE_ACCOUNT = "google_account";
 
+    private String userMail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.userMail = extras.getString("email");
+        }
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -132,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_industry:
                 Intent intent = new Intent(getApplicationContext(), IndustryActivity.class);
-                intent.putExtra("EXTRA_INSUTRY", UserDAO.getInstance().);
+                intent.putExtra("EXTRA_USER", UserDAO.getInstance().getUserByMail(this.userMail));
                 startActivity(intent);
                 break;
             case R.id.nav_clientList:

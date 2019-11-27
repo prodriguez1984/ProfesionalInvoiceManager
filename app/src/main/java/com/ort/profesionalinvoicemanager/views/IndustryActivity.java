@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ort.profesionalinvoicemanager.DAO.DocTypeDAO;
+import com.ort.profesionalinvoicemanager.DAO.IndustryDAO;
 import com.ort.profesionalinvoicemanager.DAO.IvaCategoryDAO;
 import com.ort.profesionalinvoicemanager.DAO.MonotributoCategoryDAO;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
@@ -40,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 
 public class IndustryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private static final String EXTRA_INDUSTRY = "EXTRA_INSUTRY";
+    private static final String EXTRA_INDUSTRY = "EXTRA_USER";
 
     private TextView txtIndustryCreate;
     private EditText etCreateIndustry;
@@ -83,7 +84,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private String email;
     private String password;
 
-    private Industry mIndustry;
+    private User mUser;
     //Spinner tipo dni
 
     @Override
@@ -101,7 +102,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
             username = intent.getStringExtra("username");
             email = intent.getStringExtra("email");
             password = intent.getStringExtra("password");
-            this.mIndustry = (Industry)intent.getSerializableExtra(EXTRA_INDUSTRY);
+            this.mUser = (User)intent.getSerializableExtra(EXTRA_INDUSTRY);
         }
         configView();
 
@@ -155,9 +156,25 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
                         user.setIndustry(industry);
                         try {
-                            UserDAO.getInstance().saveUser(user);
-                            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                            startActivity(intent);
+                            if(IndustryActivity.this.mUser == null){
+                                UserDAO.getInstance().saveUser(user);
+                                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Industry mIndustry = mUser.getIndustry();
+                                mIndustry.setName(industry.getName());
+                                mIndustry.setAddress(industry.getAddress());
+                                mIndustry.setMail(industry.getMail());
+                                mIndustry.setTelephone(industry.getTelephone());
+                                mIndustry.setCellphone(industry.getCellphone());
+                                TaxInformation taxInfo = mIndustry.getTaxInformation();
+                                taxInfo.setIibb(taxInformation.getIibb());
+                                taxInfo.setDocumentNumber(taxInformation.getDocumentNumber());
+                                taxInfo.setDocumentType(taxInformation.getDocumentType());
+                                taxInfo.setIva(taxInformation.getIva());
+                                IndustryDAO.getInstance().edit(industry);
+                            }
+
 
                         } catch (Exception e) {
                             showError(e.getMessage());
@@ -168,13 +185,15 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                 };
             }
         });
-        if(mIndustry != null){
+        if(mUser != null){
+            Industry mIndustry = mUser.getIndustry();
             this.tiloIndustryName.getEditText().setText(mIndustry.getName());
             this.tiloAddress.getEditText().setText(mIndustry.getAddress());
             this.tiloEmail.getEditText().setText(mIndustry.getMail());
             this.tiloPhone.getEditText().setText(mIndustry.getTelephone());
             this.tiloCellPhone.getEditText().setText(mIndustry.getCellphone());
             this.tiloIibb.getEditText().setText(mIndustry.getTaxInformation().getIibb());
+            this.tiloDocument.getEditText().setText(mIndustry.getTaxInformation().getDocumentNumber());
             int pos = adapterDocType.getPosition(mIndustry.getTaxInformation().getDocumentType().getDescription());
             this.spinnerDocType.setSelection(pos);
             pos = adapterIvaCat.getPosition(mIndustry.getTaxInformation().getIva().getDescription());

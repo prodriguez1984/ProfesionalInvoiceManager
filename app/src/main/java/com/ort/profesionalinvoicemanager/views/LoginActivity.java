@@ -117,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (u!=null && password.equals(u.getPassword())) {
                         ApplicationContext.getInstance().setLoggedUser(u);
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        i.putExtra("email", tiloUsername.getEditText().getText());
                         startActivity(i);
                     }else{
                         showLoginError();

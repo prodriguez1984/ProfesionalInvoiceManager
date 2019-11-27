@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.industry.Industry;
 import com.ort.profesionalinvoicemanager.model.tax.TaxInformation;
 
@@ -52,5 +53,14 @@ public class IndustryDAO extends AbstractDao {
         Industry industry = getByOid(oid);
         industry.setTaxInformation(TaxInformationDAO.getInstance().getCompleteTaxInformationByOid(industry.getTaxInformation().getOid()));
         return industry;
+    }
+
+    public void edit(Industry industry){
+        super.addObjectToManipulate(industry);
+        try {
+            update();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
