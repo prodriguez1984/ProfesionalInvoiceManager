@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 public class BillingDAO  {
 
-    public void SendEmail(String path, Context context){
+    public void SendEmail(String path,String toMail, Context context){
 //        String uriText =
 //                "mailto:pablopodgaiz@gmail.com" +
 //                        "?subject=" + Uri.encode("test subject");
@@ -22,7 +22,7 @@ public class BillingDAO  {
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("application/octet-stream");
-        String to[] = {"pablopodgaiz@gmail.com"};
+        String to[] = {toMail};
         emailIntent .putExtra(Intent.EXTRA_EMAIL, to);
         emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
         emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Subject");

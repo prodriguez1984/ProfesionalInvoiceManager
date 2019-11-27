@@ -232,7 +232,7 @@ public class CreateInvoice extends AppCompatActivity  implements AdapterView.OnI
         Invoice invoice= InvoiceDAO.getInstance().getCompleteInvoiceByOid(i.getOid());
         String pdf =  pdfHelper.getPdf(invoice);
         BillingDAO billingDAO = new BillingDAO();
-        billingDAO.SendEmail(pdf,this);
+        billingDAO.SendEmail(pdf,invoice.getClient().getMail(),this);
             finish();
         }
     }

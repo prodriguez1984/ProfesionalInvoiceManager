@@ -124,4 +124,5 @@
     <string name="billing_product_lbl">Productos</string>
     <string name="title_activity_invoice_create">Crear Factura</string>
     <string name="invoice_lblQuantity">Cantidad</string>
+    <string name="login_name">Nombre y Apellido</string>
 </resources>
