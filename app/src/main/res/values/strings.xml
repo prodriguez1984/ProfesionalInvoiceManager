@@ -99,6 +99,13 @@
     <string name="home_edit_industry_desc">Edita los datos de mi negocio</string>
     <string name="home_invoice_desc">Realizar una factura</string>
     <string name="home_invoice">Facturar</string>
+    <string name="figures">Estadísticas</string>
+    <string name="total_month">Cantidad Mensual de Facturas</string>
+    <string name="total_year">Cantidad Anual de Facturas</string>
+    <string name="total">Total:</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="max_client">Máximo cliente</string>
+    <string name="nombre">Nombre</string>
     <string name="billing_list_until">Fecha Hasta</string>
     <string name="billing_list_since">Fecha Desde</string>
     <string name="billing_list_filter">Filtro:</string>

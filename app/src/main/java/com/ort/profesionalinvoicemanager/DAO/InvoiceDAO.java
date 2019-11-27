@@ -98,6 +98,19 @@ public class InvoiceDAO extends AbstractDao {
         return invoice;
     }
 
+    public ArrayList getAllWithCondition(String condition) {
+        String query = "Select * from " + getTableNameForModel() + " WHERE CLIENT_OID = " + "'" + condition + "'";
+        Cursor c = executeSqlQuery(query,null);
+        if (c.getCount() == 0) {
+            return new ArrayList<>();
+        }
+        ArrayList result = new ArrayList<>();
+        while (c.moveToNext()) {
+            result.add(mapBasicData(mapFromCursor(c), c));
+        }
+        return result;
+    }
+
     public InvoiceVO getInvoiceForInspect(String invoiceOid) {
         StringBuffer query = new StringBuffer();
         query.append("SELECT I.LETTER||'-0000-' ||I.INVOICE_NUMBER AS INVOICE_NUMBER,");

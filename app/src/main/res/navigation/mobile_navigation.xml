@@ -49,4 +49,9 @@
         android:name="com.ort.profesionalinvoicemanager.views.ui.invoice.BillingFragment"
         android:label="@string/menu_billing"
         tools:layout="@layout/fragment_billing" />
+    <fragment
+        android:id="@+id/nav_statistics"
+        android:name="com.ort.profesionalinvoicemanager.views.StatisticsFragment"
+        android:label="@string/statistics"
+        tools:layout="@layout/fragment_statistics" />
 </navigation>
