@@ -23,7 +23,7 @@ import java.util.List;
 
 public abstract class AbstractDao {
 
-    public static final DateFormat iso8601Format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    public static final DateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
 
     private ArrayList<PersistentObject> objectToManipulate;
 
@@ -160,6 +160,19 @@ public abstract class AbstractDao {
         return result;
     }
 
+    public ArrayList getByQuery(String query) {
+
+        Cursor c = executeSqlQuery( query , null);
+        if (c.getCount() == 0) {
+            return new ArrayList<>();
+        }
+        ArrayList result = new ArrayList<>();
+        while (c.moveToNext()) {
+            result.add(mapBasicData(mapFromCursor(c), c));
+        }
+        return result;
+    }
+
     public ArrayList getAllWithActiveCondition(boolean showActive) {
         int value;
         Cursor c;
@@ -176,7 +189,6 @@ public abstract class AbstractDao {
         } else {
             return getAll();
         }
-
 
     }
 

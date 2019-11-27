@@ -29,6 +29,7 @@ public class BillingDAO  {
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Factura");
         emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         emailIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(Intent.createChooser(emailIntent,"Factura"));
 
     }

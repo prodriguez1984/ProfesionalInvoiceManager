@@ -52,6 +52,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (actualItem){
+
+                    case R.id.nav_home_custom:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
+                    case R.id.nav_industry:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
+                    case R.id.nav_billing:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
+                    case R.id.nav_statistics:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
+                    case R.id.nav_clientList:
+                        Fragment clientFragment = new ClientFragment();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.nav_host_fragment, clientFragment)
+                                .commit();
+                        break;
+                    default:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                        break;
+
+                }
+            }
+        });
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         //le paso this, haciendo alución a la interfaz OnNavigationItemSelectedListener
@@ -60,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home_custom,
                 R.id.nav_industry, R.id.nav_clientList,R.id.nav_ProductList,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_billing, R.id.nav_statistics)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -143,10 +180,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .replace(R.id.nav_host_fragment, billingFragment)
                         .commit();
                 break;
-            case R.id.nav_mail:
-                MailFragment mailFragment = new MailFragment();
+
+            case R.id.nav_statistics:
+                actualItem = R.id.nav_billing;
+                Fragment statFragment = new StatisticsFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment, mailFragment)
+                        .replace(R.id.nav_host_fragment, statFragment)
                         .commit();
                 break;
         }

@@ -1,24 +1,21 @@
 package com.ort.profesionalinvoicemanager.views;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
+import com.ort.profesionalinvoicemanager.views.ui.invoice.BillingFragment;
+import com.ort.profesionalinvoicemanager.views.ui.invoice.CreateInvoice;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductCreate;
 
 
@@ -128,10 +125,9 @@ public class HomeCustomFragment extends Fragment {
         btnBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BillingFragment nextFrag= new BillingFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment, nextFrag)
-                        .commit();
+                Intent intent = new Intent(getContext(), CreateInvoice.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }

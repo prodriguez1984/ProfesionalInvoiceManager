@@ -133,6 +133,5 @@ public class ProductFragmentList extends Fragment  {
             ((ProductAdapter) mAdapter).changeWholeData(ProductDAO.getInstance().getAllWithActiveCondition(true));
             ((ProductAdapter) mAdapter).setAddOrEdit(false);
         }
-
     }
 }

@@ -8,10 +8,12 @@
             android:id="@+id/nav_home_custom"
             android:icon="@drawable/home2"
             android:title="@string/menu_home" />
-
+    </group>
+        <item android:title="Datos de Referencia">
+        <menu>
         <item
             android:id="@+id/nav_industry"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/enterprise"
             android:title="@string/menu_Industry" />
         <item
             android:id="@+id/nav_clientList"
@@ -21,26 +23,20 @@
             android:id="@+id/nav_ProductList"
             android:icon="@drawable/ic_product"
             android:title="@string/menu_product" />
-        <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
-    </group>
+        </menu>
+        </item>
 
-    <item android:title="Communicate">
+
+    <item android:title="Negocio">
         <menu>
             <item
-                android:id="@+id/nav_mail"
-                android:icon="@drawable/ic_mail"
-                android:title="@string/menu_mail" />
+                android:id="@+id/nav_billing"
+                android:icon="@drawable/ic_invoice_black"
+                android:title="@string/menu_billing" />
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:id="@+id/nav_statistics"
+                android:icon="@drawable/statistics"
+            android:title="@string/statistics" />
         </menu>
     </item>
 

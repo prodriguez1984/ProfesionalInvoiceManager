@@ -83,7 +83,7 @@
     <string name="create_client">Agregar Cliente</string>
     <string name="create_product">Agregar Producto</string>
     <string name="bill">Facturar</string>
-    <string name="menu_billing">Facturar</string>
+    <string name="menu_billing">Facturacion</string>
     <string name="menu_clients">Clientes</string>
     <string name="menu_mail">Mail</string>
     <string name="send_mail">Enviar Mail</string>
@@ -95,7 +95,7 @@
     <string name="dialog_message">¿Desea recuperar la contraseña?</string>
     <string name="dialog_title">Recuperacion de contraseña</string>
     <string name="home_add_customer">Agregar Cliente</string>
-    <string name="home_add_customer_desc">Agrega un nuevo Cliente al sistema</string>
+    <string name="home_add_customer_desc">Agrega un nuevo Cliente</string>
     <string name="home_add_product">Agregar Producto</string>
     <string name="home_add_product_desc">Agrega un nuevo Producto o Servicio</string>
     <string name="home_view_statics">Estadisticas</string>
@@ -104,4 +104,29 @@
     <string name="home_edit_industry_desc">Edita los datos de mi negocio</string>
     <string name="home_invoice_desc">Realizar una factura</string>
     <string name="home_invoice">Facturar</string>
+    <string name="figures">Estadísticas</string>
+    <string name="total_month">Cantidad Mensual de Facturas</string>
+    <string name="total_year">Cantidad Anual de Facturas</string>
+    <string name="total">Total:</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="max_client">Máximo cliente</string>
+    <string name="nombre">Nombre</string>
+    <string name="billing_list_until">Fecha Hasta</string>
+    <string name="billing_list_since">Fecha Desde</string>
+    <string name="billing_list_filter">Filtro:</string>
+    <string name="filter">Filtrar</string>
+    <string name="invoice_lblIva">Condicion frente al iva</string>
+    <string name="invoice_lblDoc">Tipo y Nro de Documento</string>
+    <string name="invoice_lblCustomer">Cliente</string>
+    <string name="invoice_lblAddress">Domicilio</string>
+    <string name="invoice_lblMail">E-Mail</string>
+    <string name="invoice_lblAmount">Monto</string>
+    <string name="invoice_lblProduct">Producto</string>
+    <string name="invoice_payment_condition">Condicion de Pago</string>
+    <string name="invoice_lblInvoiceNumber">Nro. de Factura</string>
+    <string name="title_activity_invoice_inspect">Ver Factura</string>
+    <string name="invoice_data">Datos de la factura</string>
+    <string name="billing_product_lbl">Productos</string>
+    <string name="title_activity_invoice_create">Crear Factura</string>
+    <string name="invoice_lblQuantity">Cantidad</string>
 </resources>

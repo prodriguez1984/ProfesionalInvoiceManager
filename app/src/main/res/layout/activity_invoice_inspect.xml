@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.invoice.InvoiceInspect">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblInvoiceNumber"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtInvoiceNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_lblInvoiceNumber" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblCustomerName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_inspect_lblInvoiceNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtCustomerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_lblCustomer" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblCustomerDoc"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_inspect_lblCustomerName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtCustomerDoc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_lblDoc" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblCustomerIva"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_inspect_lblCustomerDoc">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtCustomerIva"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_lblIva" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblCustomerAddress"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_inspect_lblCustomerIva">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtCustomerAddres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_lblAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblCustomerMail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_inspect_lblCustomerAddress">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtCustomerMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_lblMail" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblPaymentCondition"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_inspect_lblCustomerMail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtPaymentCondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_payment_condition" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblAmount"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_inspect_lblPaymentCondition">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_lblAmount" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/invoice_inspect_lblProduct"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_inspect_lblAmount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:enabled="false"
+            android:id="@+id/invoice_inspect_txtProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/invoice_lblProduct" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    
+
+</androidx.constraintlayout.widget.ConstraintLayout>

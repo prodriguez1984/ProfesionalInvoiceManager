@@ -1,6 +1,5 @@
 package com.ort.profesionalinvoicemanager.views;
 
-import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,37 +8,37 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
 
-import com.ort.profesionalinvoicemanager.DAO.BillingDAO;
-import com.ort.profesionalinvoicemanager.DAO.InvoiceDAO;
-import com.ort.profesionalinvoicemanager.model.invoice.Invoice;
-import com.ort.profesionalinvoicemanager.views.Utils.PdfHelper;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ort.profesionalinvoicemanager.DAO.StatisticsDAO;
+import com.ort.profesionalinvoicemanager.model.client.Client;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BillingFragment.OnFragmentInteractionListener} interface
+ * {@link StatisticsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BillingFragment#newInstance} factory method to
+ * Use the {@link StatisticsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BillingFragment extends Fragment {
+public class StatisticsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static final String OID = "d457af5f-d1f4-497e-a5ff-6480459569ee";
+    private FloatingActionButton btnTotalYear;
+    private FloatingActionButton btnTotalMonth,btnMaxClient;
+    private EditText etTotalMonth, etTotalYear,etMaxClient,etCantMaxClient;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button btnBillingProccess;
 
     private OnFragmentInteractionListener mListener;
 
-    public BillingFragment() {
+    public StatisticsFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +48,11 @@ public class BillingFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BillingFragment.
+     * @return A new instance of fragment StatisticsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BillingFragment newInstance(String param1, String param2) {
-        BillingFragment fragment = new BillingFragment();
+    public static StatisticsFragment newInstance(String param1, String param2) {
+        StatisticsFragment fragment = new StatisticsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,23 +74,41 @@ public class BillingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         container.removeAllViews();
-        View view = inflater.inflate(R.layout.fragment_billing, container, false);
+        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         configView(view);
         return view;
     }
 
     private void configView(View view) {
-        btnBillingProccess = (Button)view.findViewById(R.id.btnBillingProccess);
-        btnBillingProccess.setOnClickListener(new View.OnClickListener() {
+        etTotalYear = view.findViewById(R.id.etTotalYear);
+        etTotalMonth = view.findViewById(R.id.etTotalMonth);
+        btnTotalMonth = (FloatingActionButton) view.findViewById(R.id.fabFigureTotalMonth);
+        btnTotalMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PdfHelper pdfHelper = new PdfHelper();
-                Invoice invoice= InvoiceDAO.getInstance().getCompleteInvoiceByOid(OID);
-                String pdf =  pdfHelper.getPdf(invoice);
-                BillingDAO billingDAO = new BillingDAO();
-                billingDAO.SendEmail(pdf,getContext());
+                int cant = StatisticsDAO.getInstance().getTotalMonth();
+                etTotalMonth.setText(String.valueOf(cant));
             }
         });
+        btnTotalYear = (FloatingActionButton) view.findViewById(R.id.fabFigureTotalYear);
+        btnTotalYear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int cant = StatisticsDAO.getInstance().getTotalYear();
+                etTotalYear.setText(String.valueOf(cant));
+            }
+        });
+        btnMaxClient = (FloatingActionButton) view.findViewById(R.id.fabFigureMaxClient);
+        btnMaxClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int maxClient = StatisticsDAO.getInstance().getTotalMaxClient();
+//                Client client = StatisticsDAO.getInstance().getMaxClient();
+//                etMaxClient.setText(String.valueOf(client.getName()));
+                etCantMaxClient.setText(String.valueOf(maxClient));
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
