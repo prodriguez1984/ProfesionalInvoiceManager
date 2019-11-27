@@ -12,6 +12,7 @@ import com.ort.profesionalinvoicemanager.model.invoice.PaymentCondition;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class InvoiceDAO extends AbstractDao {
@@ -68,5 +69,18 @@ public class InvoiceDAO extends AbstractDao {
         invoice.setIndustry(IndustryDAO.getInstance().getCompleteIndustryByOid(invoice.getIndustry().getOid()));
         invoice.setClient(ClientDAO.getInstance().getByOid(invoice.getClient().getOid()));
         return invoice;
+    }
+
+    public ArrayList getAllWithCondition(String condition) {
+        String query = "Select * from " + getTableNameForModel() + " WHERE CLIENT_OID = " + "'" + condition + "'";
+        Cursor c = executeSqlQuery(query,null);
+        if (c.getCount() == 0) {
+            return new ArrayList<>();
+        }
+        ArrayList result = new ArrayList<>();
+        while (c.moveToNext()) {
+            result.add(mapBasicData(mapFromCursor(c), c));
+        }
+        return result;
     }
 }

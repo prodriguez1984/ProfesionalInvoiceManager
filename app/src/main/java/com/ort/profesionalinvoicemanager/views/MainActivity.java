@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                         break;
+                    case R.id.nav_statistics:
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        break;
                     case R.id.nav_clientList:
                         Fragment clientFragment = new ClientFragment();
                         getSupportFragmentManager().beginTransaction()
