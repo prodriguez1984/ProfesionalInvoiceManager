@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -36,10 +37,6 @@ public class HomeCustomFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private Button btnCreateClient;
-    private Button btnCreateProduct;
-    private Button btnBill;
 
     private OnFragmentInteractionListener mListener;
 
@@ -87,7 +84,7 @@ public class HomeCustomFragment extends Fragment {
     }
 
     private void configView(View view) {
-        btnCreateClient = (Button)view.findViewById(R.id.btnCreateClient);
+        CardView btnCreateClient = (CardView)view.findViewById(R.id.home_customer_card);
         btnCreateClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +95,7 @@ public class HomeCustomFragment extends Fragment {
                         .commit();
             }
         });
-        btnCreateProduct = (Button)view.findViewById(R.id.btnCreateProduct);
+        CardView btnCreateProduct = (CardView)view.findViewById(R.id.home_product_card);
         btnCreateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +103,24 @@ public class HomeCustomFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        btnBill = (Button)view.findViewById(R.id.btnBill);
+
+        CardView btnStatics = (CardView)view.findViewById(R.id.home_statics_card);
+        btnStatics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        CardView btnIndustry = (CardView)view.findViewById(R.id.home_invoice_card);
+        btnIndustry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        CardView btnBill = (CardView)view.findViewById(R.id.home_invoice_card);
         btnBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

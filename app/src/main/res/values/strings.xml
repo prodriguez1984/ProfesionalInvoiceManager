@@ -94,4 +94,14 @@
     <string name="cancel">Cancelar</string>
     <string name="dialog_message">¿Desea recuperar la contraseña?</string>
     <string name="dialog_title">Recuperacion de contraseña</string>
+    <string name="home_add_customer">Agregar Cliente</string>
+    <string name="home_add_customer_desc">Agrega un nuevo Cliente al sistema</string>
+    <string name="home_add_product">Agregar Producto</string>
+    <string name="home_add_product_desc">Agrega un nuevo Producto o Servicio</string>
+    <string name="home_view_statics">Estadisticas</string>
+    <string name="home_view_statics_desc">Ver estadisticas del sistema</string>
+    <string name="home_edit_industry">Editar Datos</string>
+    <string name="home_edit_industry_desc">Edita los datos de mi negocio</string>
+    <string name="home_invoice_desc">Realizar una factura</string>
+    <string name="home_invoice">Facturar</string>
 </resources>
