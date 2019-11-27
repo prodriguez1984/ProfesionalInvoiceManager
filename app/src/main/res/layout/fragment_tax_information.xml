@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/taxMain"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,26 +7,56 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".TaxInformationFragment">
 
-
-    <Spinner
-        android:id="@+id/spinnerTaxDocType"
-        style="@style/spinner_style"
-        android:layout_width="81dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilo_tax_Document"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:id="@+id/client_spinner_doctype"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinnerTaxDocType"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/spinner_border">
+
+            <Spinner
+                android:id="@+id/spinnerTaxDocType"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:spinnerMode="dropdown"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="#FFFFFF"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/taxInfo_DocType"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/tilo_tax_Document"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/client_spinner_doctype">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTaxDoc"
@@ -36,25 +65,85 @@
             android:hint="@string/tax_Document" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/spinnerTaxIVACat"
-        style="@style/spinner_style"
-        android:layout_width="194dp"
-        android:layout_height="37dp"
+    <FrameLayout
+        android:id="@+id/client_spinner_ivacat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerTaxMonoCat"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilo_tax_Document" />
+        app:layout_constraintTop_toBottomOf="@+id/tilo_tax_Document">
 
-    <Spinner
-        android:id="@+id/spinnerTaxMonoCat"
-        style="@style/spinner_style"
-        android:layout_width="181dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="16dp"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/spinner_border">
+
+            <Spinner
+                android:id="@+id/spinnerTaxIVACat"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:spinnerMode="dropdown"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="#FFFFFF"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/taxInfo_IVACat"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/client_spinner_monocat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilo_tax_Document" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/client_spinner_ivacat">
+
+        <FrameLayout
+            android:id="@+id/client_spinner_monocat_border"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/spinner_border">
+
+            <Spinner
+                android:id="@+id/spinnerTaxMonoCat"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:spinnerMode="dropdown"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="#FFFFFF"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/taxInfo_monoCat"
+            android:textSize="16sp" />
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

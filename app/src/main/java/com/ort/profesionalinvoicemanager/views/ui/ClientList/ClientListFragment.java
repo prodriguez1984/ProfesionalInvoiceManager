@@ -117,6 +117,7 @@ public class ClientListFragment extends Fragment {
                         .commit();
             }
         });
+        fab.show();
         return rootView;
     }
 

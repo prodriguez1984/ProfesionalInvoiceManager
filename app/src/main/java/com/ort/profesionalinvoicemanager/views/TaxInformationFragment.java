@@ -14,6 +14,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,8 +46,6 @@ import java.util.List;
  */
 public class TaxInformationFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private Spinner spinnerTaxMonoCat;
-    private List<MonotributoCategory> lstTaxMonoCat;
-    private String idMonoCat, descMonoCat;
 
     private Spinner spinnerDocType;
     private String idDoc, descDoc;
@@ -59,8 +58,9 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     private TextInputLayout tiloDoc;
 
     private ArrayAdapter<String> adapterDocType;
-    private ArrayAdapter<String> adapterMonoCat;
     private ArrayAdapter<String> adapterIvaCat;
+
+    private FrameLayout monoFrame;
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -102,6 +102,7 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
         View view = inflater.inflate(R.layout.fragment_tax_information, container, false);
         configView(view);
         initSpinner();
@@ -109,8 +110,6 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
             this.tiloDoc.getEditText().setText(taxInformation.getDocumentNumber());
             int pos = adapterDocType.getPosition(taxInformation.getDocumentType().getDescription());
             this.spinnerDocType.setSelection(pos);
-            pos = adapterMonoCat.getPosition(taxInformation.getMonotributoCategory().getCategory());
-            this.spinnerTaxMonoCat.setSelection(pos);
             pos = adapterIvaCat.getPosition(taxInformation.getIva().getDescription());
             this.spinnerIvaCategory.setSelection(pos);
         }
@@ -144,18 +143,6 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
 
                     break;
             }
-            //Category
-            switch (adapterView.getId()) {
-                case R.id.spinnerTaxMonoCat:
-                    //Almaceno el id del país seleccionado
-                    idMonoCat = lstTaxMonoCat.get(position).getOid();
-                    //Almaceno el nombre del país seleccionado
-                    descMonoCat = lstTaxMonoCat.get(position).getCategory();
-
-                    Toast.makeText(this.getContext(), "Id doc: " + idMonoCat + " - Desc doc: " + descMonoCat, Toast.LENGTH_SHORT).show();
-
-                    break;
-            }
             //Iva
             switch (adapterView.getId()) {
                 case R.id.spinnerTaxIVACat:
@@ -183,12 +170,10 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
     public boolean validateFields() {
         Boolean  tiloDocHasError = validateField(tiloDoc);
         Boolean  DocTypeNameHasError = validateField(spinnerDocType);
-        Boolean  TaxMonoCatHasError = validateField(spinnerTaxMonoCat);
         Boolean  IvaCategoryHasError = validateField(spinnerIvaCategory);
 
         Boolean  hasError = tiloDocHasError ||
                             DocTypeNameHasError ||
-                            TaxMonoCatHasError ||
                             IvaCategoryHasError;
         return hasError;
     }
@@ -221,18 +206,16 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
         if(this.taxInformation==null){
             DocumentType docType = new DocumentType(idDoc);
             IvaCategory ivaCat = new IvaCategory(idIva);
-            MonotributoCategory monoCat = new MonotributoCategory(idMonoCat);
-            taxInfo = new TaxInformation("prueba iibb",
+            taxInfo = new TaxInformation(null,
                                                         tiloDoc.getEditText().getText().toString(),
                                                         docType,
                                                         ivaCat,
-                                                        monoCat);
+                                                        null);
         } else{
-            this.taxInformation.setIibb("prueba iibb");
+            //this.taxInformation.setIibb("prueba iibb");
             this.taxInformation.setDocumentNumber(tiloDoc.getEditText().getText().toString());
             this.taxInformation.setDocumentType(new DocumentType(idDoc));
             this.taxInformation.setIva(new IvaCategory(idIva));
-            this.taxInformation.setMonotributoCategory(new MonotributoCategory(idMonoCat));
             taxInfo = this.taxInformation;
         }
         return taxInfo;
@@ -272,16 +255,22 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
 
     private void configView(View view) {
         this.spinnerDocType = (Spinner) view.findViewById(R.id.spinnerTaxDocType);
-        this.spinnerTaxMonoCat =  (Spinner) view.findViewById(R.id.spinnerTaxMonoCat);
         this.spinnerIvaCategory =  (Spinner) view.findViewById(R.id.spinnerTaxIVACat);
         this.tiloDoc = view.findViewById(R.id.tilo_tax_Document);
+        this.monoFrame = (FrameLayout)view.findViewById(R.id.client_spinner_monocat);
 
+        for (int i = 0; i < this.monoFrame.getChildCount(); i++) {
+            View v = this.monoFrame.getChildAt(i);
+            v.setVisibility(View.GONE);
+            v.postInvalidate();
+        }
+        this.monoFrame.setVisibility(View.GONE);
+        this.monoFrame.postInvalidate();
     }
 
     private void initSpinner() {
         try {
             lstDocumentTypes =  DocTypeDAO.getInstance().getAll();
-            lstTaxMonoCat = MonotributoCategoryDAO.getInstance().getAll();
             lstIvaCategory = IvaCategoryDAO.getInstance().getAll();
 
         }catch(Exception e){
@@ -290,11 +279,11 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
 
         //Implemento el setOnItemSelectedListener: para realizar acciones cuando se seleccionen los ítems
         spinnerDocType.setOnItemSelectedListener(this);
-        spinnerTaxMonoCat.setOnItemSelectedListener(this);
+        //spinnerTaxMonoCat.setOnItemSelectedListener(this);
         spinnerIvaCategory.setOnItemSelectedListener(this);
         //Convierto la variable List<> en un ArrayList<>()
         List<String> listaDocs = new ArrayList<>();
-        List<String> listaCats = new ArrayList<>();
+       // List<String> listaCats = new ArrayList<>();
         List<String> listaIva = new ArrayList<>();
         //Almaceno el tamaño de la lista getAllPaises()
 
@@ -303,22 +292,16 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
         for(int i = 0; i < lstDocumentTypes.size(); i++){
             listaDocs.add(lstDocumentTypes.get(i).getDescription());
         }
-        listaCats.add(StringConstant.DEFAULT_MONOCAT_SPINNER);
-        for(int i = 0; i < lstTaxMonoCat.size(); i++){
-            listaCats.add(lstTaxMonoCat.get(i).getCategory());
-        }
         listaIva.add(StringConstant.DEFAULT_IVACAT_SPINNER);
         for(int i = 0; i < lstIvaCategory.size(); i++){
             listaIva.add(lstIvaCategory.get(i).getDescription());
         }
         //Implemento el adapter con el contexto, layout, listaPaisesSql
         this.adapterDocType = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaDocs);
-        this.adapterMonoCat = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaCats);
         this.adapterIvaCat = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listaIva);
 
         //Cargo el spinner con los datos
         spinnerDocType.setAdapter(adapterDocType);
-        spinnerTaxMonoCat.setAdapter(adapterMonoCat);
         spinnerIvaCategory.setAdapter(adapterIvaCat);
     }
 }

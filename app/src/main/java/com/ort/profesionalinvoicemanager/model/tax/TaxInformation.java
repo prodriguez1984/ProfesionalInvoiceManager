@@ -51,11 +51,11 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
     @Override
     public ArrayList<PersistentField> getFieldsForTableCreation() {
         ArrayList<PersistentField> fields = new ArrayList<>();
-        fields.add(new PersistentField(KEY_IIBB, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_IIBB, SQLiteDateType.TEXT, false));
         fields.add(new PersistentField(KEY_DOCUMENT_NUMBER, SQLiteDateType.TEXT, true));
         fields.add(new PersistentField(KEY_DOCUMENT_TYPE_OID, SQLiteDateType.TEXT, true));
         fields.add(new PersistentField(KEY_IVA_OID, SQLiteDateType.TEXT, true));
-        fields.add(new PersistentField(KEY_MONOTRIBUTO_OID, SQLiteDateType.TEXT, true));
+        fields.add(new PersistentField(KEY_MONOTRIBUTO_OID, SQLiteDateType.TEXT, false));
         return fields;
     }
 

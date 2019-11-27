@@ -85,4 +85,9 @@
     <string name="bill">Facturar</string>
     <string name="menu_billing">Facturar</string>
     <string name="menu_clients">Clientes</string>
+    <string name="menu_mail">Mail</string>
+    <string name="send_mail">Enviar Mail</string>
+    <string name="taxInfo_IVACat">Categoría de IVA</string>
+    <string name="taxInfo_DocType">Tipo de Documento</string>
+    <string name="taxInfo_monoCat">Categoría Monnotributo</string>
 </resources>

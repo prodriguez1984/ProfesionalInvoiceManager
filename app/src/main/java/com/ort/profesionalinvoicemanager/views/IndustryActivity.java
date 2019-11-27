@@ -40,6 +40,8 @@ import java.util.Date;
 import java.util.List;
 
 public class IndustryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private static final String EXTRA_INDUSTRY = "EXTRA_INSUTRY";
+
     private TextView txtIndustryCreate;
     private EditText etCreateIndustry;
     private EditText etAddressCreateIndustry;
@@ -73,14 +75,21 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private String idIva, descIva;
     private List<IvaCategory> lstIvaCategory;
 
+    private ArrayAdapter<String> adapterDocType;
+    private ArrayAdapter<String> adapterIvaCat;
+    private ArrayAdapter<String> adapterMonoCat;
+
     private String username;
     private String email;
     private String password;
+
+    private Industry mIndustry;
     //Spinner tipo dni
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_industry);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -92,6 +101,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
             username = intent.getStringExtra("username");
             email = intent.getStringExtra("email");
             password = intent.getStringExtra("password");
+            this.mIndustry = (Industry)intent.getSerializableExtra(EXTRA_INDUSTRY);
         }
         configView();
 
@@ -158,8 +168,20 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                 };
             }
         });
-//        configView();
-//        initSpinner();
+        if(mIndustry != null){
+            this.tiloIndustryName.getEditText().setText(mIndustry.getName());
+            this.tiloAddress.getEditText().setText(mIndustry.getAddress());
+            this.tiloEmail.getEditText().setText(mIndustry.getMail());
+            this.tiloPhone.getEditText().setText(mIndustry.getTelephone());
+            this.tiloCellPhone.getEditText().setText(mIndustry.getCellphone());
+            this.tiloIibb.getEditText().setText(mIndustry.getTaxInformation().getIibb());
+            int pos = adapterDocType.getPosition(mIndustry.getTaxInformation().getDocumentType().getDescription());
+            this.spinnerDocType.setSelection(pos);
+            pos = adapterIvaCat.getPosition(mIndustry.getTaxInformation().getIva().getDescription());
+            this.spinnerIvaCategory.setSelection(pos);
+            pos = adapterMonoCat.getPosition(mIndustry.getTaxInformation().getMonotributoCategory().getCategory());
+            this.spinnerTaxMonoCat.setSelection(pos);
+        }
     }
     private boolean validateFields(String industryName, String address, String emailService, String phoneService, String cellPhone, String dateStart, String docType, String docNumber, String taxIvaCat, String monoCat, String iibb) {
         boolean error = false;
@@ -252,9 +274,9 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
             }
         }
         //Implemento el adapter con el contexto, layout, listaPaisesSql
-        ArrayAdapter<String> adapterDocType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaDocs);
-        ArrayAdapter<String> adapterMonoCat = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCats);
-        ArrayAdapter<String> adapterIvaCat = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaIva);
+        this.adapterDocType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaDocs);
+        this.adapterMonoCat = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCats);
+        this.adapterIvaCat = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaIva);
 
         //Cargo el spinner con los datos
         spinnerDocType.setAdapter(adapterDocType);

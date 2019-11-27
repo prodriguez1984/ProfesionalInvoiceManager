@@ -98,6 +98,7 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
     private void configView(View view) {
         FloatingActionButton fab = view.findViewById (R.id.client_fab_save);
         fab.setOnClickListener(this);
+        fab.show();
         this.tiloName = view.findViewById(R.id.tilo_client_name);
         this.tiloLastName = view.findViewById(R.id.tilo_client_lastname);
         this.tiloMail = view.findViewById(R.id.tilo_client_mail);

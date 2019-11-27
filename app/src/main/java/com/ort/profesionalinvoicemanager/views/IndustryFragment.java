@@ -40,6 +40,7 @@ public class IndustryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
+        container.removeAllViews();
         taxInformation = new TaxInformationFragment();
         return inflater.inflate(R.layout.content_industry, container, false);
     }
