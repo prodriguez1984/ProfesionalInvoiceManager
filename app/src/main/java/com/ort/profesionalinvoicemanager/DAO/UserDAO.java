@@ -4,6 +4,8 @@ import android.database.Cursor;
 
 import com.ort.profesionalinvoicemanager.model.base.AbstractDao;
 import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
+import com.ort.profesionalinvoicemanager.model.client.Client;
+import com.ort.profesionalinvoicemanager.model.industry.Industry;
 import com.ort.profesionalinvoicemanager.model.user.User;
 
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class UserDAO extends AbstractDao {
         u.setMail(c.getString(c.getColumnIndex(User.KEY_MAIL)));
         u.setPassword(c.getString(c.getColumnIndex(User.KEY_PASS)));
         u.setUserName(c.getString(c.getColumnIndex(User.KEY_USER)));
+        u.setIndustry(new Industry(c.getString(c.getColumnIndex(User.KEY_INDUSTRY))));
         return u;
     }
 }

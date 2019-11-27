@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.ort.profesionalinvoicemanager.DAO.UserDAO;
+import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductCreate;
 
@@ -112,11 +114,13 @@ public class HomeCustomFragment extends Fragment {
             }
         });
 
-        CardView btnIndustry = (CardView)view.findViewById(R.id.home_invoice_card);
+        CardView btnIndustry = (CardView)view.findViewById(R.id.home_industry_card);
         btnIndustry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), IndustryActivity.class);
+                intent.putExtra("EXTRA_USER", UserDAO.getInstance().getUserByMail(ApplicationContext.getInstance().getLoggedUser().getUserName()));
+                startActivity(intent);
             }
         });
 
