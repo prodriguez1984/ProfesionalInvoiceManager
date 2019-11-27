@@ -29,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
 import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
+import com.ort.profesionalinvoicemanager.views.ui.invoice.BillingFragment;
 import com.ort.profesionalinvoicemanager.views.ui.mail.MailFragment;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductAdapter;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductCreate;
@@ -52,43 +53,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setVisibility(View.GONE);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (actualItem){
-
-                    case R.id.nav_home_custom:
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        break;
-                    case R.id.nav_industry:
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        break;
-                    case R.id.nav_billing:
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        break;
-                    case R.id.nav_statistics:
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        break;
-                    case R.id.nav_clientList:
-                        Fragment clientFragment = new ClientFragment();
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.nav_host_fragment, clientFragment)
-                                .commit();
-                        break;
-                    default:
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                        break;
-
-                }
-            }
-        });
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         //le paso this, haciendo alución a la interfaz OnNavigationItemSelectedListener
@@ -182,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_statistics:
-                actualItem = R.id.nav_billing;
                 Fragment statFragment = new StatisticsFragment();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment, statFragment)

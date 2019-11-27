@@ -52,7 +52,7 @@ public class User extends PersistentObjectWithLogicalDeletion {
         values.put(KEY_USER,getUserName());
         values.put(KEY_PASS,getPassword());
         values.put(KEY_MAIL,getMail());
-       // values.put(KEY_INDUSTRY,getIndustry().getOid());
+        values.put(KEY_INDUSTRY,getIndustry().getOid());
         return values;
     }
 

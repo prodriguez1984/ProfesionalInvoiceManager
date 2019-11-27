@@ -64,4 +64,10 @@ public class UserDAO extends AbstractDao {
         u.setIndustry(new Industry(c.getString(c.getColumnIndex(User.KEY_INDUSTRY))));
         return u;
     }
+
+   public User getCompleteUser(String oid){
+        User u=getByOid(oid);
+        u.setIndustry(IndustryDAO.getInstance().getCompleteIndustryByOid(u.getIndustry().getOid()));
+        return u;
+   }
 }

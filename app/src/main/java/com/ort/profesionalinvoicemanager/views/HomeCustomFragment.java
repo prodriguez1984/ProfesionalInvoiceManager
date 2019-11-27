@@ -116,7 +116,7 @@ public class HomeCustomFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), IndustryActivity.class);
-                intent.putExtra("EXTRA_USER", UserDAO.getInstance().getUserByMail(ApplicationContext.getInstance().getLoggedUser().getUserName()));
+                intent.putExtra("EXTRA_USER", UserDAO.getInstance().getCompleteUser(ApplicationContext.getInstance().getLoggedUser().getOid()));
                 startActivity(intent);
             }
         });
