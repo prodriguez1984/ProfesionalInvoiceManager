@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home_custom,
                 R.id.nav_industry, R.id.nav_clientList,R.id.nav_ProductList,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_billing, R.id.nav_statistics)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -186,6 +186,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Fragment billingFragment = new BillingFragment();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment, billingFragment)
+                        .commit();
+                break;
+
+            case R.id.nav_statistics:
+                actualItem = R.id.nav_billing;
+                Fragment statFragment = new StatisticsFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment, statFragment)
                         .commit();
                 break;
         }

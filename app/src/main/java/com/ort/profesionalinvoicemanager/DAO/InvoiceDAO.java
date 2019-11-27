@@ -8,6 +8,7 @@ import com.ort.profesionalinvoicemanager.model.base.PersistentObject;
 import com.ort.profesionalinvoicemanager.model.client.Client;
 import com.ort.profesionalinvoicemanager.model.industry.Industry;
 import com.ort.profesionalinvoicemanager.model.invoice.Invoice;
+import com.ort.profesionalinvoicemanager.model.invoice.InvoiceDetail;
 import com.ort.profesionalinvoicemanager.model.invoice.InvoiceVO;
 import com.ort.profesionalinvoicemanager.model.invoice.PaymentCondition;
 
@@ -38,8 +39,8 @@ public class InvoiceDAO extends AbstractDao {
     protected Invoice mapFromCursor(Cursor c) {
         Invoice invoice = new Invoice();
         invoice.setLetter(c.getString(c.getColumnIndex(invoice.KEY_LETTER)));
-        invoice.setInvoiceNumber(Integer.parseInt(c.getString(c.getColumnIndex(invoice.KEY_INVOICE_NUMBER))));
-        invoice.setCAE(Integer.parseInt(c.getString(c.getColumnIndex(invoice.KEY_CAE))));
+        invoice.setInvoiceNumber(new Integer(c.getInt(c.getColumnIndex(invoice.KEY_INVOICE_NUMBER))));
+        invoice.setCAE(new Integer(c.getInt(c.getColumnIndex(invoice.KEY_CAE))));
         invoice.setPaymentCondition(new PaymentCondition(c.getString(c.getColumnIndex(Invoice.KEY_PAYMENT_CONDITION))));
         invoice.setClient(new Client(c.getString(c.getColumnIndex(Invoice.KEY_CLIENT))));
         try {
@@ -52,10 +53,10 @@ public class InvoiceDAO extends AbstractDao {
             e.printStackTrace();
         }
         invoice.setIndustry(new Industry(c.getString(c.getColumnIndex(Invoice.KEY_INDUSTRY))));
-        invoice.setAmount(Double.parseDouble(c.getString(c.getColumnIndex(invoice.KEY_AMOUNT))));
-        invoice.setDiscountAmount(Double.parseDouble(c.getString(c.getColumnIndex(invoice.KEY_DISCOUNT_AMOUNT))));
-        invoice.setDiscountRate(Double.parseDouble(c.getString(c.getColumnIndex(invoice.KEY_DISCOUNT_RATE))));
-        invoice.setNetAmount(Double.parseDouble(c.getString(c.getColumnIndex(invoice.KEY_NET_AMOUNT))));
+        invoice.setAmount(c.getDouble(c.getColumnIndex(invoice.KEY_AMOUNT)));
+        invoice.setDiscountAmount(c.getDouble(c.getColumnIndex(invoice.KEY_DISCOUNT_AMOUNT)));
+        invoice.setDiscountRate(c.getDouble(c.getColumnIndex(invoice.KEY_DISCOUNT_RATE)));
+        invoice.setNetAmount(c.getDouble(c.getColumnIndex(invoice.KEY_NET_AMOUNT)));
 
 
 //        invoice.setOid(c.getString(c.getColumnIndex(ivaCategory.KEY_OID)));
@@ -111,6 +112,17 @@ public class InvoiceDAO extends AbstractDao {
         return result;
     }
 
+    private Integer getNextNumber() {
+        Cursor c = executeSqlQuery("select max(invoice_number) as NUMBER from INVOICE",null);
+        if (c.getCount() == 0) {
+            return new Integer("0");
+        }
+        c.moveToNext();
+        return c.getInt(c.getColumnIndex("NUMBER"));
+    }
+
+
+
     public InvoiceVO getInvoiceForInspect(String invoiceOid) {
         StringBuffer query = new StringBuffer();
         query.append("SELECT I.LETTER||'-0000-' ||I.INVOICE_NUMBER AS INVOICE_NUMBER,");
@@ -147,4 +159,13 @@ public class InvoiceDAO extends AbstractDao {
         return vo;
     }
 
+    public void saveInvoice(Invoice i){
+        i.setInvoiceNumber(getNextNumber());
+        addObjectToManipulate(i);
+        try {
+            insert();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

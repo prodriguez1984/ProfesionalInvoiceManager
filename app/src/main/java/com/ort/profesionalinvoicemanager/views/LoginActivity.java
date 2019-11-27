@@ -51,9 +51,9 @@ public class LoginActivity extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        ApplicationContext.getInstance().setLoggedUser(UserDAO.getInstance().getUserByMail("pablorodri1984@gmail.com"));
+       /* ApplicationContext.getInstance().setLoggedUser(UserDAO.getInstance().getUserByMail("pablorodri1984@gmail.com"));
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
+        startActivity(i);*/
         configView();
     }
 

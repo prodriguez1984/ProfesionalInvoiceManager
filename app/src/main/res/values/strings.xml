@@ -83,7 +83,7 @@
     <string name="create_client">Agregar Cliente</string>
     <string name="create_product">Agregar Producto</string>
     <string name="bill">Facturar</string>
-    <string name="menu_billing">Facturar</string>
+    <string name="menu_billing">Facturacion</string>
     <string name="menu_clients">Clientes</string>
     <string name="recoverPassword">Recuperar Password</string>
     <string name="cancel">Cancelar</string>
@@ -120,4 +120,8 @@
     <string name="invoice_payment_condition">Condicion de Pago</string>
     <string name="invoice_lblInvoiceNumber">Nro. de Factura</string>
     <string name="title_activity_invoice_inspect">Ver Factura</string>
+    <string name="invoice_data">Datos de la factura</string>
+    <string name="billing_product_lbl">Productos</string>
+    <string name="title_activity_invoice_create">Crear Factura</string>
+    <string name="invoice_lblQuantity">Cantidad</string>
 </resources>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 import com.ort.profesionalinvoicemanager.views.ui.invoice.BillingFragment;
+import com.ort.profesionalinvoicemanager.views.ui.invoice.CreateInvoice;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductCreate;
 
 
@@ -120,10 +121,9 @@ public class HomeCustomFragment extends Fragment {
         btnBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BillingFragment nextFrag= new BillingFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment, nextFrag)
-                        .commit();
+                Intent intent = new Intent(getContext(), CreateInvoice.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }

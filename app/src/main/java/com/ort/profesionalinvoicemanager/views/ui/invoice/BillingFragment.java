@@ -51,6 +51,8 @@ public class BillingFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private TextInputEditText since;
+    private TextInputEditText until;
 
     public BillingFragment() {
         // Required empty public constructor
@@ -85,8 +87,8 @@ public class BillingFragment extends Fragment {
     }
 
     private void configView(View view) {
-        final TextInputEditText since=(TextInputEditText)view.findViewById(R.id.billing_list_txtSince);
-        final TextInputEditText until=(TextInputEditText)view.findViewById(R.id.billing_list_txtUntil);
+        since=(TextInputEditText)view.findViewById(R.id.billing_list_txtSince);
+        until=(TextInputEditText)view.findViewById(R.id.billing_list_txtUntil);
         GregorianCalendar gc = new GregorianCalendar();
         Date untilDate=gc.getTime();
 
@@ -150,10 +152,11 @@ public class BillingFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(getContext(), ProductCreate.class);
-                intent.putExtra("saveAction",Boolean.TRUE);
-                ((ProductAdapter)mAdapter).setAddOrEdit(true);
-                startActivity(intent);*/
+
+                Intent intent = new Intent(getContext(), CreateInvoice.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                ((InvoiceAdapter)mAdapter).setAddOrEdit(true);
             }
         });
     }
@@ -185,5 +188,15 @@ public class BillingFragment extends Fragment {
         });
 
         newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (((InvoiceAdapter) mAdapter).isAddOrEdit()){
+            ArrayList<InvoiceVO> list = InvoiceDAO.getInstance().getInvoiceForList(since.getText().toString(),until.getText().toString());
+            ((InvoiceAdapter) mAdapter).changeWholeData(list);
+            ((InvoiceAdapter) mAdapter).setAddOrEdit(false);
+        }
     }
 }
