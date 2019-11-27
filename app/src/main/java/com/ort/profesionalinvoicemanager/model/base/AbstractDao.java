@@ -23,7 +23,7 @@ import java.util.List;
 
 public abstract class AbstractDao {
 
-    public static final DateFormat iso8601Format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    public static final DateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
 
     private ArrayList<PersistentObject> objectToManipulate;
 

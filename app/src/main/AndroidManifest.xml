@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/icono_facturacion_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.invoice.InvoiceInspect" android:label="@string/title_activity_invoice_inspect"></activity>
         <activity
             android:name=".ui.products.ProductCreate"
             android:label="@string/title_activity_product_create"
@@ -50,11 +51,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
