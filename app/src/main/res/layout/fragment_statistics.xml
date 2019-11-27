@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:and="http://schemas.android.com/apk/res-auto"
+    tools:context=".FiguresFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/tvFiguresTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:fontFamily="@font/pathway_gothic_one"
+        android:text="@string/figures"
+        android:textAlignment="center"
+        android:textSize="50dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTotalMonth"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignTop="@+id/tvFiguresTitle"
+        android:layout_alignBottom="@+id/tvFiguresTitle"
+        android:layout_marginTop="106dp"
+        android:layout_marginBottom="425dp"
+        android:cardCornerRadius="6dp"
+        android:cardElevation="10dp"
+        android:cardPreventCornerOverlap="false"
+        android:cardUseCompatPadding="true" >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabFigureTotalMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_margin="@dimen/fab_margin"
+            android:="@android:drawable/ic_menu_save"
+            android:pressedTranslationZ="12dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTotalYear"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignB="@+id/cardTotalMonth"
+        android:layout_marginTop="400dp"
+        android:layout_marginBottom="425dp"
+        android:cardCornerRadius="6dp"
+        android:cardElevation="10dp"
+        android:cardPreventCornerOverlap="false"
+        android:cardUseCompatPadding="true" >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabFigureTotalYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_margin="@dimen/fab_margin"
+            android:="@android:drawable/ic_menu_save"
+            android:pressedTranslationZ="12dp" />
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
