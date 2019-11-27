@@ -52,14 +52,21 @@ public class ProductCreate extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_product_create);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        String productOid = (String) getIntent().getExtras().get("productOid");
-        saveAction = (Boolean) getIntent().getExtras().get("saveAction");
-        if (productOid == null) {
+        if (getIntent().getExtras()==null){
             product = new Product();
+            saveAction=true;
             product.setPrice(new Double("0"));
             product.setUnit(new Unit());
-        } else {
-            product = ProductDAO.getInstance().getCompleteProductByOid(productOid);
+        }else {
+            String productOid = (String) getIntent().getExtras().get("productOid");
+            saveAction = (Boolean) getIntent().getExtras().get("saveAction");
+            if (productOid == null) {
+                product = new Product();
+                product.setPrice(new Double("0"));
+                product.setUnit(new Unit());
+            } else {
+                product = ProductDAO.getInstance().getCompleteProductByOid(productOid);
+            }
         }
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
