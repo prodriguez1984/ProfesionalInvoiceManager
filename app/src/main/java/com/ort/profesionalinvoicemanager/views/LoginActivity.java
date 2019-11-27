@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "AndroidClarified";
     private static final int LENGTH_PASSWORD = 6;
     private GoogleSignInClient googleSignInClient;
-    private SignInButton googleSignInButton;
+   // private SignInButton googleSignInButton;
     private GoogleSignInOptions gso;
     private Button btnLogin;
     private EditText etUserName;
@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tiloUsername;
     private TextInputLayout tiloPassword;
     private Button btnToSignUp;
+    private Button btnToPasswordRecovery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +73,14 @@ public class LoginActivity extends AppCompatActivity {
     private void configView() {
         btnLogin = findViewById(R.id.btnLogin);
         btnToSignUp = findViewById(R.id.btnToSignUp);
+        btnToPasswordRecovery = findViewById(R.id.btnToPasswordRecovery);
         etUserName = (EditText) findViewById(R.id.etUsernameLogin);
         etPasssword = (EditText) findViewById(R.id.etPasswordLogin);
 
         tiloUsername = (TextInputLayout) findViewById(R.id.tiloUsernameLogin);
         tiloPassword = (TextInputLayout) findViewById(R.id.tiloPasswordLogin);
 
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
+       /* googleSignInClient = GoogleSignIn.getClient(this, gso);
         googleSignInButton = findViewById(R.id.sign_in_buttonLogin);
         googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,13 +89,21 @@ public class LoginActivity extends AppCompatActivity {
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, 101);
             }
-        });
+        });*/
 
         btnToSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnToPasswordRecovery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PasswordRecoveryDialog p =new PasswordRecoveryDialog();
+                p.show(getSupportFragmentManager(), "dialog");
             }
         });
 

@@ -19,8 +19,8 @@
     <string name="title_activity_industry">Industry</string>
 
     <!-- LoginActivity -->
-    <string name="login_username">Email usuario</string>
-    <string name="login_password">Contraseña</string>
+    <string name="login_username">Email:</string>
+    <string name="login_password">Contraseña:</string>
     <string name="login_signUp">Registrarse</string>
 
     <!-- Sign Up -->
@@ -54,10 +54,10 @@
     <string name="datestartIndustry">Fecha de inicio de actividades</string>
     <string name="signUpTextButton">Registrarse</string>
     <string name="client_save">Guardar</string>
-    <string name="emailSignUp">Email</string>
+    <string name="emailSignUp">Email:</string>
     <string name="repeatPassSignUp">Repetir Contraseña</string>
     <string name="iibb">Ingresos Brutos</string>
-    <string name="title_activity_product_create">ProductCreate</string>
+    <string name="title_activity_product_create">Creacion de Producto</string>
     <string name="action_showInactive">Mostrar Inactivos</string>
     <string name="product_lblCode">Codigo:</string>
     <string name="product_lblName">Producto:</string>
@@ -85,4 +85,18 @@
     <string name="bill">Facturar</string>
     <string name="menu_billing">Facturar</string>
     <string name="menu_clients">Clientes</string>
+    <string name="recoverPassword">Recuperar Password</string>
+    <string name="cancel">Cancelar</string>
+    <string name="dialog_message">¿Desea recuperar la contraseña?</string>
+    <string name="dialog_title">Recuperacion de contraseña</string>
+    <string name="home_add_customer">Agregar Cliente</string>
+    <string name="home_add_customer_desc">Agrega un nuevo Cliente al sistema</string>
+    <string name="home_add_product">Agregar Producto</string>
+    <string name="home_add_product_desc">Agrega un nuevo Producto o Servicio</string>
+    <string name="home_view_statics">Estadisticas</string>
+    <string name="home_view_statics_desc">Ver estadisticas del sistema</string>
+    <string name="home_edit_industry">Editar Datos</string>
+    <string name="home_edit_industry_desc">Edita los datos de mi negocio</string>
+    <string name="home_invoice_desc">Realizar una factura</string>
+    <string name="home_invoice">Facturar</string>
 </resources>

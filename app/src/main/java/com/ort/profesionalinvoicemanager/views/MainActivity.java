@@ -26,6 +26,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -98,10 +99,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.getMenu().getItem(0).setChecked(true);
 
         TextView user = (TextView) navigationView.getHeaderView(0).findViewById(R.id.lblName);
-        //user.setText(ApplicationContext.getInstance().getLoggedUser().getUserName());
+        user.setText(ApplicationContext.getInstance().getLoggedUser().getUserName());
 
         TextView mail = navigationView.getHeaderView(0).findViewById(R.id.lblMail);
-        //mail.setText(ApplicationContext.getInstance().getLoggedUser().getMail());
+        mail.setText(ApplicationContext.getInstance().getLoggedUser().getMail());
 
       Button btnPrueba = findViewById(R.id.btnPrueba);
         btnPrueba.setOnClickListener(new View.OnClickListener() {
