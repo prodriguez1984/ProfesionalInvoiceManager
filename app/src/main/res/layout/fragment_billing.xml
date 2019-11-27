@@ -43,26 +43,6 @@
                     android:paddingTop="16dp"
                     android:paddingBottom="16dp">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/billing_list_lblUntil"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginEnd="16dp"
-                        android:inputType="number">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/billing_list_txtUntil"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="false"
-                            android:hint="@string/billing_list_until"
-                            android:inputType="date"
-                            android:maxLines="1" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/billing_list_lblSince"
@@ -81,6 +61,26 @@
                             android:clickable="true"
                             android:focusable="false"
                             android:hint="@string/billing_list_since"
+                            android:inputType="date"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/billing_list_lblUntil"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="number">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/billing_list_txtUntil"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="@string/billing_list_until"
                             android:inputType="date"
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>

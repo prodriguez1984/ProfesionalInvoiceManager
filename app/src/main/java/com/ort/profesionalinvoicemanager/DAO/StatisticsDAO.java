@@ -63,12 +63,9 @@ public class StatisticsDAO extends AbstractDao {
         return cant;
     }
 
-    public int getTotalMaxClient(){
-        int cant = 0;
-////        ArrayList<Invoice> list =  InvoiceDAO.getInstance().getAllWithCondition("");
-//        ArrayList<Invoice> list =  InvoiceDAO.getInstance().getAll();
-//        //group by client order by desc select top count
-//        O as =(int) list.stream().collect(groupingBy(Invoice::getClient).;
-        return cant;
+    public String getTotalMaxClient(){
+        Cursor c = executeSqlQuery("select max(C.NAME||' '||C.LAST_NAME) AS CLIENTE, COUNT(1) AS CANTIDAD from INVOICE i inner join CLIENT C ON I.CLIENT_OID=C.OID GROUP BY C.NAME||' '||C.LAST_NAME",  null);
+        c.moveToNext();
+        return c.getString(c.getColumnIndex("CLIENTE")) + "Total ventas: "+c.getString(c.getColumnIndex("CANTIDAD"));
     }
 }

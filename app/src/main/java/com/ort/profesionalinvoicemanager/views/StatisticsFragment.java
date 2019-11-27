@@ -82,6 +82,7 @@ public class StatisticsFragment extends Fragment {
     private void configView(View view) {
         etTotalYear = view.findViewById(R.id.etTotalYear);
         etTotalMonth = view.findViewById(R.id.etTotalMonth);
+        etCantMaxClient= view.findViewById(R.id.etMaxClient);
         btnTotalMonth = (FloatingActionButton) view.findViewById(R.id.fabFigureTotalMonth);
         btnTotalMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +103,10 @@ public class StatisticsFragment extends Fragment {
         btnMaxClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int maxClient = StatisticsDAO.getInstance().getTotalMaxClient();
+                //int maxClient = StatisticsDAO.getInstance().getTotalMaxClient();
 //                Client client = StatisticsDAO.getInstance().getMaxClient();
 //                etMaxClient.setText(String.valueOf(client.getName()));
-                etCantMaxClient.setText(String.valueOf(maxClient));
+                etCantMaxClient.setText(StatisticsDAO.getInstance().getTotalMaxClient());
             }
         });
 
