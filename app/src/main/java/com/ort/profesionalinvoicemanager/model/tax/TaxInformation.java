@@ -8,12 +8,17 @@ import com.ort.profesionalinvoicemanager.model.base.SQLiteDateType;
 import java.util.ArrayList;
 
 public class TaxInformation extends PersistentObjectWithLogicalDeletion {
-
     public final String KEY_IIBB = "IIBB";
     public final String KEY_DOCUMENT_NUMBER = "DOCUMENT_NUMBER";
-    public final String KEY_DOCUMENT_TYPE_OID = "DOCUMENT_TYPE_OID";
-    public final String KEY_IVA_OID = "IVA_OID";
-    public final String KEY_MONOTRIBUTO_OID = "MONOTRIBUTO_OID";
+    public final String KEY_DOCUMENT_TYPE = "DOCUMENT_TYPE";
+    public final String KEY_IVA = "IVA";
+    public final String KEY_MONOTRIBUTO = "MONOTRIBUTO";
+
+//    public final String KEY_IIBB = "IIBB";
+//    public final String KEY_DOCUMENT_NUMBER = "DOCUMENT_NUMBER";
+//    public final String KEY_DOCUMENT_TYPE_OID = "DOCUMENT_TYPE_OID";
+//    public final String KEY_IVA_OID = "IVA_OID";
+//    public final String KEY_MONOTRIBUTO_OID = "MONOTRIBUTO_OID";
 
     private String iibb;
     private String documentNumber;
@@ -26,6 +31,7 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
     public TaxInformation(String oid) {
         super.setOid(oid);
     }
+
     /**
      *
      * @param iibb
@@ -41,6 +47,15 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
         this.documentType = documentType;
         this.iva = iva;
         this.monotributoCategory = monotributoCategory;
+    }
+
+    @Override
+    public String toString() {
+        return "TaxInformation{" +
+                "Ingresos Brutos='" + iibb + '\'' +
+                ", Tipo de Documento=" + documentType +
+                ", Número='" + documentNumber + '\'' +
+                '}';
     }
 
     @Override
@@ -63,9 +78,9 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
     protected ContentValues toParticularContentValues(ContentValues values) {
         values.put(KEY_IIBB, getIibb());
         values.put(KEY_DOCUMENT_NUMBER, getDocumentNumber());
-        values.put(KEY_DOCUMENT_TYPE_OID, getDocumentType().getOid());
-        values.put(KEY_IVA_OID, getIva().getOid());
-        values.put(KEY_MONOTRIBUTO_OID, getMonotributoCategory().getOid());
+        values.put(KEY_DOCUMENT_TYPE, getDocumentType().getOid());
+        values.put(KEY_IVA, getIva().getOid());
+        values.put(KEY_MONOTRIBUTO, getMonotributoCategory().getOid());
         return values;
     }
 

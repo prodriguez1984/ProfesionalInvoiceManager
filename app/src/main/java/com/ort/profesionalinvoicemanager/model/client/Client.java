@@ -28,7 +28,17 @@ public class Client extends PersistentObjectWithLogicalDeletion {
         super();
     }
 
-    public Client(String name, String lastName, String adress, String mail){
+    public Client(String oid) {
+        this.setOid(oid);
+    }
+
+    /**
+     *
+     * @param name
+     * @param lastName
+     * @param adress
+     */
+    public Client(String name, String lastName, String adress){
         this();
         this.name = name;
         this.lastName = lastName;
@@ -44,6 +54,15 @@ public class Client extends PersistentObjectWithLogicalDeletion {
         this.mail = mail;
         this.address = adress;
         this.taxInformation = tax;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 
     public TaxInformation getTaxInformation() {

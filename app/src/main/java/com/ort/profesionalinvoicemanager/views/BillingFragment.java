@@ -75,7 +75,7 @@ public class BillingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         container.removeAllViews();
-        View view = inflater.inflate(R.layout.fragment_client, container, false);
+        View view = inflater.inflate(R.layout.fragment_billing, container, false);
         configView(view);
         return view;
     }
@@ -87,9 +87,9 @@ public class BillingFragment extends Fragment {
             public void onClick(View view) {
                 PdfHelper pdfHelper = new PdfHelper();
                 Invoice invoice= InvoiceDAO.getInstance().getCompleteInvoiceByOid(OID);
-                PdfDocument pdf =  pdfHelper.getPdf(invoice);
+                String pdf =  pdfHelper.getPdf(invoice);
                 BillingDAO billingDAO = new BillingDAO();
-                billingDAO.SendEmail(pdf);
+                billingDAO.SendEmail(pdf,getContext());
             }
         });
     }

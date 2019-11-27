@@ -43,6 +43,13 @@ public class IvaCategory extends PersistentObject {
     }
 
     @Override
+    public String toString() {
+        return "Iva{" +
+                "Categoría='" + description + '\'' +
+                '}';
+    }
+
+    @Override
     protected ContentValues toParticularContentValues(ContentValues values) {
         values.put(KEY_CODE,getCode());
         values.put(KEY_DESCRIPTION,getDescription());

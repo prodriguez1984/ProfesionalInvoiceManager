@@ -1,6 +1,10 @@
 package com.ort.profesionalinvoicemanager.views;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -22,12 +27,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.ort.profesionalinvoicemanager.DAO.UserDAO;
+import com.ort.profesionalinvoicemanager.model.base.ApplicationContext;
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 import com.ort.profesionalinvoicemanager.views.ui.mail.MailFragment;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductAdapter;
 import com.ort.profesionalinvoicemanager.views.ui.products.ProductCreate;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 200;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
@@ -56,10 +68,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.getMenu().getItem(0).setChecked(true);
 
         TextView user = (TextView) navigationView.getHeaderView(0).findViewById(R.id.lblName);
-        //user.setText(ApplicationContext.getInstance().getLoggedUser().getUserName());
+        user.setText(ApplicationContext.getInstance().getLoggedUser().getUserName());
 
         TextView mail = navigationView.getHeaderView(0).findViewById(R.id.lblMail);
-        //mail.setText(ApplicationContext.getInstance().getLoggedUser().getMail());
+        mail.setText(ApplicationContext.getInstance().getLoggedUser().getMail());
 
       Button btnPrueba = findViewById(R.id.btnPrueba);
         btnPrueba.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +82,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         btnPrueba.setVisibility(View.INVISIBLE);
+        verifyStoragePermissions(getApplicationContext(), this);
     }
+
+    public static void verifyStoragePermissions(Context context, Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

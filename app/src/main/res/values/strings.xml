@@ -19,8 +19,8 @@
     <string name="title_activity_industry">Industry</string>
 
     <!-- LoginActivity -->
-    <string name="login_username">Email usuario</string>
-    <string name="login_password">Contraseña</string>
+    <string name="login_username">Email:</string>
+    <string name="login_password">Contraseña:</string>
     <string name="login_signUp">Registrarse</string>
 
     <!-- Sign Up -->
@@ -54,10 +54,10 @@
     <string name="datestartIndustry">Fecha de inicio de actividades</string>
     <string name="signUpTextButton">Registrarse</string>
     <string name="client_save">Guardar</string>
-    <string name="emailSignUp">Email</string>
+    <string name="emailSignUp">Email:</string>
     <string name="repeatPassSignUp">Repetir Contraseña</string>
     <string name="iibb">Ingresos Brutos</string>
-    <string name="title_activity_product_create">ProductCreate</string>
+    <string name="title_activity_product_create">Creacion de Producto</string>
     <string name="action_showInactive">Mostrar Inactivos</string>
     <string name="product_lblCode">Codigo:</string>
     <string name="product_lblName">Producto:</string>
@@ -90,4 +90,8 @@
     <string name="taxInfo_IVACat">Categoría de IVA</string>
     <string name="taxInfo_DocType">Tipo de Documento</string>
     <string name="taxInfo_monoCat">Categoría Monnotributo</string>
+    <string name="recoverPassword">Recuperar Password</string>
+    <string name="cancel">Cancelar</string>
+    <string name="dialog_message">¿Desea recuperar la contraseña?</string>
+    <string name="dialog_title">Recuperacion de contraseña</string>
 </resources>

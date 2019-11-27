@@ -58,18 +58,6 @@ public class SignUpActivity extends AppCompatActivity {
         tiloPassword = (TextInputLayout) findViewById(R.id.tiloPasswordSignUp);
         tiloRepeatPass = (TextInputLayout) findViewById(R.id.tiloRepeatPassSignUp);
 
-//        googleSignInClient = GoogleSignIn.getClient(this, gso);
-//        googleSignInButton = findViewById(R.id.sig);
-//        googleSignInButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //validar si tengo internet aca tener un try por si no hay...
-//                Intent signInIntent = googleSignInClient.getSignInIntent();
-//                startActivityForResult(signInIntent, 101);
-//            }
-//        });
-
-
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +92,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     public boolean validateFields(String userName,String eMail,String password,  String repeatPass) {
         Boolean error = false;
-//        User user = getUserByMail(userName);
         if (ValidateHelper.validateEmptyString(userName)) {
             tiloUsername.setError(StringConstant.USER_NOT_EMPTY);
             error = true;
