@@ -107,7 +107,11 @@ public class HomeCustomFragment extends Fragment {
         btnStatics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                StatisticsFragment nextFrag= new StatisticsFragment();
+                Fragment clientListFragment = new StatisticsFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment, nextFrag)
+                        .commit();
             }
         });
 

@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.ort.profesionalinvoicemanager.DAO.StatisticsDAO;
 import com.ort.profesionalinvoicemanager.model.client.Client;
 
@@ -80,10 +82,15 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void configView(View view) {
-        etTotalYear = view.findViewById(R.id.etTotalYear);
-        etTotalMonth = view.findViewById(R.id.etTotalMonth);
-        etCantMaxClient= view.findViewById(R.id.etMaxClient);
-        btnTotalMonth = (FloatingActionButton) view.findViewById(R.id.fabFigureTotalMonth);
+        TextView etTotalYear = view.findViewById(R.id.etTotalYear);
+        TextView etTotalMonth = view.findViewById(R.id.etTotalMonth);
+        TextView etCantMaxClient= view.findViewById(R.id.etMaxClientName);
+
+        etTotalMonth.setText(StatisticsDAO.getInstance().getTotalMonth().toString());
+        etCantMaxClient.setText(StatisticsDAO.getInstance().getTotalMaxClient().toString());
+        etTotalYear.setText(StatisticsDAO.getInstance().getTotalYear().toString());
+
+ /*       btnTotalMonth = (FloatingActionButton) view.findViewById(R.id.fabFigureTotalMonth);
         btnTotalMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +115,7 @@ public class StatisticsFragment extends Fragment {
 //                etMaxClient.setText(String.valueOf(client.getName()));
                 etCantMaxClient.setText(StatisticsDAO.getInstance().getTotalMaxClient());
             }
-        });
+        });*/
 
     }
 

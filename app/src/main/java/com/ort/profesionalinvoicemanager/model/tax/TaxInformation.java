@@ -80,7 +80,10 @@ public class TaxInformation extends PersistentObjectWithLogicalDeletion {
         values.put(KEY_DOCUMENT_NUMBER, getDocumentNumber());
         values.put(KEY_DOCUMENT_TYPE, getDocumentType().getOid());
         values.put(KEY_IVA, getIva().getOid());
-        values.put(KEY_MONOTRIBUTO, getMonotributoCategory().getOid());
+
+        if (getMonotributoCategory() != null){
+            values.put(KEY_MONOTRIBUTO, getMonotributoCategory().getOid());
+        }
         return values;
     }
 

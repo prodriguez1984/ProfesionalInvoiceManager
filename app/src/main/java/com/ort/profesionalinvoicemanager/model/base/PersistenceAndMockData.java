@@ -179,6 +179,7 @@ public interface PersistenceAndMockData {
         mockObjects.add(new PaymentCondition(new Integer(7), "Otra"));
 
         /*-----DATOS DE PRUEBA quitar para version final----*/
+      /*  mockObjects.add(new User("Pablo Rodriguez", "123456", "pablorodri1984@gmail.com"));
         //mockObjects.add(new User("Pablo Rodriguez", "123456", "pablorodri1984@gmail.com"));
       /*  mockObjects.add(new User("Pablo Rodriguez", "123456", "pablorodri1984@gmail.com"));
 

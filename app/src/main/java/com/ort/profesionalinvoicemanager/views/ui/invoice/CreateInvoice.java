@@ -137,7 +137,7 @@ public class CreateInvoice extends AppCompatActivity  implements AdapterView.OnI
         //products
         this.spinnerProduct = (Spinner) findViewById(R.id.invoice_create_spinner_product);
         try {
-            lstProducts = ProductDAO.getInstance().getAllWithActiveCondition(true);
+            lstProducts = ProductDAO.getInstance().getAll();
         } catch (Exception e) {
             Log.d("", e.getMessage());
         }
@@ -157,7 +157,7 @@ public class CreateInvoice extends AppCompatActivity  implements AdapterView.OnI
         //client
         this.spinnerClient = (Spinner) findViewById(R.id.invoice_create_spinnerClient);
         try {
-            lstClient = ClientDAO.getInstance().getAllWithActiveCondition(true);
+            lstClient = ClientDAO.getInstance().getAll();
         } catch (Exception e) {
             Log.d("", e.getMessage());
         }
@@ -165,7 +165,7 @@ public class CreateInvoice extends AppCompatActivity  implements AdapterView.OnI
         spinnerClient.setOnItemSelectedListener(this);
         lst = new ArrayList<>();
         lst.add(StringConstant.DEFAULT_DOCTYPE_SPINNER);
-        for (int i = 0; i < lstProducts.size(); i++) {
+        for (int i = 0; i < lstClient.size(); i++) {
             lst.add(lstClient.get(i).getName()+" "+lstClient.get(i).getLastName());
         }
         adapterDocType = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, lst);
@@ -185,7 +185,7 @@ public class CreateInvoice extends AppCompatActivity  implements AdapterView.OnI
         spinnerPaymentCondition.setOnItemSelectedListener(this);
         lst = new ArrayList<>();
         lst.add(StringConstant.DEFAULT_DOCTYPE_SPINNER);
-        for (int i = 0; i < lstProducts.size(); i++) {
+        for (int i = 0; i <= lstProducts.size(); i++) {
             lst.add(lstPaymentCondition.get(i).getDescription());
         }
         adapterDocType = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, lst);

@@ -167,15 +167,26 @@ public class TaxInformationFragment extends Fragment implements AdapterView.OnIt
 
     }
 
-    public boolean validateFields() {
-        Boolean  tiloDocHasError = validateField(tiloDoc);
-        Boolean  DocTypeNameHasError = validateField(spinnerDocType);
-        Boolean  IvaCategoryHasError = validateField(spinnerIvaCategory);
-
-        Boolean  hasError = tiloDocHasError ||
-                            DocTypeNameHasError ||
-                            IvaCategoryHasError;
+    private boolean validateField(ArrayList<TextInputLayout> texts) {
+        boolean hasError = false;
+        for (TextInputLayout tilo : texts) {
+            String text = tilo.getEditText().getText().toString();
+            if (text == null || text.isEmpty()) {
+                tilo.setError(StringConstant.DATA_CANT_BE_EMPTY);
+                hasError = true;
+            }
+        }
         return hasError;
+    }
+
+    public boolean validateFields() {
+        boolean hasError;
+        ArrayList<TextInputLayout> texts=new ArrayList<>();
+        texts.add(tiloDoc);
+        //Boolean  DocTypeNameHasError = validateField(spinnerDocType);
+        //Boolean  IvaCategoryHasError = validateField(spinnerIvaCategory);
+
+        return validateField(texts);
     }
 
     private boolean validateField(Spinner spinner) {

@@ -39,10 +39,12 @@ public class TaxInformationDAO extends AbstractDao {
     }
 
     public TaxInformation getCompleteTaxInformationByOid(String oid) {
-        TaxInformation taxInformation=getByOid(oid);
+        TaxInformation taxInformation = getByOid(oid);
         taxInformation.setDocumentType(DocTypeDAO.getInstance().getByOid(taxInformation.getDocumentType().getOid()));
         taxInformation.setIva(IvaCategoryDAO.getInstance().getByOid(taxInformation.getIva().getOid()));
-        taxInformation.setMonotributoCategory(MonotributoCategoryDAO.getInstance().getByOid(taxInformation.getMonotributoCategory().getOid()));
+        if (taxInformation.getMonotributoCategory() != null&&taxInformation.getMonotributoCategory().getOid()!=null){
+            taxInformation.setMonotributoCategory(MonotributoCategoryDAO.getInstance().getByOid(taxInformation.getMonotributoCategory().getOid()));
+    }
         return taxInformation;
     }
 }

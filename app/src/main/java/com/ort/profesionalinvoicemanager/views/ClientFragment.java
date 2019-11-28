@@ -26,6 +26,8 @@ import com.ort.profesionalinvoicemanager.views.Utils.StringConstant;
 import com.ort.profesionalinvoicemanager.views.Utils.ValidateHelper;
 import com.ort.profesionalinvoicemanager.views.ui.ClientList.ClientListFragment;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -123,25 +125,41 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
         transaction.replace(R.id.taxClientFragment, taxInfoFragment).commit();
     }
 
+    private boolean validateField(ArrayList<TextInputLayout> texts) {
+        boolean hasError = false;
+        for (TextInputLayout tilo : texts) {
+            String text = tilo.getEditText().getText().toString();
+            if (text == null || text.isEmpty()) {
+                tilo.setError(StringConstant.DATA_CANT_BE_EMPTY);
+                hasError = true;
+            }
+        }
+        return hasError;
+    }
+
     @Override
     public void onClick(View view) {
-
-        Boolean  tiloNameHasError = validateField(tiloName);
-        Boolean  tiloLastNameHasError = validateField(tiloLastName);
-        Boolean  tiloMailHasError = validateField(tiloMail);
-        if (!ValidateHelper.isEmailValid(tiloMail.getEditText().getText().toString())) {
+        boolean hasError;
+        ArrayList<TextInputLayout> texts=new ArrayList<>();
+        texts.add(tiloName);
+        texts.add(tiloLastName);
+        texts.add(tiloMail);
+        texts.add(tiloAdress);
+        hasError=validateField(texts);
+        if (!hasError&&!ValidateHelper.isEmailValid(tiloMail.getEditText().getText().toString())) {
             tiloMail.setError(StringConstant.INVALID_EMAIL);
-            tiloMailHasError = Boolean.TRUE;
+            hasError = Boolean.TRUE;
         }
-        Boolean  tiloAdressHasError = validateField(tiloAdress);
+
         Boolean  taxInfoFragmentHasError = taxInfoFragment.validateFields();
 
-        Boolean hasError = tiloNameHasError || tiloMailHasError || tiloLastNameHasError || tiloAdressHasError || taxInfoFragmentHasError;
-        if(hasError) {
-            showError();
+
+        if(hasError||taxInfoFragmentHasError) {
+           showError();
         } else {
             bindAndSave();
         }
+
     }
 
     private void bindAndSave() {
@@ -177,50 +195,12 @@ public class ClientFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    private Boolean validateField(TextInputLayout tilo){
-        String text = tilo.getEditText().getText().toString();
-        Boolean hasError = Boolean.FALSE;
-        if (ValidateHelper.validateEmptyString(text)) {
-            tilo.setError(StringConstant.DATA_CANT_BE_EMPTY);
-            hasError = Boolean.TRUE;
-        }else{
-            tilo.setError(null);
-        }
-        return hasError;
-    }
-
     private void showError() {
         Toast.makeText(this.getContext(),
                 StringConstant.DATA_ERROR, Toast.LENGTH_SHORT).show();
     }
 
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }*/
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
